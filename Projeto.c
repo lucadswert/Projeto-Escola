@@ -61,7 +61,6 @@ int main( ){
     void listar( );
     
 	int resposta;
-	int valor2;
 
     enum MENU{ Realizar_Cadastro = 1, Listar_Informações = 2, Encerrar_Programa = 0};
     
