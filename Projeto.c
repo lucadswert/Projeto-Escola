@@ -55,6 +55,8 @@ int quantidadeProfessor = 0,
     quantidadeAluno = 0,
     quantidadeDisciplinas = 0;
 
+///Adicionar função de limpeza de buffer para caso o usuário insira uma quantidade de dados maior do que ///a solicitada
+
 int main( ){
     void cadastrar( ); 
     void listar( );
@@ -66,16 +68,16 @@ int main( ){
     do{ 	
         do{
             puts( "=====================================\n"
-                  "            Projeto Escola           \n"
+                  "            PROJETO ESCOLA           \n"
                   "=====================================\n");
             printf ("MENU PRINCIPAL\n"
                     "[1] | Realizar Cadastro\n"
                     "[2] | Listar Informações\n"
                     "[0] | Encerrar Programa\n\n-> ");
             resposta = getchar( ); getchar( ); 
-            putchar('\n');
             if( !(resposta == Realizar_Cadastro) && !(resposta == Listar_Informações) && !(resposta == Encerrar_Programa) ){
-                puts("  < Valor inserido inválido! >\n");}
+                puts("   ^ Valor inserido inválido! \n");
+            }else putchar('\n');
         }while( !(resposta == Realizar_Cadastro) && !(resposta == Listar_Informações) &&  !(resposta == Encerrar_Programa) );
         
         switch( resposta ){
@@ -99,10 +101,12 @@ void cadastrar( ){
                 "[3] | Disciplina\n"
                 "[0] | Voltar\n\n-> ");
         resposta = getchar( ); getchar( );
-        putchar('\n');
         if( !(resposta == Professor) && !(resposta == Aluno) && !(resposta == Disciplina) && !(resposta == Voltar) ){
-            puts( "  < Valor inserido inválido! >\n" );}
+                puts("   ^ Valor inserido inválido! \n");
+        }else putchar('\n');
     }while( !(resposta == Professor) && !(resposta == Aluno) && !(resposta == Disciplina) && !(resposta == Voltar) );
+
+    puts( "\t>>>> OPÇÃO EM MANUTENÇÃO <<<<\n" ); 
 }
 void listar( ){
     char resposta = '\0';
@@ -118,8 +122,10 @@ void listar( ){
                 "[3] | Disciplina\n"	
                 "[0] | Voltar\n\n-> " );
         resposta = getchar( ); getchar( ); 
-        putchar('\n');
         if( !(resposta == Professor) && !(resposta == Aluno) && !(resposta == Disciplina) && !(resposta == Voltar)){
-            puts( "  < Valor inserido inválido! >\n" );}
+             puts("   ^ Valor inserido inválido! \n");
+        }else putchar('\n');
     }while( !(resposta == Professor) && !(resposta == Aluno) && !(resposta == Disciplina) && !(resposta == Voltar) );
+
+    puts( "\t>>>> OPÇÃO EM MANUTENÇÃO <<<<\n" );
 };

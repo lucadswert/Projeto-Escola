@@ -114,6 +114,38 @@ Listar Professor
 -> [2] Listar Informações
 -> [3] Encerrar Programa
 
+================================
+Código com defeito na natrícula 
+===============================
 
+Aluno cad_alunos[2];
 
+   for (int i = 0; i < 2; i ++){  
+            printf("Digite o numero de matricula: ");
+            fgets(cad_alunos[i].dado.matricula, TAM_MAT, stdin);
+                           
+            printf("Digite o nome do professor: ");
+            fgets(cad_alunos[i].dado.nome, TAM_NOME, stdin);
+	
+              
+            printf("Digite o sexo: ");
+            scanf("%c", &cad_alunos[i].dado.sexo);
+            getchar();
 
+            printf("Digite o CPF: ");
+            fgets(cad_alunos[i].dado.cpf, TAM_CPF, stdin);
+
+            printf("Digite a data de nascimento: ");
+            fgets(cad_alunos[i].dado.nascimento, TAM_NAC, stdin);
+  }  
+  
+  printf("\n### Pessoas Cadastrasdas ####\n");
+  int i;
+  for (i = 0; i < 2; i++){
+    printf("-----\n");
+    printf("Nome: %s\n", cad_alunos[i].dado.nome);
+    printf("Sexo: %c\n", cad_alunos[i].dado.sexo);
+    printf("Matricula: %d\n", cad_alunos[i].dado.matricula);
+    printf("CPF: %s\n", cad_alunos[i].dado.cpf);
+    printf("Nascimento: %s\n", cad_alunos[i].dado.nascimento);
+  }
