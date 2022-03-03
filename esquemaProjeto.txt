@@ -126,7 +126,6 @@ Aluno cad_alunos[2];
                            
             printf("Digite o nome do professor: ");
             fgets(cad_alunos[i].dado.nome, TAM_NOME, stdin);
-	
               
             printf("Digite o sexo: ");
             scanf("%c", &cad_alunos[i].dado.sexo);
@@ -149,3 +148,120 @@ Aluno cad_alunos[2];
     printf("CPF: %s\n", cad_alunos[i].dado.cpf);
     printf("Nascimento: %s\n", cad_alunos[i].dado.nascimento);
   }
+
+
+
+bool cadastrarProfessor(){
+    printf("Matricula: %s\n", docente.dado.matricula);
+    printf("Nome: %s\n", docente.dado.nome);               
+    printf("Sexo: %c\n", docente.dado.sexo);  
+    printf("CPF: %s\n", docente.dado.cpf);  
+    printf("Nascimento: %s\n", docente.dado.nascimento);
+    return true;
+}
+bool cadastrarAluno(){
+    printf("Matricula: %s\n", discente.dado.matricula);
+    printf("Nome: %s\n", discente.dado.nome);               
+    printf("Sexo: %c\n", discente.dado.sexo);  
+    printf("CPF: %s\n", discente.dado.cpf);  
+    printf("Nascimento: %s\n", discente.dado.nascimento);
+    return true;
+}
+bool cadastrarDisciplina(){
+    printf("Materia: %s\n", materia.nome);
+    printf("Codigo: %s\n", materia.codigo);               
+    printf("Semestre: %s\n", materia.semestre);   
+    printf("Vagas: %d\n", materia.vagas);  
+    printf("Professor: %s\n", materia.professor.dado.nome);
+
+    return true;
+}
+
+void cadastrar( ){
+    int menuCadastrar( );
+    bool cadastrarAluno();
+    bool cadastrarProfessor(); 
+    bool cadastrarDisciplina();
+    int opcao = -1;
+    enum MENU { Professor = '1', Aluno = '2', Disciplina = '3', Voltar = '0'};
+    
+    do{
+        opcao = menuCadastrar( );
+        switch( opcao ){
+            case Professor: cadastrarProfessor(); break;
+            case Aluno: cadastrarAluno(); break;
+            case Disciplina: cadastrarDisciplina(); break;
+            case Voltar: break;     
+        }
+    }while( opcao != Voltar );
+
+}
+
+
+backup
+
+/*
+bool cadastrarAluno(){
+    printf("Digite o numero de matricula: ");
+    fgets(discente.dado.matricula, TAM_MAT, stdin);
+               
+    printf("Digite o nome do aluno: ");
+    fgets(discente.dado.nome, TAM_NOME, stdin);
+
+    printf("Digite o sexo: ");
+    scanf("%c", &discente.dado.sexo);
+    getchar();
+
+    printf("Digite o CPF: ");
+    fgets(discente.dado.cpf, TAM_CPF, stdin);
+
+    printf("Digite a data de nascimento: ");
+    fgets(discente.dado.nascimento, TAM_NAC, stdin);
+    return true;
+}
+bool cadastrarDisciplina(){
+    printf("Digite o nome da disciplina: ");
+    fgets(materia.nome, TAM_NOME_DISC, stdin);
+               
+    printf("Digite o código da matéria: ");
+    fgets(materia.codigo, TAM_COD_DISC, stdin);
+
+    printf("Digite a quantidade de vagas: ");
+    scanf("%d", &materia.vagas);
+
+    printf("Digite o semestre: ");
+    fgets(materia.semestre, TAM_SEM, stdin);
+
+    printf("Digite o professor da matéria: ");
+    fgets(materia.professor.dado.nome, TAM_NOME, stdin);
+  
+    return true;
+}*/
+bool solicitaMatriculaProfessor( ){
+    return false;
+    printf("Digite o numero de matricula: ");
+    fgets((docente[0]->dado.matricula), TAM_MAT, stdin);
+    
+}
+/*
+bool solicitaNomeProfessor( ){
+    printf("Digite o nome do professor: ");
+    fgets(docente.dado.nome, TAM_NOME, stdin);
+    return true;
+}
+bool solicitaNascimentoProfessor( ){
+    printf("Digite a data de nascimento: ");
+    fgets(docente.dado.nascimento, TAM_NAC, stdin);
+    return true;
+}
+bool solicitaCpfProfessor(){
+    printf("Digite o CPF: ");
+    fgets(docente.dado.cpf, TAM_CPF, stdin);
+    return true;
+}
+bool solicitaSexoProfessor( ){
+    printf("Digite o sexo: ");
+    scanf("%c", &docente.dado.sexo);
+    getchar();
+    return true;
+}*/

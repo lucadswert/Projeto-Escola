@@ -22,6 +22,9 @@
 #define TAM_SEM 7
 #define TAM_NOME_DISC 31
 
+#define quantMaxAluno 3
+#define quantMaxProfessor 3
+#define quantMaxDisciplina 3
 
 struct dados{
     char cpf[TAM_CPF],
@@ -34,12 +37,12 @@ typedef struct dados Dados;
 
 struct professor{
     Dados dado;     
-};
+}docente[quantMaxProfessor];
 typedef struct professor Professor;
 
 struct aluno{
     Dados dado; 
-};
+}discente[quantMaxAluno];
 typedef struct aluno Aluno;
 
 struct Disciplinas{
@@ -49,18 +52,23 @@ struct Disciplinas{
     int vagas,
         quantidadeMatriculado;
     Professor professor;
-};
+}materia[quantMaxDisciplina];
 
-int quantidadeProfessor = 0,
-    quantidadeAluno = 0,
-    quantidadeDisciplinas = 0;
+int professoresCadastrados = 0,
+    alunosCadastrados = 0,
+    disciplinasCadastradas = 0;
 
+char *validaMatricula( char *matricula );
+char *validaCpf( char *cpf );
+char *validaSexo( char *sexo );
+char *validaNascimento( char *data );
+char *validaNome( char *nome );
 ///Adicionar função de limpeza de buffer para caso o usuário insira uma quantidade de dados maior do que ///a solicitada
 
 int main( ){
     void cadastrar( ); 
     void listar( );
-    
+
 	char resposta = '\0';
 
     enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Encerrar_Programa = '0'};
@@ -88,9 +96,70 @@ int main( ){
     return EXIT_SUCCESS;
 }
 void cadastrar( ){
+    int menuCadastrar( );
+    bool cadastrarAluno();
+    bool cadastrarProfessor(); 
+    bool cadastrarDisciplina();
+    int opcao = -1;
+    enum MENU { Aluno = '1', Professor = '2',  Disciplina = '3', Voltar = '0'};
+    
+    do{
+        opcao = menuCadastrar( );
+        switch( opcao ){
+            case Professor: 
+                if( !cadastrarProfessor( ) ){
+                    puts( "\n\tOps!Professor não cadastrado! ");}
+                break;
+           // case Aluno: cadastrarAluno(); break;
+            //case Disciplina: cadastrarDisciplina(); break;
+            //case Voltar: break;     
+        }
+    }while( opcao != Voltar );
+}
+void listar( ){
+    int menuListar( );
+    int opcao = -1;
+    
+    enum MENU { Aluno = '1', Professor = '2', Disciplina = '3', Voltar = '0'};
+    do{
+        opcao = menuListar( );
+        switch( opcao ){
+                case Professor: 
+                 //   printf("Matricula: %s\n", docente.dado.matricula);
+                  //  printf("Nome: %s\n", docente.dado.nome);               
+                  //  printf("Sexo: %c\n", docente.dado.sexo);  
+                //    printf("CPF: %s\n", docente.dado.cpf);  
+                  //  printf("Nascimento: %s\n", docente.dado.nascimento);  
+                    break;
+                    
+                case Aluno: 
+                   // printf("Matricula: %s\n", discente.dado.matricula);
+                 //   printf("Nome: %s\n", discente.dado.nome);               
+                  //  printf("Sexo: %c\n", discente.dado.sexo);  
+                  //  printf("CPF: %s\n", discente.dado.cpf);  
+                  //  printf("Nascimento: %s\n", discente.dado.nascimento);
+                    break;
+                  
+                case Disciplina: 
+                   // printf("Materia: %s\n", materia.nome);
+                   // printf("Codigo: %s\n", materia.codigo);               
+                   // printf("Semestre: %s\n", materia.semestre);   
+                   // printf("Vagas: %d\n", materia.vagas);  
+                    //printf("Professor: %s\n", materia.professor.dado.nome);
+                    break;
+                
+                  case Voltar: 
+                  //puts( "\t>>>> OPÇÃO EM MANUTENÇÃO <<<<\n" ); 
+                  break;   
+        }
+    }while( opcao != Voltar );
+    
+    //puts( "\t>>>> OPÇÃO EM MANUTENÇÃO <<<<\n" );
+}
+int menuCadastrar( ){
     char resposta = '\0';
-    enum MENU { Professor = '1', Aluno = '2', Disciplina = '3', Voltar = '0'};
-
+    enum MENU { Aluno = '1', Professor = '2', Disciplina = '3', Voltar = '0'};
+    
     do{
         puts( "=====================================\n"
               "             MENU CADASTRO           \n"
@@ -104,13 +173,13 @@ void cadastrar( ){
         if( !(resposta == Professor) && !(resposta == Aluno) && !(resposta == Disciplina) && !(resposta == Voltar) ){
                 puts("   ^ Valor inserido inválido! \n");
         }else putchar('\n');
-    }while( !(resposta == Professor) && !(resposta == Aluno) && !(resposta == Disciplina) && !(resposta == Voltar) );
-
-    puts( "\t>>>> OPÇÃO EM MANUTENÇÃO <<<<\n" ); 
+    }while( !(resposta == Professor) && !(resposta == Aluno) && !(resposta == Disciplina) && !(resposta == Voltar) );    
+    
+    return resposta;
 }
-void listar( ){
+int menuListar( ){
     char resposta = '\0';
-    enum MENU { Professor = '1', Aluno = '2', Disciplina = '3', Voltar = '0' };
+    enum MENU { Aluno = '1', Professor = '2', Disciplina = '3', Voltar = '0'};
 
     do{
         puts("=====================================\n"
@@ -127,5 +196,104 @@ void listar( ){
         }else putchar('\n');
     }while( !(resposta == Professor) && !(resposta == Aluno) && !(resposta == Disciplina) && !(resposta == Voltar) );
 
-    puts( "\t>>>> OPÇÃO EM MANUTENÇÃO <<<<\n" );
-};
+    return resposta;
+    
+}
+bool cadastrarProfessor( ){
+    bool solicitaMatriculaProfessor( );
+    bool solicitaNomeProfessor( );
+    bool solicitaNascimentoProfessor( );
+    bool solicitaCpfProfessor( );
+    bool solicitaSexoProfessor( );
+    
+    if( (solicitaMatriculaProfessor( )) == true ){
+        if( solicitaNomeProfessor( ) == true) {
+            if( solicitaNascimentoProfessor( ) == true){
+                if( solicitaCpfProfessor( ) == true){
+                    if( solicitaSexoProfessor( ) == true){    
+                        return true;
+                    }else { return false;}
+                }else{ return false; }
+            }else{ return false; }
+        }else{ return false;}
+    }else{ return false;}
+}
+
+bool solicitaMatriculaProfessor( ){ ////REPLICAR ESSE MODELO NAS DEMAIS FUNÇÕES
+    char *mensagemDeErro = NULL;
+    static int posicao = 0;
+    
+    do{
+        printf("Digite o numero de matricula: \n");
+        fgets((docente[posicao].dado.matricula), TAM_MAT, stdin);
+        ///criar função que tirar o \n do final da string e inserir ela aqui tb
+        mensagemDeErro = validaMatricula( docente[posicao].dado.matricula );
+        if( mensagemDeErro != NULL ){
+            puts( mensagemDeErro ); }
+    }while( mensagemDeErro != NULL );
+    posicao++;
+    return true;
+}
+char *validaMatricula( char *matricula ){
+    
+    return NULL;
+}
+bool solicitaNomeProfessor( ){
+    printf("Digite o nome do professor:\n");
+    fgets(docente[0].dado.nome, TAM_NOME, stdin);
+    return true;
+}
+bool solicitaNascimentoProfessor( ){
+    printf("Digite a data de nascimento:\n");
+    fgets(docente[0].dado.nascimento, TAM_NAC, stdin);
+    return true;
+}
+bool solicitaCpfProfessor(){
+    printf("Digite o CPF:\n");
+    fgets(docente[0].dado.cpf, TAM_CPF, stdin);
+    return true;
+}
+bool solicitaSexoProfessor( ){
+    printf("Digite o sexo:\n");
+    scanf("%c", &docente[0].dado.sexo);
+    getchar();
+    return true;
+}
+
+bool cadastrarAluno(){
+    printf("Digite o numero de matricula: ");
+    fgets(discente[0].dado.matricula, TAM_MAT, stdin);
+               
+    printf("Digite o nome do aluno: ");
+    fgets(discente[0].dado.nome, TAM_NOME, stdin);
+
+    printf("Digite o sexo: ");
+    scanf("%c", &discente[0].dado.sexo);
+    getchar();
+
+    printf("Digite o CPF: ");
+    fgets(discente[0].dado.cpf, TAM_CPF, stdin);
+
+    printf("Digite a data de nascimento: ");
+    fgets(discente[0].dado.nascimento, TAM_NAC, stdin);
+    return true;
+}
+bool cadastrarDisciplina(){
+    printf("Digite o nome da disciplina: ");
+    fgets(materia[0].nome, TAM_NOME_DISC, stdin);
+               
+    printf("Digite o código da matéria: ");
+    fgets(materia[0].codigo, TAM_COD_DISC, stdin);
+
+    printf("Digite a quantidade de vagas: ");
+    scanf("%d", &materia[0].vagas);
+
+    printf("Digite o semestre: ");
+    fgets(materia[0].semestre, TAM_SEM, stdin);
+
+    printf("Digite o professor da matéria: ");
+    fgets(materia[0].professor.dado.nome, TAM_NOME, stdin);
+  
+    return true;
+}
+
