@@ -72,7 +72,8 @@ int main( ){
 	char resposta = '\0';
 
     enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Encerrar_Programa = '0'};
-
+    
+    
     do{ 	
         do{
             puts( "=====================================\n"
@@ -93,13 +94,14 @@ int main( ){
             case Listar_Informações: listar( ); break;
             case Encerrar_Programa: printf ("Programa Encerrado\n"); break;}
     }while( resposta != Encerrar_Programa );
+
     return EXIT_SUCCESS;
 }
 void cadastrar( ){
     int menuCadastrar( );
-    bool cadastrarAluno();
-    bool cadastrarProfessor(); 
-    bool cadastrarDisciplina();
+    bool cadastrarAluno( );
+    bool cadastrarProfessor( ); 
+    bool cadastrarDisciplina( );
     int opcao = -1;
     enum MENU { Aluno = '1', Professor = '2',  Disciplina = '3', Voltar = '0'};
     
@@ -212,7 +214,7 @@ bool cadastrarProfessor( ){
                 if( solicitaCpfProfessor( ) == true){
                     if( solicitaSexoProfessor( ) == true){    
                         return true;
-                    }else { return false;}
+                    }else{ return false;}
                 }else{ return false; }
             }else{ return false; }
         }else{ return false;}
@@ -231,45 +233,101 @@ bool solicitaMatriculaProfessor( ){ ////REPLICAR ESSE MODELO NAS DEMAIS FUNÇÕE
         if( mensagemDeErro != NULL ){
             puts( mensagemDeErro ); }
     }while( mensagemDeErro != NULL );
+    
     posicao++;
     return true;
 }
 char *validaMatricula( char *matricula ){
-    
+  //FaltaFazer//
     return NULL;
 }
+
 bool solicitaNomeProfessor( ){
-    printf("Digite o nome do professor:\n");
-    fgets(docente[0].dado.nome, TAM_NOME, stdin);
+    char *mensagemDeErro = NULL;
+    static int posicao = 0;
+    do{
+        printf("Digite o nome do professor:\n");
+        fgets(docente[posicao].dado.nome, TAM_NOME, stdin);
+        mensagemDeErro = validaNome (docente[posicao].dado.nome );
+        if( mensagemDeErro != NULL ){
+            puts (mensagemDeErro); }
+   }while( mensagemDeErro != NULL );
+  
+    posicao++;
     return true;
 }
+char *validaNome (char *nome){
+    //FaltaFazer//
+    return NULL;
+}
+
 bool solicitaNascimentoProfessor( ){
+    char *mensagemDeErro = NULL;
+    static int posicao = 0;
+    do{
     printf("Digite a data de nascimento:\n");
-    fgets(docente[0].dado.nascimento, TAM_NAC, stdin);
-    return true;
-}
-bool solicitaCpfProfessor(){
-    printf("Digite o CPF:\n");
-    fgets(docente[0].dado.cpf, TAM_CPF, stdin);
-    return true;
-}
-bool solicitaSexoProfessor( ){
-    printf("Digite o sexo:\n");
-    scanf("%c", &docente[0].dado.sexo);
-    getchar();
+    fgets(docente[posicao].dado.nascimento, TAM_NAC, stdin);
+    mensagemDeErro = validaNascimento ( docente[posicao].dado.nascimento );
+    if( mensagemDeErro != NULL ){
+            puts (mensagemDeErro); }
+   }while( mensagemDeErro != NULL );
+  
+    posicao++;
     return true;
 }
 
+char *validaNascimento (char *data){
+    //FaltaFazer//
+    return NULL;
+}
+
+
+bool solicitaCpfProfessor(){
+    char *mensagemDeErro = NULL;
+    static int posicao = 0;
+    do{
+    printf("Digite o CPF:\n");
+    fgets(docente[posicao].dado.cpf, TAM_CPF, stdin);
+    mensagemDeErro = validaCpf ( docente[posicao].dado.cpf );
+    if( mensagemDeErro != NULL ){
+        puts (mensagemDeErro); }
+   }while( mensagemDeErro != NULL );
+
+    posicao++;  
+    return true;
+}
+char *validaCpf (char *cpf){
+    //FaltaFazer//
+    return NULL;
+}
+
+  bool solicitaSexoProfessor( ){
+    char *mensagemDeErro = NULL;
+    static int posicao = 0;
+    do{
+    printf("Digite o sexo:\n");
+    scanf("%c", &docente[posicao].dado.sexo);
+    getchar( );
+    mensagemDeErro = validaSexo (docente[posicao].dado.sexo);
+    if( mensagemDeErro != NULL ){
+        puts (mensagemDeErro); }
+   }while( mensagemDeErro != NULL );
+
+    posicao++; 
+    return true;
+}
+char *validaSexo( char sexo ){
+    //FaltaFazer//
+    return NULL;
+  }
 bool cadastrarAluno(){
-    printf("Digite o numero de matricula: ");
-    fgets(discente[0].dado.matricula, TAM_MAT, stdin);
-               
+                 
     printf("Digite o nome do aluno: ");
     fgets(discente[0].dado.nome, TAM_NOME, stdin);
 
     printf("Digite o sexo: ");
     scanf("%c", &discente[0].dado.sexo);
-    getchar();
+    getchar( );
 
     printf("Digite o CPF: ");
     fgets(discente[0].dado.cpf, TAM_CPF, stdin);
