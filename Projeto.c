@@ -60,7 +60,7 @@ int professoresCadastrados = 0,
 
 char *validaMatricula( char *matricula );
 char *validaCpf( char *cpf );
-char *validaSexo( char *sexo );
+char *validaSexo( char sexo );
 char *validaNascimento( char *data );
 char *validaNome( char *nome );
 ///Adicionar função de limpeza de buffer para caso o usuário insira uma quantidade de dados maior do que ///a solicitada
