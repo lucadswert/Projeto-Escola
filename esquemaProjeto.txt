@@ -265,3 +265,22 @@ bool solicitaSexoProfessor( ){
     getchar();
     return true;
 }*/
+
+
+
+
+
+backup Lucas:
+    printf("Digite o nome do aluno: ");
+    fgets(discente[0].dado.nome, TAM_NOME, stdin);
+
+    printf("Digite o sexo: ");
+    scanf("%c", &discente[0].dado.sexo);
+    getchar( );
+
+    printf("Digite o CPF: ");
+    fgets(discente[0].dado.cpf, TAM_CPF, stdin);
+
+    printf("Digite a data de nascimento: ");
+    fgets(discente[0].dado.nascimento, TAM_NAC, stdin);
+    return true;
