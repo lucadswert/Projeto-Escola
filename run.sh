@@ -1,2 +1,3 @@
-gcc Projeto.c -o Projeto
-./Projeto
+cd Código
+gcc main.c -o main
+./main

@@ -1,75 +1,7 @@
-#ifndef CADASTROSOLICITA_FILE_H
-#define CADASTROSOLICITA_FILE_H
+#include "valida.h"
 
-#define bool _Bool 
-#define true 1
-#define false 0
-
-//Dados - Alunos e Professores//
-/// Formato CPF: 0 0 0 . 0 0 0 . 0 0 0 - 0 0 '\0' \n
-///              0 1 2 3 4 5 6 7 8 9 0 1 2 3   4   5 
-#define TAM_CPF 16
-/// Formato Data Nascimento: 0 0 / 0 0 / 0 0 0 0 '\0' \n
-///                          0 1 2 3 4 5 6 7 8 9   0   1 
-#define TAM_NAC 12
-#define TAM_NOME 61
-#define TAM_MAT 13
-
-//Dados - Disciplina//
-#define TAM_COD_DISC 13
-#define TAM_SEM 7
-#define TAM_NOME_DISC 31
-
-#define quantMaxAluno 3
-#define quantMaxProfessor 3
-#define quantMaxDisciplina 3
-
-struct dados{
-    char cpf[TAM_CPF],
-         nascimento[TAM_NAC],
-         nome[TAM_NOME],
-         matricula[TAM_MAT],
-         sexo;
-};
-typedef struct dados Dados;
-
-struct professor{
-    Dados dado;     
-}docente[quantMaxProfessor];
-typedef struct professor Professor;
-
-struct aluno{
-    Dados dado; 
-}discente[quantMaxAluno];
-typedef struct aluno Aluno;
-
-struct Disciplinas{
-    char nome[TAM_NOME_DISC],
-         codigo[TAM_COD_DISC],
-         semestre[TAM_SEM];
-    int vagas,
-        quantidadeMatriculado;
-    Professor professor;
-}materia[quantMaxDisciplina];
-
-int professoresCadastrados = 0,
-    alunosCadastrados = 0,
-    disciplinasCadastradas = 0;
-
-//Validação de dados de professores e alunos
-bool validaMatricula( char *matricula );
-bool validaCpf( char *cpf );
-bool validaSexo( char sexo );
-bool validaNascimento( char *data );
-bool validaNome( char *nome );
-
-///validação de dados de matricula
-bool validaNomeDiscplina( char* );
-bool validaCodigo( char* );
-bool validaSemestre( char* );
-bool validaVagas( int );
-bool validaQuanMatr( int );
-bool validaProfessores( char* );
+#ifndef CADASTRO_FILE_H
+#define CADASTRO_FILE_H
 
 bool cadastrarProfessor( ){
     bool solicitaMatriculaProfessor( );
@@ -91,7 +23,7 @@ bool cadastrarProfessor( ){
     }else{ return false;}
 }
 
-bool solicitaMatriculaProfessor( ){ ////REPLICAR ESSE MODELO NAS DEMAIS FUNÇÕES
+bool solicitaMatriculaProfessor( ){ 
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     static int posicao = 0;
@@ -110,6 +42,7 @@ bool solicitaNomeProfessor( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     static int posicao = 0;
+    
     do{
         printf("Digite o nome do professor:\n");
         fgets(docente[posicao].dado.nome, TAM_NOME, stdin);
@@ -239,8 +172,7 @@ bool solicitaCpfAluno( ){
 
     posicao++;  
     return true;
-    
-  }
+}
 bool solicitaNascimentoAluno( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
@@ -254,27 +186,6 @@ bool solicitaNascimentoAluno( ){
   
     posicao++;
     return true;
-}
-
-bool validaMatricula( char *matricula ){
-  //FaltaFazer//
-    return NULL;
-}
-bool validaNome (char *nome){
-    //FaltaFazer//
-    return NULL;
-}
-bool validaNascimento (char *data){
-    //FaltaFazer//
-    return NULL;
-}
-bool validaCpf (char *cpf){
-    //FaltaFazer//
-    return NULL;
-}
-bool validaSexo( char sexo ){
-    //FaltaFazer//
-    return NULL;
 }
 
 bool cadastrarDisciplina(){
@@ -385,30 +296,4 @@ bool solicitaProfessor( ){
     posicao++;
     return true;
 }
-
-bool validaNomeDiscplina( char *nome ){
-    
-    return true;
-}
-bool validaCodigo( char *codigo ){
-
-    return true;
-}
-bool validaSemestre( char *semestre ){
-
-    return true;
-}
-bool validaVagas( int vagas ){
-
-    return true;
-}
-bool validaQuanMatr( int quantidadeMatriculados ){
-
-    return true;
-}
-bool validaProfessores( char *Professor ){
-
-    return true;
-}
-
 #endif ///CADASTRO_FILE_H
