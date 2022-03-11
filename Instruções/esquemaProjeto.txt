@@ -118,169 +118,78 @@ Listar Professor
 Código com defeito na natrícula 
 ===============================
 
-Aluno cad_alunos[2];
+=======================================================================
+Matricula:
+0 1 2 3 4 5 6 7 8 9 0
+'0' != 0 
 
-   for (int i = 0; i < 2; i ++){  
-            printf("Digite o numero de matricula: ");
-            fgets(cad_alunos[i].dado.matricula, TAM_MAT, stdin);
-                           
-            printf("Digite o nome do professor: ");
-            fgets(cad_alunos[i].dado.nome, TAM_NOME, stdin);
-              
-            printf("Digite o sexo: ");
-            scanf("%c", &cad_alunos[i].dado.sexo);
-            getchar();
+char numeros[11] = { "0123456789" }; 
 
-            printf("Digite o CPF: ");
-            fgets(cad_alunos[i].dado.cpf, TAM_CPF, stdin);
-
-            printf("Digite a data de nascimento: ");
-            fgets(cad_alunos[i].dado.nascimento, TAM_NAC, stdin);
-  }  
-  
-  printf("\n### Pessoas Cadastrasdas ####\n");
-  int i;
-  for (i = 0; i < 2; i++){
-    printf("-----\n");
-    printf("Nome: %s\n", cad_alunos[i].dado.nome);
-    printf("Sexo: %c\n", cad_alunos[i].dado.sexo);
-    printf("Matricula: %d\n", cad_alunos[i].dado.matricula);
-    printf("CPF: %s\n", cad_alunos[i].dado.cpf);
-    printf("Nascimento: %s\n", cad_alunos[i].dado.nascimento);
-  }
+for( int i = 0; i < (strlen(matricula)-1); i++){
+    for( int x = 0; x < 12; x++ )
+        if( matricula[i] == numeros[x] ){
+    	  return true;
+    }else if( numeros[x] == '\0' ){ 
+    	  printf("Caractere inválido, matrícula inválida");
+    	  return false;
+    }
+} 
+///'0' && matricula[i] != '9'
 
 
 
-bool cadastrarProfessor(){
-    printf("Matricula: %s\n", docente.dado.matricula);
-    printf("Nome: %s\n", docente.dado.nome);               
-    printf("Sexo: %c\n", docente.dado.sexo);  
-    printf("CPF: %s\n", docente.dado.cpf);  
-    printf("Nascimento: %s\n", docente.dado.nascimento);
+
+=======================================================================
+
+=======================================================================
+Nome:
+for(i = 0; i < strlen(nome); i++){
+  if {Verificar se é letra){
+	  return true;
+  else { 
+	  return false;
+}
+=======================================================================
+
+=======================================================================
+Sexo:
+  if ((sexo == 'M') || (sexo == 'm') || (sexo == 'f') || (sexo == 'F')){
     return true;
 }
-bool cadastrarAluno(){
-    printf("Matricula: %s\n", discente.dado.matricula);
-    printf("Nome: %s\n", discente.dado.nome);               
-    printf("Sexo: %c\n", discente.dado.sexo);  
-    printf("CPF: %s\n", discente.dado.cpf);  
-    printf("Nascimento: %s\n", discente.dado.nascimento);
-    return true;
-}
-bool cadastrarDisciplina(){
-    printf("Materia: %s\n", materia.nome);
-    printf("Codigo: %s\n", materia.codigo);               
-    printf("Semestre: %s\n", materia.semestre);   
-    printf("Vagas: %d\n", materia.vagas);  
-    printf("Professor: %s\n", materia.professor.dado.nome);
-
-    return true;
-}
-
-void cadastrar( ){
-    int menuCadastrar( );
-    bool cadastrarAluno();
-    bool cadastrarProfessor(); 
-    bool cadastrarDisciplina();
-    int opcao = -1;
-    enum MENU { Professor = '1', Aluno = '2', Disciplina = '3', Voltar = '0'};
-    
-    do{
-        opcao = menuCadastrar( );
-        switch( opcao ){
-            case Professor: cadastrarProfessor(); break;
-            case Aluno: cadastrarAluno(); break;
-            case Disciplina: cadastrarDisciplina(); break;
-            case Voltar: break;     
-        }
-    }while( opcao != Voltar );
-
-}
-
-
-backup
-
-/*
-bool cadastrarAluno(){
-    printf("Digite o numero de matricula: ");
-    fgets(discente.dado.matricula, TAM_MAT, stdin);
-               
-    printf("Digite o nome do aluno: ");
-    fgets(discente.dado.nome, TAM_NOME, stdin);
-
-    printf("Digite o sexo: ");
-    scanf("%c", &discente.dado.sexo);
-    getchar();
-
-    printf("Digite o CPF: ");
-    fgets(discente.dado.cpf, TAM_CPF, stdin);
-
-    printf("Digite a data de nascimento: ");
-    fgets(discente.dado.nascimento, TAM_NAC, stdin);
-    return true;
-}
-bool cadastrarDisciplina(){
-    printf("Digite o nome da disciplina: ");
-    fgets(materia.nome, TAM_NOME_DISC, stdin);
-               
-    printf("Digite o código da matéria: ");
-    fgets(materia.codigo, TAM_COD_DISC, stdin);
-
-    printf("Digite a quantidade de vagas: ");
-    scanf("%d", &materia.vagas);
-
-    printf("Digite o semestre: ");
-    fgets(materia.semestre, TAM_SEM, stdin);
-
-    printf("Digite o professor da matéria: ");
-    fgets(materia.professor.dado.nome, TAM_NOME, stdin);
-  
-    return true;
-}*/
-bool solicitaMatriculaProfessor( ){
+  else{
+    printf("Caractere inserido inválido");
     return false;
-    printf("Digite o numero de matricula: ");
-    fgets((docente[0]->dado.matricula), TAM_MAT, stdin);
-    
 }
-/*
-bool solicitaNomeProfessor( ){
-    printf("Digite o nome do professor: ");
-    fgets(docente.dado.nome, TAM_NOME, stdin);
-    return true;
+=======================================================================
+
+=======================================================================
+Vagas
+  for(i = 0; i < strlen(vagas); i++){
+    if (vagas[i] >= '0'){
+      return true;
 }
-bool solicitaNascimentoProfessor( ){
-    printf("Digite a data de nascimento: ");
-    fgets(docente.dado.nascimento, TAM_NAC, stdin);
-    return true;
+    else {
+      return false;
 }
-bool solicitaCpfProfessor(){
-    printf("Digite o CPF: ");
-    fgets(docente.dado.cpf, TAM_CPF, stdin);
-    return true;
+=======================================================================
+
+
+****CODIGO DO LUQUINI REBAIXADO****
+
+char *mensagemDeErro = "O numero de matrícula deve conter 11 caracteres numericos."
+
+int size;
+
+size = strlen(matricula);
+if(size != 11){
+	puts(mensagemDeErro);
+	return false;
 }
-bool solicitaSexoProfessor( ){
-    printf("Digite o sexo: ");
-    scanf("%c", &docente.dado.sexo);
-    getchar();
-    return true;
-}*/
 
-
-
-
-
-backup Lucas:
-    printf("Digite o nome do aluno: ");
-    fgets(discente[0].dado.nome, TAM_NOME, stdin);
-
-    printf("Digite o sexo: ");
-    scanf("%c", &discente[0].dado.sexo);
-    getchar( );
-
-    printf("Digite o CPF: ");
-    fgets(discente[0].dado.cpf, TAM_CPF, stdin);
-
-    printf("Digite a data de nascimento: ");
-    fgets(discente[0].dado.nascimento, TAM_NAC, stdin);
-    return true;
+for(int i = matricula[i]; i != '\0' ;i++){
+	if(i < '0' || i > '9'){
+		puts(mensagemDeErro);
+		return false;
+	}
+}
+return true;

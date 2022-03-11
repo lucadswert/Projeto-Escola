@@ -16,7 +16,7 @@
 #define TAM_MAT 13
 
 //Dados - Disciplina//
-#define TAM_COD_DISC 13
+#define TAM_COD_DISC 8
 #define TAM_SEM 7
 #define TAM_NOME_DISC 31
 
@@ -52,11 +52,14 @@ struct Disciplinas{
     Professor professor;
 }materia[quantMaxDisciplina];
 
-int professoresCadastrados = 0,
-    alunosCadastrados = 0,
+int professoresCadastrados = 1,
+    alunosCadastrados = 1,
     disciplinasCadastradas = 0;
 
 void limpaTexto( char* );
+bool tamanhoCerto( int, char* );
+bool ehNumero( char  );
+void inicializaTurma( );
 
 void limpaTexto( char *texto ){
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
@@ -64,5 +67,28 @@ void limpaTexto( char *texto ){
             texto[caracter] = '\0';}    
 }
 
+bool ehNumero( char digito ){
+    if( digito < '0' || digito > '9'){
+    	return false;}
+    return true;
+}
 
+bool tamanhoCerto( const int tamanho, char *dado){
+    int size;
+   
+    for( int contador = 0; dado[contador] != '\0'; contador++ ){
+        if(dado[contador+1] == '\0'){
+            size = contador + 1;}}
+  
+    if( size != tamanho-2){
+    	return false;}
+    
+    return true;
+}
+
+void inicializaTurma( ){
+
+
+    
+}
 #endif ///GERAIS_FILE_H

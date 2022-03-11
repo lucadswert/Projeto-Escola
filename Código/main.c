@@ -9,9 +9,12 @@
 ///Adicionar função de limpeza de buffer para caso o usuário insira uma quantidade de dados maior do que ///a solicitada
 
 int main( ){
-    int menuPrincipal( );
+
+    printf( "%s", discente[0].dado.cpf );
+    int menuPrincipal(  );
     void cadastrar( ); 
     void listar( );
+    inicializaTurma( );
 
 	char resposta = '\0';
     enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Encerrar_Programa = '0'};

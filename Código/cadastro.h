@@ -11,15 +11,19 @@ bool cadastrarProfessor( ){
     bool solicitaSexoProfessor( );
     
     if( (solicitaMatriculaProfessor( )) == true ){
-        if( solicitaNomeProfessor( ) == true) {
-            if( solicitaNascimentoProfessor( ) == true){
-                if( solicitaCpfProfessor( ) == true){
-                    if( solicitaSexoProfessor( ) == true){    
+        //if( solicitaNomeProfessor( ) == true) {
+            //if( solicitaNascimentoProfessor( ) == true){
+                //if( solicitaCpfProfessor( ) == true){
+                    //if( solicitaSexoProfessor( ) == true){
+                        professoresCadastrados++;
+                        //printf("Quantidade de professores cadastrados: %d\n",               
+                        //professoresCadastrados);
+                       
                         return true;
-                    }else{ return false;}
-                }else{ return false; }
-            }else{ return false; }
-        }else{ return false;}
+                   // }else{ return false;}
+               // }else{ return false; }
+           // }else{ return false; }
+        //}else{ return false;}
     }else{ return false;}
 }
 
@@ -27,11 +31,11 @@ bool solicitaMatriculaProfessor( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     static int posicao = 0;
-    
+
     do{
         printf("Digite o numero de matricula: \n");
         fgets((docente[posicao].dado.matricula), TAM_MAT, stdin);
-        ///criar função que tirar o \n do final da string e inserir ela aqui tb
+        limpaTexto(docente[posicao].dado.matricula);
         DADO = validaMatricula( docente[posicao].dado.matricula );
     }while( DADO == INVALIDO );
     
@@ -46,6 +50,7 @@ bool solicitaNomeProfessor( ){
     do{
         printf("Digite o nome do professor:\n");
         fgets(docente[posicao].dado.nome, TAM_NOME, stdin);
+        limpaTexto(docente[posicao].dado.nome);
         DADO = validaNome (docente[posicao].dado.nome );
    }while( DADO == INVALIDO );
   
@@ -60,6 +65,7 @@ bool solicitaNascimentoProfessor( ){
     do{
         printf("Digite a data de nascimento:\n");
         fgets(docente[posicao].dado.nascimento, TAM_NAC, stdin);
+        limpaTexto(docente[posicao].dado.nascimento);
         DADO = validaNascimento ( docente[posicao].dado.nascimento );
    }while( DADO == INVALIDO );
   
@@ -74,6 +80,7 @@ bool solicitaCpfProfessor(){
     do{
         printf("Digite o CPF:\n");
         fgets(docente[posicao].dado.cpf, TAM_CPF, stdin);
+        limpaTexto(docente[posicao].dado.cpf);
         DADO = validaCpf ( docente[posicao].dado.cpf );
    }while( DADO == INVALIDO );
 
@@ -104,15 +111,16 @@ bool cadastrarAluno(){
     bool solicitaSexoAluno( );
 
     if( (solicitaMatriculaAluno( )) == true ){
-        if( solicitaNomeAluno( ) == true) {
-            if( solicitaNascimentoAluno( ) == true){
-                if( solicitaCpfAluno( ) == true){
-                    if( solicitaSexoAluno( ) == true){    
+        //if( solicitaNomeAluno( ) == true) {
+            //if( solicitaNascimentoAluno( ) == true){
+               // if( solicitaCpfAluno( ) == true){
+                    //if( solicitaSexoAluno( ) == true){
+                        alunosCadastrados++;
                         return true;
-                    }else{ return false;}
-                }else{ return false; }
-            }else{ return false; }
-        }else{ return false;}
+                   // }else{ return false;}
+               // }else{ return false; }
+           // }else{ return false; }
+        //}else{ return false;}
     }else{ return false;}
 }  
 
@@ -124,7 +132,8 @@ bool solicitaMatriculaAluno( ){
     do{
         printf("Digite a matricula do Aluno:\n");
         fgets(discente[posicao].dado.matricula, TAM_MAT, stdin);
-        DADO = validaNome (discente[posicao].dado.matricula );
+        limpaTexto(discente[posicao].dado.matricula);
+        DADO = validaMatricula(discente[posicao].dado.matricula );
    }while( DADO == INVALIDO );
   
     posicao++;
@@ -138,6 +147,7 @@ bool solicitaNomeAluno(){
     do{
         printf("Digite o nome do Aluno:\n");
         fgets(discente[posicao].dado.nome, TAM_NOME, stdin);
+        limpaTexto(discente[posicao].dado.nome);
         DADO = validaNome (discente[posicao].dado.nome );
    }while( DADO == INVALIDO );
   
@@ -167,6 +177,7 @@ bool solicitaCpfAluno( ){
     do{
         printf("Digite o CPF:\n");
         fgets(discente[posicao].dado.cpf, TAM_CPF, stdin);
+        limpaTexto(discente[posicao].dado.cpf);
         DADO = validaCpf ( discente[posicao].dado.cpf );
    }while( DADO == INVALIDO );
 
@@ -181,6 +192,7 @@ bool solicitaNascimentoAluno( ){
     do{
         printf("Digite a data de nascimento:\n");
         fgets(discente[posicao].dado.nascimento, TAM_NAC, stdin);
+        limpaTexto(discente[posicao].dado.nascimento);
         DADO = validaNascimento ( discente[posicao].dado.nascimento );
    }while( DADO == INVALIDO );
   
@@ -202,6 +214,7 @@ bool cadastrarDisciplina(){
                 if( solicitaVagas( ) ){
                     if( solicitaQuanMatr( ) ){
                         if( solicitaProfessor( ) ){
+                            disciplinasCadastradas++;
                             return true;
                         }else{ return false;}
                     }else{ return false;}
@@ -219,7 +232,8 @@ bool solicitaNomeDisciplina( ){
     do{
         printf("Digite o nome da disciplina:\n");
         fgets(materia[posicao].nome, TAM_NOME_DISC, stdin);
-        DADO = validaNomeDiscplina (materia[posicao].nome );
+        limpaTexto(materia[posicao].nome);
+        DADO = validaNome(materia[posicao].nome );
    }while( DADO == INVALIDO );
   
     posicao++;
@@ -233,6 +247,7 @@ bool solicitaCodigo( ){
     do{
         printf("Digite o código da disciplina:\n");
         fgets(materia[posicao].codigo, TAM_COD_DISC, stdin);
+        limpaTexto(materia[posicao].codigo);
         DADO = validaCodigo (materia[posicao].codigo );
    }while( DADO == INVALIDO );
   
@@ -247,6 +262,7 @@ bool solicitaSemestre( ){
     do{
         printf("Digite o semestre da disciplina:\n");
         fgets(materia[posicao].semestre, TAM_SEM, stdin);
+        limpaTexto(materia[posicao].semestre);
         DADO = validaSemestre (materia[posicao].semestre);
    }while( DADO == INVALIDO );
   
@@ -269,6 +285,7 @@ bool solicitaVagas( ){
     return true;
 }
 bool solicitaQuanMatr( ){
+  //Ver se será inserido pelo usuário ou pelo sistema//
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     static int posicao = 0;
@@ -276,6 +293,7 @@ bool solicitaQuanMatr( ){
     do{
         printf("Digite a quantidade de matriculados da disciplina:\n");
         scanf( "%d", &materia[posicao].quantidadeMatriculado);
+        getchar();
         DADO = validaQuanMatr(materia[posicao].quantidadeMatriculado);
    }while( DADO == INVALIDO );
   
@@ -290,6 +308,7 @@ bool solicitaProfessor( ){
     do{
         printf("Digite o professor da disciplina:\n");
         fgets(materia[posicao].professor.dado.nome, TAM_NOME, stdin);
+        limpaTexto(materia[posicao].professor.dado.nome);
         DADO = validaProfessores(materia[posicao].professor.dado.nome);
    }while( DADO == INVALIDO );
   
