@@ -11,18 +11,18 @@ bool cadastrarProfessor( ){
     bool solicitaSexoProfessor( );
     
     if( (solicitaMatriculaProfessor( )) == true ){
-        //if( solicitaNomeProfessor( ) == true) {
+        //if( (solicitaNomeProfessor( )) == true) {
             //if( solicitaNascimentoProfessor( ) == true){
-                //if( solicitaCpfProfessor( ) == true){
+                if( solicitaCpfProfessor( ) == true){
                     //if( solicitaSexoProfessor( ) == true){
                         professoresCadastrados++;
                         //printf("Quantidade de professores cadastrados: %d\n",               
                         //professoresCadastrados);
                        
                         return true;
-                   // }else{ return false;}
-               // }else{ return false; }
-           // }else{ return false; }
+                    //}else{ return false;}
+                }else{ return false; }
+            //}else{ return false; }
         //}else{ return false;}
     }else{ return false;}
 }
@@ -111,16 +111,16 @@ bool cadastrarAluno(){
     bool solicitaSexoAluno( );
 
     if( (solicitaMatriculaAluno( )) == true ){
-        //if( solicitaNomeAluno( ) == true) {
+       // if( solicitaNomeAluno( ) == true) {
             //if( solicitaNascimentoAluno( ) == true){
-               // if( solicitaCpfAluno( ) == true){
-                    //if( solicitaSexoAluno( ) == true){
+                if( solicitaCpfAluno( ) == true){
+                    if( solicitaSexoAluno( ) == true){
                         alunosCadastrados++;
                         return true;
-                   // }else{ return false;}
-               // }else{ return false; }
-           // }else{ return false; }
-        //}else{ return false;}
+                    }else{ return false;}
+                }else{ return false; }
+            //else{ return false; }
+       // }else{ return false;}
     }else{ return false;}
 }  
 
@@ -210,16 +210,16 @@ bool cadastrarDisciplina(){
     
     if( solicitaNomeDisciplina( ) ){
         if( solicitaCodigo( ) ){
-            if( solicitaSemestre( ) ){
-                if( solicitaVagas( ) ){
-                    if( solicitaQuanMatr( ) ){
-                        if( solicitaProfessor( ) ){
+            //if( solicitaSemestre( ) ){
+              //  if( solicitaVagas( ) ){
+                   // if( solicitaQuanMatr( ) ){
+                       // if( solicitaProfessor( ) ){
                             disciplinasCadastradas++;
                             return true;
-                        }else{ return false;}
-                    }else{ return false;}
-                }else{ return false;}
-            }else{ return false;}
+                        //}else{ return false;}
+                 //   }else{ return false;}
+               // }else{ return false;}
+           // }else{ return false;}
         }else{ return false;}
     }else{ return false;}
 }
@@ -233,7 +233,7 @@ bool solicitaNomeDisciplina( ){
         printf("Digite o nome da disciplina:\n");
         fgets(materia[posicao].nome, TAM_NOME_DISC, stdin);
         limpaTexto(materia[posicao].nome);
-        DADO = validaNome(materia[posicao].nome );
+        DADO = validaNomeDisciplina(materia[posicao].nome );
    }while( DADO == INVALIDO );
   
     posicao++;

@@ -52,32 +52,29 @@ struct Disciplinas{
     Professor professor;
 }materia[quantMaxDisciplina];
 
-int professoresCadastrados = 1,
-    alunosCadastrados = 1,
+int professoresCadastrados = 0,
+    alunosCadastrados = 0,
     disciplinasCadastradas = 0;
 
 void limpaTexto( char* );
 bool tamanhoCerto( int, char* );
-bool ehNumero( char  );
-void inicializaTurma( );
+bool ehNumero( char );
+bool ehLetra ( char );
 
 void limpaTexto( char *texto ){
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
         if( texto[caracter+1] == '\0' )
             texto[caracter] = '\0';}    
 }
-
 bool ehNumero( char digito ){
     if( digito < '0' || digito > '9'){
     	return false;}
     return true;
 }
-
 bool tamanhoCerto( const int tamanho, char *dado){
     int size;
-   
     for( int contador = 0; dado[contador] != '\0'; contador++ ){
-        if(dado[contador+1] == '\0'){
+        if( dado[contador+1] == '\0' ){
             size = contador + 1;}}
   
     if( size != tamanho-2){
@@ -86,9 +83,17 @@ bool tamanhoCerto( const int tamanho, char *dado){
     return true;
 }
 
-void inicializaTurma( ){
-
-
+bool ehLetra(char caracter){
+    char caracteresEspeciais[] = ("àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ");
     
+    if( (caracter >= 'A' && caracter <= 'Z') ||
+	       ( caracter >= 'a' && caracter <= 'z' ) ){
+        return true;}
+  
+    for(int i = 0; caracteresEspeciais[i] != '\0'; i++){
+      if( caracter == caracteresEspeciais[i] ){
+          return true;}
+    }
+    return false;     
 }
 #endif ///GERAIS_FILE_H
