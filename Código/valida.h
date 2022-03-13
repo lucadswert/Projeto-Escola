@@ -57,7 +57,7 @@ bool validaNome(char *nome){ //OK
             return false;}}
     return true;
 }
-bool validaNascimento (char *data){ //Validar Formato e Consistência
+bool validaNascimento (char *data){ //Validar Consistência
     char *mensagensDeErro[3] = { };
     int erro = 0;
   
@@ -69,6 +69,32 @@ bool validaNascimento (char *data){ //Validar Formato e Consistência
             mensagensDeErro[erro++] = "  Caractere inserido inválido";
             break;}}
     mensagensDeErro[erro] = NULL;
+  
+  for (int i = 0; i < 2; i++){
+    if (!ehNumero(data[i])){
+      puts( "  Formato invalido" );
+            return false;}}
+  
+  for (int i = 3; i < 5; i++){
+    if (!ehNumero(data[i])){
+      puts( "  Formato invalido" );
+            return false;}}
+  
+  for (int i = 6; i < 10; i++){
+    if (!ehNumero(data[i])){
+      puts( "  Formato invalido" );
+            return false;}}
+  
+   for(int i = 2; i < 3 ; i++){
+        if ( !(data[i] == '/') ){
+            puts( "  Formato invalido" );
+            return false;}}
+    for(int i = 5; i < 6 ; i++){
+        if ( !(data[i] == '/') ){
+            puts( "  Formato invalido" );
+            return false;}}
+
+  
     if( mensagensDeErro[0] == NULL ){
         return true;
     }else{
@@ -76,7 +102,7 @@ bool validaNascimento (char *data){ //Validar Formato e Consistência
             puts( mensagensDeErro[posicoes] );}
         return false;}
 }
-bool validaCpf (char *cpf){ // Validar Formato
+bool validaCpf (char *cpf){ // Jeffinho testar dps, aparentemente, ta okay
     char *mensagensDeErro[3] = { };
     int erro = 0;
 
@@ -87,9 +113,39 @@ bool validaCpf (char *cpf){ // Validar Formato
         if( !ehNumero(cpf[i]) && !(cpf[i] == '.') && !(cpf[i] == '-') ){ 
             mensagensDeErro[erro++] = "  Caractere inserido inválido";
             break;}}
-    
+  
     mensagensDeErro[erro] = NULL;
-    
+  // 0 0 0 . 0 0 0 . 0 0 0   - 0 0
+  // 0 1 2 3 4 5 6 7 8 9 10 11
+    for(int i = 0; i < 3 ; i++){
+        if ( !ehNumero(cpf[i])){
+            puts( "  Formato invalido" );
+            return false;}}
+  
+    for(int i = 4; i < 7 ; i++){
+        if ( !ehNumero(cpf[i])){
+            puts( "  Formato invalido" );
+            return false;}}
+  
+    for(int i = 12; i < 14 ; i++){
+        if ( !ehNumero(cpf[i])){
+            puts( "  Formato invalido" );
+            return false;}}
+  
+    for(int i = 3; i < 4 ; i++){
+        if ( !(cpf[i] == '.') ){
+            puts( "  Formato invalido" );
+            return false;}}
+    for(int i = 7; i < 8 ; i++){
+        if ( !(cpf[i] == '.') ){
+            puts( "  Formato invalido" );
+            return false;}}
+  
+    for(int i = 11; i < 12 ; i++){
+        if ( !(cpf[i] == '-') ){
+            puts( "  Formato invalido" );
+            return false;}}
+  
     if( mensagensDeErro[0] == NULL ){
         if( alunosCadastrados > 0 ){ 
             for( int cadastrado = 0; cadastrado < alunosCadastrados; cadastrado++){
@@ -133,7 +189,7 @@ bool validaNomeDisciplina(char *nomeDisciplina ){ // Okay
                 return false;}}}
     return true;
 }
-bool validaCodigo( char *codigo ){ //// Validar Formato
+bool validaCodigo( char *codigo ){ // Okay
     char *mensagensDeErro[3] = { };
     int erro = 0;
 
@@ -146,6 +202,16 @@ bool validaCodigo( char *codigo ){ //// Validar Formato
             break;}}
     
     mensagensDeErro[erro] = NULL;
+
+    for(int i = 0; i < 3; i++){
+        if( !ehLetra(codigo[i]) ) { 
+            puts("  Formato invalido");
+            return false;}}
+  
+    for(int i = 3; i < 6; i++){
+        if( !ehNumero(codigo[i]) ) { 
+            puts( "  Formato invalido" );
+            return false;}}
     
     if( mensagensDeErro[0] == NULL ) {
         if( disciplinasCadastradas > 0 ){ 
@@ -159,7 +225,8 @@ bool validaCodigo( char *codigo ){ //// Validar Formato
         return false;}
   return true;
 }
-bool validaSemestre( char *semestre ){ //Validar Formato
+bool validaSemestre( char *semestre ){ //Formato dando erro
+
     char *mensagensDeErro[3] = { };
     int erro = 0;
 
@@ -170,8 +237,25 @@ bool validaSemestre( char *semestre ){ //Validar Formato
         if( !ehNumero(semestre[i]) && !(semestre[i] == '.') ){ 
             mensagensDeErro[erro++] = "  Caractere inserido inválido";
             break;}}
-    
+  
+    // 2 0 2 1 . 5
+    // 0 1 2 3 4 5
     mensagensDeErro[erro] = NULL;
+    // Falta resolver
+    for(int i = 0; i < 4 ; i++){
+        if ( !ehNumero(semestre[i]) ){
+            puts ( "  Formato invalido" );
+            return false;}}
+  
+    for(int i = 4; i < 5 ; i++){
+        if ( !(semestre[i] == '.') ){
+            puts ( "  Formato invalido" );
+            return false;}}
+
+    if (!(semestre[5] == '1') || !(semestre[5] == '2')){
+            puts ( "  Semestre invalido" );
+            return false;}
+    
     if( mensagensDeErro[0] == NULL ){
         return true;
     }else{
@@ -194,4 +278,10 @@ bool validaProfessores( char *Professor ){
 
     return true;
 }
+
+
+/*
+*****PROGRAMA FEITO POR CHADS*****
+⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠛⠋⠉⠈⠉⠉⠉⠉⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣿⣿ ⣿⣿⣿⣿⡏⣀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿ ⣿⣿⣿⢏⣴⣿⣷⠀⠀⠀⠀⠀⢾⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿ ⣿⣿⣟⣾⣿⡟⠁⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣷⢢⠀⠀⠀⠀⠀⠀⠀⢸⣿ ⣿⣿⣿⣿⣟⠀⡴⠄⠀⠀⠀⠀⠀⠀⠙⠻⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⣿ ⣿⣿⣿⠟⠻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠶⢴⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⣿ ⣿⣁⡀⠀⠀⢰⢠⣦⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⡄⠀⣴⣶⣿⡄⣿ ⣿⡋⠀⠀⠀⠎⢸⣿⡆⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⠗⢘⣿⣟⠛⠿⣼ ⣿⣿⠋⢀⡌⢰⣿⡿⢿⡀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⡇⠀⢸⣿⣿⣧⢀⣼ ⣿⣿⣷⢻⠄⠘⠛⠋⠛⠃⠀⠀⠀⠀⠀⢿⣧⠈⠉⠙⠛⠋⠀⠀⠀⣿⣿⣿⣿⣿ ⣿⣿⣧⠀⠈⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠟⠀⠀⠀⠀⢀⢃⠀⠀⢸⣿⣿⣿⣿ ⣿⣿⡿⠀⠴⢗⣠⣤⣴⡶⠶⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡸⠀⣿⣿⣿⣿ ⣿⣿⣿⡀⢠⣾⣿⠏⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠉⠀⣿⣿⣿⣿ ⣿⣿⣿⣧⠈⢹⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿ ⣿⣿⣿⣿⡄⠈⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣦⣄⣀⣀⣀⣀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠙⣿⣿⡟⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠁⠀⠀⠹⣿⠃⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⢐⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⠿⠛⠉⠉⠁⠀⢻⣿⡇⠀⠀⠀⠀⠀⠀⢀⠈⣿⣿⡿⠉⠛⠛⠛⠉⠉ ⣿⡿⠋⠁⠀⠀⢀⣀⣠⡴⣸⣿⣇⡄⠀⠀⠀⠀⢀⡿⠄⠙⠛⠀⣀⣠⣤⣤⠄ */
+
 #endif ///VALIDA_FILE_H

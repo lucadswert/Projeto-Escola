@@ -10,7 +10,7 @@ bool cadastrarProfessor( ){
     bool solicitaCpfProfessor( );
     bool solicitaSexoProfessor( );
     
-    if( (solicitaMatriculaProfessor( )) == true ){
+    //if( (solicitaMatriculaProfessor( )) == true ){
         //if( (solicitaNomeProfessor( )) == true) {
             //if( solicitaNascimentoProfessor( ) == true){
                 if( solicitaCpfProfessor( ) == true){
@@ -21,7 +21,7 @@ bool cadastrarProfessor( ){
                        
                         return true;
                     //}else{ return false;}
-                }else{ return false; }
+               // }else{ return false; }
             //}else{ return false; }
         //}else{ return false;}
     }else{ return false;}
@@ -208,9 +208,9 @@ bool cadastrarDisciplina(){
     bool solicitaQuanMatr( );
     bool solicitaProfessor( );
     
-    if( solicitaNomeDisciplina( ) ){
-        if( solicitaCodigo( ) ){
-            //if( solicitaSemestre( ) ){
+    //if( solicitaNomeDisciplina( ) ){
+       // if( solicitaCodigo( ) ){
+            if( solicitaSemestre( ) ){
               //  if( solicitaVagas( ) ){
                    // if( solicitaQuanMatr( ) ){
                        // if( solicitaProfessor( ) ){
@@ -221,7 +221,7 @@ bool cadastrarDisciplina(){
                // }else{ return false;}
            // }else{ return false;}
         }else{ return false;}
-    }else{ return false;}
+    //}else{ return false;}
 }
 
 bool solicitaNomeDisciplina( ){
