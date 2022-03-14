@@ -9,97 +9,106 @@ bool cadastrarProfessor( ){
     bool solicitaNascimentoProfessor( );
     bool solicitaCpfProfessor( );
     bool solicitaSexoProfessor( );
-    
-    //if( (solicitaMatriculaProfessor( )) == true ){
-        //if( (solicitaNomeProfessor( )) == true) {
-            //if( solicitaNascimentoProfessor( ) == true){
-                if( solicitaCpfProfessor( ) == true){
-                    //if( solicitaSexoProfessor( ) == true){
-                        professoresCadastrados++;
-                        //printf("Quantidade de professores cadastrados: %d\n",               
-                        //professoresCadastrados);
-                       
-                        return true;
-                    //}else{ return false;}
-               // }else{ return false; }
-            //}else{ return false; }
-        //}else{ return false;}
-    }else{ return false;}
+
+    if( professoresCadastrados <= quantMaxProfessor ){ 
+        professoresCadastrados++;
+        if( solicitaMatriculaProfessor( ) )
+            if( solicitaNomeProfessor( ) ) 
+                if( solicitaNascimentoProfessor( ) )
+                    if( solicitaCpfProfessor( ) )
+                        if( solicitaSexoProfessor( ) )
+                            return true;
+        professoresCadastrados--; 
+        return false; 
+    }else return false; 
 }
 
 bool solicitaMatriculaProfessor( ){ 
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
-
+    int posicao = professoresCadastrados - 1;
     do{
         printf("Digite o numero de matricula: \n");
         fgets((docente[posicao].dado.matricula), TAM_MAT, stdin);
         limpaTexto(docente[posicao].dado.matricula);
-        DADO = validaMatricula( docente[posicao].dado.matricula );
+        
+        if( sair( docente[posicao].dado.matricula[0], docente[posicao].dado.matricula[1] ) ){ 
+            return false;
+        }else{ DADO = validaMatricula( docente[posicao].dado.matricula );}
     }while( DADO == INVALIDO );
     
-    posicao++;
     return true;
 }
 bool solicitaNomeProfessor( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = professoresCadastrados - 1;
     
     do{
         printf("Digite o nome do professor:\n");
         fgets(docente[posicao].dado.nome, TAM_NOME, stdin);
         limpaTexto(docente[posicao].dado.nome);
-        DADO = validaNome (docente[posicao].dado.nome );
-   }while( DADO == INVALIDO );
-  
-    posicao++;
+        
+        if( sair( docente[posicao].dado.nome[0], docente[posicao].dado.nome[1] ) ){              
+            return false;
+        }else{ DADO = validaNome( docente[posicao].dado.nome );}
+    }while( DADO == INVALIDO );
+    
+    padronizaNome( docente[posicao].dado.nome );
     return true;
 }
 bool solicitaNascimentoProfessor( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = professoresCadastrados - 1;
     
     do{
         printf("Digite a data de nascimento:\n");
         fgets(docente[posicao].dado.nascimento, TAM_NAC, stdin);
         limpaTexto(docente[posicao].dado.nascimento);
-        DADO = validaNascimento ( docente[posicao].dado.nascimento );
-   }while( DADO == INVALIDO );
-  
-    posicao++;
+        
+        if( sair( docente[posicao].dado.nascimento[0], docente[posicao].dado.nascimento[1] ) ){ 
+            return false;
+        }else{ DADO = validaNascimento ( docente[posicao].dado.nascimento );}
+    }while( DADO == INVALIDO );
+    
     return true;
 }
 bool solicitaCpfProfessor(){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = professoresCadastrados - 1;
     
     do{
         printf("Digite o CPF:\n");
         fgets(docente[posicao].dado.cpf, TAM_CPF, stdin);
-        limpaTexto(docente[posicao].dado.cpf);
-        DADO = validaCpf ( docente[posicao].dado.cpf );
-   }while( DADO == INVALIDO );
-
-    posicao++;  
+        
+        if( sair( docente[posicao].dado.cpf[0], docente[posicao].dado.cpf[1] ) ){               
+            return false;
+        }else{ 
+            limpaTexto(docente[posicao].dado.cpf);
+            DADO = validaCpf ( docente[posicao].dado.cpf );} 
+    }while( DADO == INVALIDO );
+    
     return true;
 }
 bool solicitaSexoProfessor( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = professoresCadastrados - 1;
+    char TesteSaida[3]; 
     
     do{
         printf("Digite o sexo:\n");
-        scanf("%c", &docente[posicao].dado.sexo);
-        getchar( );
-        DADO = validaSexo (docente[posicao].dado.sexo);
+        fgets( TesteSaida, 2, stdin);
+        
+        if( sair( TesteSaida[0], TesteSaida[1] ) ){              
+            return false;
+        }else{ 
+            docente[posicao].dado.sexo = TesteSaida[0];
+            DADO = validaSexo (docente[posicao].dado.sexo);}
     }while( DADO == INVALIDO );
-
-    posicao++; 
+    
     return true;
 }
 
@@ -110,93 +119,107 @@ bool cadastrarAluno(){
     bool solicitaCpfAluno( );
     bool solicitaSexoAluno( );
 
-    if( (solicitaMatriculaAluno( )) == true ){
-       // if( solicitaNomeAluno( ) == true) {
-            //if( solicitaNascimentoAluno( ) == true){
-                if( solicitaCpfAluno( ) == true){
-                    if( solicitaSexoAluno( ) == true){
-                        alunosCadastrados++;
-                        return true;
-                    }else{ return false;}
-                }else{ return false; }
-            //else{ return false; }
-       // }else{ return false;}
-    }else{ return false;}
+    if( alunosCadastrados <= quantMaxAluno ){ 
+        alunosCadastrados++;
+        if( solicitaMatriculaAluno( ) )
+           if( solicitaNomeAluno( ) ) 
+                if( solicitaNascimentoAluno( ) )
+                    if( solicitaCpfAluno( ) )
+                        if( solicitaSexoAluno( ) )
+                            return true;
+        alunosCadastrados--;
+        return false; 
+    }else return false;
 }  
 
 bool solicitaMatriculaAluno( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = alunosCadastrados - 1;
     
     do{
         printf("Digite a matricula do Aluno:\n");
         fgets(discente[posicao].dado.matricula, TAM_MAT, stdin);
-        limpaTexto(discente[posicao].dado.matricula);
-        DADO = validaMatricula(discente[posicao].dado.matricula );
-   }while( DADO == INVALIDO );
-  
-    posicao++;
+        
+        if( sair( discente[posicao].dado.matricula[0], discente[posicao].dado.matricula[1] ) ){
+            return false;
+        }else{ 
+            limpaTexto(discente[posicao].dado.matricula);
+            DADO = validaMatricula(discente[posicao].dado.matricula );} 
+    }while( DADO == INVALIDO );
+
     return true;
 }
 bool solicitaNomeAluno(){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = alunosCadastrados - 1;
     
     do{
         printf("Digite o nome do Aluno:\n");
         fgets(discente[posicao].dado.nome, TAM_NOME, stdin);
         limpaTexto(discente[posicao].dado.nome);
-        DADO = validaNome (discente[posicao].dado.nome );
-   }while( DADO == INVALIDO );
-  
-    posicao++;
+        if( sair( discente[posicao].dado.nome[0], discente[posicao].dado.nome[1]) ){
+            return false;
+        }else{ DADO = validaNome( discente[posicao].dado.nome );}
+    }while( DADO == INVALIDO );
+    
+    padronizaNome( discente[posicao].dado.nome );
     return true;
 } 
 bool solicitaSexoAluno( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = alunosCadastrados - 1;
+    char testeSaida[3];
     
     do{
         printf("Digite o sexo:\n");
-        scanf("%c", &discente[posicao].dado.sexo);
-        getchar( );
-        DADO = validaSexo (discente[posicao].dado.sexo);
-   }while( DADO == INVALIDO );
+        fgets( testeSaida, 2, stdin );
+        
+        if( sair( testeSaida[0], testeSaida[1] ) ){ 
+            return false;
+        }else{ 
+            discente[posicao].dado.sexo = testeSaida[0];
+            DADO = validaSexo (discente[posicao].dado.sexo);}
+    }while( DADO == INVALIDO );
 
-    posicao++; 
     return true;
 }
 bool solicitaCpfAluno( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = alunosCadastrados - 1;
     
     do{
         printf("Digite o CPF:\n");
         fgets(discente[posicao].dado.cpf, TAM_CPF, stdin);
-        limpaTexto(discente[posicao].dado.cpf);
-        DADO = validaCpf ( discente[posicao].dado.cpf );
-   }while( DADO == INVALIDO );
-
-    posicao++;  
+        
+        if( sair( discente[posicao].dado.cpf[0], discente[posicao].dado.cpf[1])){
+            return false;
+        }else{ 
+            limpaTexto(discente[posicao].dado.cpf);
+            DADO = validaCpf ( discente[posicao].dado.cpf ); }
+    }while( DADO == INVALIDO );
+ 
     return true;
 }
 bool solicitaNascimentoAluno( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = alunosCadastrados - 1;
     
     do{
         printf("Digite a data de nascimento:\n");
         fgets(discente[posicao].dado.nascimento, TAM_NAC, stdin);
-        limpaTexto(discente[posicao].dado.nascimento);
-        DADO = validaNascimento ( discente[posicao].dado.nascimento );
-   }while( DADO == INVALIDO );
+        
+        if( sair(discente[posicao].dado.nascimento[0],discente[posicao].dado.nascimento[1] )){
+            return false;
+        }else{ 
+            limpaTexto(discente[posicao].dado.nascimento);
+            DADO = validaNascimento ( discente[posicao].dado.nascimento );}
+    }while( DADO == INVALIDO );
   
-    posicao++;
     return true;
 }
 
@@ -205,114 +228,113 @@ bool cadastrarDisciplina(){
     bool solicitaCodigo( );
     bool solicitaSemestre( );
     bool solicitaVagas( );
-    bool solicitaQuanMatr( );
     bool solicitaProfessor( );
     
-    //if( solicitaNomeDisciplina( ) ){
-       // if( solicitaCodigo( ) ){
-            if( solicitaSemestre( ) ){
-              //  if( solicitaVagas( ) ){
-                   // if( solicitaQuanMatr( ) ){
-                       // if( solicitaProfessor( ) ){
-                            disciplinasCadastradas++;
-                            return true;
-                        //}else{ return false;}
-                 //   }else{ return false;}
-               // }else{ return false;}
-           // }else{ return false;}
-        }else{ return false;}
-    //}else{ return false;}
+    if( disciplinasCadastradas <= quantMaxDisciplina ){
+        disciplinasCadastradas++;
+        if( solicitaNomeDisciplina( ) )
+            if( solicitaCodigo( ) )
+                if( solicitaSemestre( ) )
+                    if( solicitaVagas( ) )
+                        if( solicitaProfessor( ) )
+                                return true;
+        disciplinasCadastradas--;
+        return false;
+    }else return false;
 }
 
 bool solicitaNomeDisciplina( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = disciplinasCadastradas - 1;
     
     do{
         printf("Digite o nome da disciplina:\n");
         fgets(materia[posicao].nome, TAM_NOME_DISC, stdin);
-        limpaTexto(materia[posicao].nome);
-        DADO = validaNomeDisciplina(materia[posicao].nome );
-   }while( DADO == INVALIDO );
-  
-    posicao++;
+        
+        if( sair( materia[posicao].nome[0], materia[posicao].nome[1] )){
+            return false;
+        }else{
+            limpaTexto(materia[posicao].nome);
+            strcpy( materia[posicao].nome, caixaAlta( materia[posicao].nome ) );
+            DADO = validaNomeDisciplina(materia[posicao].nome );}
+    }while( DADO == INVALIDO );
+
     return true;
 }
 bool solicitaCodigo( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = disciplinasCadastradas - 1;
     
     do{
         printf("Digite o código da disciplina:\n");
         fgets(materia[posicao].codigo, TAM_COD_DISC, stdin);
-        limpaTexto(materia[posicao].codigo);
-        DADO = validaCodigo (materia[posicao].codigo );
-   }while( DADO == INVALIDO );
+        
+        if( sair( materia[posicao].codigo[0], materia[posicao].codigo[1] ) ){
+            return false;
+        }else{
+            limpaTexto(materia[posicao].codigo);
+            strcpy( materia[posicao].codigo, caixaAlta(materia[posicao].codigo ) );
+            DADO = validaCodigo (materia[posicao].codigo );} 
+    }while( DADO == INVALIDO );
   
-    posicao++;
     return true;
 }
 bool solicitaSemestre( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = disciplinasCadastradas - 1;
     
     do{
         printf("Digite o semestre da disciplina:\n");
         fgets(materia[posicao].semestre, TAM_SEM, stdin);
-        limpaTexto(materia[posicao].semestre);
-        DADO = validaSemestre (materia[posicao].semestre);
-   }while( DADO == INVALIDO );
-  
-    posicao++;
+        
+        if( sair( materia[posicao].semestre[0], materia[posicao].semestre[1] ) ){
+            return false;
+        }else{
+            limpaTexto(materia[posicao].semestre);
+            DADO = validaSemestre (materia[posicao].semestre);}
+    }while( DADO == INVALIDO );
+
     return true;
 }
 bool solicitaVagas( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = disciplinasCadastradas - 1;
+    char testeSaida[3];
     
     do{
         printf("Digite o número de vagas da disciplina:\n");
-        scanf("%d", &materia[posicao].vagas);
-        //testar com getchar dps
-        DADO = validaVagas (materia[posicao].vagas);
-   }while( DADO == INVALIDO );
+        fgets( testeSaida, 2, stdin );
+        
+        if( sair(testeSaida[0], testeSaida[1] ) ){
+            return false;
+        }else{ 
+            materia[posicao].vagas = charParaInt( testeSaida[0] );
+            DADO = validaVagas(materia[posicao].vagas);}
+    }while( DADO == INVALIDO );
   
-    posicao++;
-    return true;
-}
-bool solicitaQuanMatr( ){
-  //Ver se será inserido pelo usuário ou pelo sistema//
-    enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
-    enum VALIDAR DADO;
-    static int posicao = 0;
-    
-    do{
-        printf("Digite a quantidade de matriculados da disciplina:\n");
-        scanf( "%d", &materia[posicao].quantidadeMatriculado);
-        getchar();
-        DADO = validaQuanMatr(materia[posicao].quantidadeMatriculado);
-   }while( DADO == INVALIDO );
-  
-    posicao++;
     return true;
 }
 bool solicitaProfessor( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
-    static int posicao = 0;
+    int posicao = disciplinasCadastradas - 1;
     
     do{
         printf("Digite o professor da disciplina:\n");
         fgets(materia[posicao].professor.dado.nome, TAM_NOME, stdin);
-        limpaTexto(materia[posicao].professor.dado.nome);
-        DADO = validaProfessores(materia[posicao].professor.dado.nome);
-   }while( DADO == INVALIDO );
-  
-    posicao++;
+        
+        if( sair( materia[posicao].professor.dado.nome[0], materia[posicao].professor.dado.nome[1] ) ){
+            return false;
+        }else{
+            limpaTexto(materia[posicao].professor.dado.nome);
+            DADO = validaProfessores(materia[posicao].professor.dado.nome);} 
+    }while( DADO == INVALIDO );
+    
+    materia[posicao].quantidadeMatriculado++;
     return true;
 }
 #endif ///CADASTRO_FILE_H

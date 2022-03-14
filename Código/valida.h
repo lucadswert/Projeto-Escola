@@ -14,12 +14,12 @@ bool validaNome( char *nome );
 bool validaCodigo( char* );
 bool validaSemestre( char* );
 bool validaVagas( int );
-bool validaQuanMatr( int );
 bool validaProfessores( char* );
 bool validaNomeDisciplina(char *);
+
 ///VALIDA DADOS SOLICITADOS DE PROFESSORES E ALUNOS
 
-bool validaMatricula( char *matricula ){ //OK
+bool validaMatricula( char *matricula ){ 
     char *mensagensDeErro[4] = { };
     int erro = 0;
 
@@ -33,13 +33,13 @@ bool validaMatricula( char *matricula ){ //OK
     mensagensDeErro[erro] = NULL;
     
     if( mensagensDeErro[0] == NULL ){
-        if( alunosCadastrados > 0 ){ 
+        if( alunosCadastrados > 1 ){ 
             for( int cadastrado = 0; cadastrado < alunosCadastrados; cadastrado++){
                 if( (strcmp( matricula, discente[cadastrado].dado.matricula)) == 0 ){ 
                     puts("  Matricula repetida");
                     return false;}}}
     
-        if( professoresCadastrados > 0 ){
+        if( professoresCadastrados > 1 ){
             for( int cadastrado = 0; cadastrado < professoresCadastrados; cadastrado++){
                 if( (strcmp( matricula, docente[cadastrado].dado.matricula)) == 0 ){ 
                     puts ( "   Matricula repetida");
@@ -50,14 +50,14 @@ bool validaMatricula( char *matricula ){ //OK
         return false;}
     return true;
 }
-bool validaNome(char *nome){ //OK
+bool validaNome(char *nome){ 
     for(int i = 0; nome[i] != '\0'; i++){
         if(!(ehLetra(nome[i])) && !(nome[i] == ' ')){
             puts( " Caractere inválido" );
             return false;}}
     return true;
 }
-bool validaNascimento (char *data){ //Validar Consistência
+bool validaNascimento( char *data ){    
     char *mensagensDeErro[3] = { };
     int erro = 0;
   
@@ -69,9 +69,9 @@ bool validaNascimento (char *data){ //Validar Consistência
             mensagensDeErro[erro++] = "  Caractere inserido inválido";
             break;}}
     mensagensDeErro[erro] = NULL;
-  
-  for (int i = 0; i < 2; i++){
-    if (!ehNumero(data[i])){
+  ///PESSOAL, ESSA VALIDAÇÃO PODERIA SER FEITA
+  for( int i = 0; i < 2; i++){
+    if(!ehNumero(data[i])){
       puts( "  Formato invalido" );
             return false;}}
   
@@ -93,8 +93,29 @@ bool validaNascimento (char *data){ //Validar Consistência
         if ( !(data[i] == '/') ){
             puts( "  Formato invalido" );
             return false;}}
+    
+    /*/// DESSA MANEIRA, COM APENAS UM LAÇO
+    for( int caracter = 0; data[caracter] != '\0'; caracter++ ){
+        if( !ehNumero(data[caracter]) && caracter != 2 && caracter != 5 ){
+            puts( "  Formato invalido" );
+            return false;}}
+    */
+    int dia = (charParaInt(data[0])*10)+charParaInt(data[1]),
+        mes = (charParaInt(data[3])*10)+charParaInt(data[4]),
+        ano = (charParaInt(data[6])*1000)+charParaInt(data[7])*100+charParaInt(data[8]*10)+charParaInt(data[9]);
 
-  
+    if( dia <= 31 || mes <= 12 || ( ano <= 2022 || ano < 2003 ) ){
+        if( mes == 4 || mes == 6 || mes == 9 || mes == 11 && dia > 30  ){ 
+            puts(" Data invalida");
+            return false;
+        }else if( mes == 2 && dia > 29 ){
+            puts(" Data invalida");
+            return false;}
+            
+    }else{
+        puts(" Data invalida");
+        return false;}
+    
     if( mensagensDeErro[0] == NULL ){
         return true;
     }else{
@@ -102,7 +123,7 @@ bool validaNascimento (char *data){ //Validar Consistência
             puts( mensagensDeErro[posicoes] );}
         return false;}
 }
-bool validaCpf (char *cpf){ // Jeffinho testar dps, aparentemente, ta okay
+bool validaCpf (char *cpf){ 
     char *mensagensDeErro[3] = { };
     int erro = 0;
 
@@ -117,6 +138,7 @@ bool validaCpf (char *cpf){ // Jeffinho testar dps, aparentemente, ta okay
     mensagensDeErro[erro] = NULL;
   // 0 0 0 . 0 0 0 . 0 0 0   - 0 0
   // 0 1 2 3 4 5 6 7 8 9 10 11
+    
     for(int i = 0; i < 3 ; i++){
         if ( !ehNumero(cpf[i])){
             puts( "  Formato invalido" );
@@ -145,15 +167,21 @@ bool validaCpf (char *cpf){ // Jeffinho testar dps, aparentemente, ta okay
         if ( !(cpf[i] == '-') ){
             puts( "  Formato invalido" );
             return false;}}
-  
+    
+    /*/// DESSA MANEIRA, COM APENAS UM LAÇO
+    for( int caracter = 0; cpf[caracter] != '\0'; caracter++ ){
+        if( !ehNumero(cpf[caracter]) && caracter != 3 && caracter != 7 && caracter != 11 ){
+            puts( "  Formato invalido" );
+            return false;}}
+    */
     if( mensagensDeErro[0] == NULL ){
-        if( alunosCadastrados > 0 ){ 
+        if( alunosCadastrados > 1 ){ 
             for( int cadastrado = 0; cadastrado < alunosCadastrados; cadastrado++){
                 if( (strcmp( cpf, discente[cadastrado].dado.cpf)) == 0 ){ 
                     puts("  CPF repetido");
                     return false;}}}
     
-        if( professoresCadastrados > 0 ){
+        if( professoresCadastrados > 1 ){
             for( int cadastrado = 0; cadastrado < professoresCadastrados; cadastrado++){
                 if( (strcmp( cpf, docente[cadastrado].dado.cpf)) == 0 ){ 
                     puts( "   CPF repetido" );
@@ -165,7 +193,7 @@ bool validaCpf (char *cpf){ // Jeffinho testar dps, aparentemente, ta okay
     
     return true;
 }
-bool validaSexo( char sexo ){ //OK
+bool validaSexo( char sexo ){ 
     if (!(sexo == 'm') && !(sexo == 'M') && !(sexo == 'F') && !(sexo == 'f') ){
         puts( " Opção inválida" );
         return false;
@@ -174,22 +202,25 @@ bool validaSexo( char sexo ){ //OK
 }
 
 ///VALIDA DADOS SOLICITADOS DAS DISCIPLINAS
-bool validaNomeDisciplina(char *nomeDisciplina ){ // Okay
-    /// FAZER FUNCAO QUE DIMINUI OU AUMENTA TODAS AS LETRAS DA STRING
-    /// PARA FAZER COMPARACAO
-
+bool validaNomeDisciplina( char *nomeDisciplina ){ 
+    ///PESSOAL EU CRIEI A FUNCAO caixaAlta que recebe um texto
+    ///e deixa ele completamente em caixa alta.
+    ///Dessa maneira, se um nome de discplina for inserido
+    ///repetidamente, mas com alguma letra com um case
+    //diferente( exemplo: Matematica e matematica ),
+    //nao vai ser aceita também.
     for(int i = 0; nomeDisciplina[i] != '\0'; i++){
         if(!(ehLetra(nomeDisciplina[i])) && !(nomeDisciplina[i] == ' ')){
             puts("  Caractere Invalido");
             return false;}}
-    if( disciplinasCadastradas > 0 ){ 
+    if( disciplinasCadastradas > 1 ){ 
         for( int cadastrado = 0; cadastrado < disciplinasCadastradas; cadastrado++){
             if( (strcmp( nomeDisciplina, materia[cadastrado].nome)) == 0 ){ 
-                puts("  Este nome já está associado a uma discplina");
+                puts("  Este nome já está associado a uma disciplina");
                 return false;}}}
     return true;
 }
-bool validaCodigo( char *codigo ){ // Okay
+bool validaCodigo( char *codigo ){ 
     char *mensagensDeErro[3] = { };
     int erro = 0;
 
@@ -203,6 +234,7 @@ bool validaCodigo( char *codigo ){ // Okay
     
     mensagensDeErro[erro] = NULL;
 
+    ///PESSOA ESSA VALIDACAO PODERIA SER FEITA COM UM LACO SO
     for(int i = 0; i < 3; i++){
         if( !ehLetra(codigo[i]) ) { 
             puts("  Formato invalido");
@@ -212,9 +244,14 @@ bool validaCodigo( char *codigo ){ // Okay
         if( !ehNumero(codigo[i]) ) { 
             puts( "  Formato invalido" );
             return false;}}
-    
+    /* //DESSA MANEIRA
+    for(int caracter = 0; caracter < ((TAM_COD_DISC-2)/2); caracter++ ){
+        if( !ehLetra(codigo[caracter]) || !ehNumero(codigo[(caracter+((TAM_COD_DISC-2)/2))] )){ 
+            puts("  Formato invalido");
+            return false;}}
+    */
     if( mensagensDeErro[0] == NULL ) {
-        if( disciplinasCadastradas > 0 ){ 
+        if( disciplinasCadastradas > 1 ){ 
             for( int cadastrado = 0; cadastrado < disciplinasCadastradas; cadastrado++){
                 if( (strcmp( codigo, materia[cadastrado].codigo)) == 0 ){ 
                     puts("  Código já associado a uma disciplina" );
@@ -225,7 +262,7 @@ bool validaCodigo( char *codigo ){ // Okay
         return false;}
   return true;
 }
-bool validaSemestre( char *semestre ){ //Formato dando erro
+bool validaSemestre( char *semestre ){ 
 
     char *mensagensDeErro[3] = { };
     int erro = 0;
@@ -241,21 +278,41 @@ bool validaSemestre( char *semestre ){ //Formato dando erro
     // 2 0 2 1 . 5
     // 0 1 2 3 4 5
     mensagensDeErro[erro] = NULL;
-    // Falta resolver
+
+    /*
     for(int i = 0; i < 4 ; i++){
         if ( !ehNumero(semestre[i]) ){
             puts ( "  Formato invalido" );
             return false;}}
   
-    for(int i = 4; i < 5 ; i++){
+    for(int i = 4; i < 5 ; i++){ 
+        ///PESSOAL QUE DESGRAÇA É ESSA AQUI
+        ///VOCES FIZERAM UM LACO DE REPETICAO
+        ///QUE SO REPETE UMA UNICA VEZ??????????
+
         if ( !(semestre[i] == '.') ){
+            ////
             puts ( "  Formato invalido" );
             return false;}}
-
-    if (!(semestre[5] == '1') || !(semestre[5] == '2')){
-            puts ( "  Semestre invalido" );
-            return false;}
+    */
+    ///sugestao de como a gente poderia fazer
+    for( int caracter = 0; semestre[caracter] != '\0'; caracter++ ){
+        if( !ehNumero(semestre[caracter]) && caracter != 4 ){
+            puts( "  Formato invalido" );
+            return false;}}
+    /*
+    ///PESSOAL, MAIS UM TRECHO DO CODIGO EM QUE
+    /// O REPLIT ESTÁ DANDO PROBLEMA.
+    ///ELE NÃO ESTÁ CONSEGUINDO COMPARAR O CARACTER
+    ///REPRESENTADO POR semestre[5] COM OS CARACTERES
+    ///ENTRE ASPAS SIMPLES. EU NÃO VEJO OUTRA ALTERNATIVA
+    ///VAMOS TER QUE DEIXAR COMENTADO E FALAR COM O PROFESSOR.
     
+    if ((semestre[5] != '1') && (semestre[5] != '2')){
+        printf( " === %c \n", semestre[5] );
+        puts ( "  Semestre invalido" );
+        return false;}
+    */
     if( mensagensDeErro[0] == NULL ){
         return true;
     }else{
@@ -263,25 +320,40 @@ bool validaSemestre( char *semestre ){ //Formato dando erro
             puts( mensagensDeErro[posicoes] );}
         return false;}
 }
-bool validaVagas( int vagas ){ //// Okay
+bool validaVagas( int vagas ){ 
     if( vagas < 0 ){
         puts( " Valor inválido" );
         return false;
     }else{
       return true;}
 }
-bool validaQuanMatr( int quantidadeMatriculados ){ 
-    /// Ver amanhã cedo
-    return true;
+bool validaProfessores( char *professor ){ 
+    if( validaNome( professor ) ){ 
+        int tamanho = 0;
+        char *professorAtualBackup = (char*)malloc( (strlen( professor ))*sizeof(char) ),
+             *professorDaLista = NULL;
+        
+        strcpy( professorAtualBackup, caixaAlta(professor) );
+    
+        if( professoresCadastrados > 0 ){ 
+            for( int cadastrado = 0; cadastrado < professoresCadastrados; cadastrado++){
+                tamanho = strlen( docente[cadastrado].dado.nome  );
+                professorDaLista = (char*)malloc( tamanho*sizeof(char) );
+                strcpy( professorDaLista, caixaAlta(docente[cadastrado].dado.nome ));
+                
+                if( (strcmp( professorAtualBackup, professorDaLista)) == 0 ){ 
+                    free( professorAtualBackup );
+                    free( professorDaLista );
+                    return true;}}
+            puts("  Professor invalido!" );
+            free( professorAtualBackup );
+            free( professorDaLista );
+            return false;
+        }else{ 
+            puts("  Professor invalido!" );
+            free( professorAtualBackup );
+            free( professorDaLista );
+            return false;}
+    }else{ return false;}
 }
-bool validaProfessores( char *Professor ){
-
-    return true;
-}
-
-
-/*
-*****PROGRAMA FEITO POR CHADS*****
-⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠛⠋⠉⠈⠉⠉⠉⠉⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣿⣿ ⣿⣿⣿⣿⡏⣀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿ ⣿⣿⣿⢏⣴⣿⣷⠀⠀⠀⠀⠀⢾⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿ ⣿⣿⣟⣾⣿⡟⠁⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣷⢢⠀⠀⠀⠀⠀⠀⠀⢸⣿ ⣿⣿⣿⣿⣟⠀⡴⠄⠀⠀⠀⠀⠀⠀⠙⠻⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⣿ ⣿⣿⣿⠟⠻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠶⢴⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⣿ ⣿⣁⡀⠀⠀⢰⢠⣦⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⡄⠀⣴⣶⣿⡄⣿ ⣿⡋⠀⠀⠀⠎⢸⣿⡆⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⠗⢘⣿⣟⠛⠿⣼ ⣿⣿⠋⢀⡌⢰⣿⡿⢿⡀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⡇⠀⢸⣿⣿⣧⢀⣼ ⣿⣿⣷⢻⠄⠘⠛⠋⠛⠃⠀⠀⠀⠀⠀⢿⣧⠈⠉⠙⠛⠋⠀⠀⠀⣿⣿⣿⣿⣿ ⣿⣿⣧⠀⠈⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠟⠀⠀⠀⠀⢀⢃⠀⠀⢸⣿⣿⣿⣿ ⣿⣿⡿⠀⠴⢗⣠⣤⣴⡶⠶⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡸⠀⣿⣿⣿⣿ ⣿⣿⣿⡀⢠⣾⣿⠏⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠉⠀⣿⣿⣿⣿ ⣿⣿⣿⣧⠈⢹⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿ ⣿⣿⣿⣿⡄⠈⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣦⣄⣀⣀⣀⣀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠙⣿⣿⡟⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠁⠀⠀⠹⣿⠃⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⢐⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⠿⠛⠉⠉⠁⠀⢻⣿⡇⠀⠀⠀⠀⠀⠀⢀⠈⣿⣿⡿⠉⠛⠛⠛⠉⠉ ⣿⡿⠋⠁⠀⠀⢀⣀⣠⡴⣸⣿⣇⡄⠀⠀⠀⠀⢀⡿⠄⠙⠛⠀⣀⣠⣤⣤⠄ */
-
 #endif ///VALIDA_FILE_H

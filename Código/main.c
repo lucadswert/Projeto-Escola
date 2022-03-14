@@ -6,8 +6,6 @@
 #include "listas.h"
 #include "menus.h"
 
-///Adicionar função de limpeza de buffer para caso o usuário insira uma quantidade de dados maior do que ///a solicitada
-
 int main( ){
     int menuPrincipal(  );
     void cadastrar( ); 
@@ -62,8 +60,8 @@ void listar( ){
     
     int menuListar( );
     int opcao = -1;
-    
     enum MENU { Aluno = '1', Professor = '2', Disciplina = '3', Voltar = '0'};
+    
     do{
         opcao = menuListar( );
         switch( opcao ){

@@ -60,6 +60,11 @@ void limpaTexto( char* );
 bool tamanhoCerto( int, char* );
 bool ehNumero( char );
 bool ehLetra ( char );
+char *caixaAlta( char* );
+char *caixaBaixa( char* );
+int charParaInt( char );
+bool sair( char sinal, char valor );
+void padronizaNome( char* );
 
 void limpaTexto( char *texto ){
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
@@ -84,7 +89,7 @@ bool tamanhoCerto( const int tamanho, char *dado){
 }
 
 bool ehLetra(char caracter){
-    char caracteresEspeciais[] = ("àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ");
+    char caracteresEspeciais[] = "àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ";
     
     if( (caracter >= 'A' && caracter <= 'Z') ||
 	       ( caracter >= 'a' && caracter <= 'z' ) ){
@@ -95,5 +100,78 @@ bool ehLetra(char caracter){
           return true;}
     }
     return false;     
+}
+char *caixaAlta( char *texto ){
+    char *textoBackup = (char*)malloc((strlen( texto ))*sizeof(char) );
+    
+    char caracteresEspeciais[] = "àèìòùáéíóúýâêîôûãñõçÀÈÌÒÙÁÉÍÓÚÝÂÊÎÔÛÃÑÕÇ";
+    
+    strcpy(textoBackup, texto );
+    
+    for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
+        if( texto[caracter] >= 'a' && texto[caracter] <= 'z' ){
+            textoBackup[caracter] = ( texto[caracter] - 32);
+        }else{//
+        //PESSOAL ESSA PARTE DO CODIGO ESTA PREJUDICA. 
+        //O REPLIT N LIDA BEM COM CARACTERES ESPECIAIS
+        //MESMO COM A BIBLIOTECA LOCALE.H. JA TESTEI.
+        ///POREM SE VCS TESTAREM EM QUALQUER OUTRA IDE FUNCIONA
+            for( int caracterEsp = 0; caracterEsp < 20; caracterEsp++ ){
+                if( texto[caracter] == caracteresEspeciais[caracterEsp] ){
+                    textoBackup[caracter] = caracteresEspeciais[caracterEsp + 20];
+                    break;
+                }}}
+    }
+    //free( textoBackup );
+    return textoBackup;
+}
+char *caixaBaixa( char *texto ){
+    char *textoBackup = (char*)malloc((strlen( texto ))*sizeof(char) );
+    
+    char caracteresEspeciais[] = "ÀÈÌÒÙÁÉÍÓÚÝÂÊÎÔÛÃÑÕÇàèìòùáéíóúýâêîôûãñõç";
+    
+    strcpy(textoBackup, texto );
+    
+    for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
+        if( texto[caracter] >= 'A' && texto[caracter] <= 'Z' ){
+            textoBackup[caracter] = ( texto[caracter] + 32);
+        }else{//
+        //PESSOAL ESSA PARTE DO CODIGO ESTA PREJUDICA. 
+        //O REPLIT N LIDA BEM COM CARACTERES ESPECIAIS
+        //MESMO COM A BIBLIOTECA LOCALE.H. JA TESTEI.
+        ///POREM SE VCS TESTAREM EM QUALQUER OUTRA IDE FUNCIONA
+            for( int caracterEsp = 0; caracterEsp < 20; caracterEsp++ ){
+                if( texto[caracter] == caracteresEspeciais[caracterEsp] ){
+                    textoBackup[caracter] = caracteresEspeciais[caracterEsp + 20];
+                    break;
+                }}}
+    }
+    //free( textoBackup );
+    return textoBackup;
+}
+int charParaInt( char letra ){
+    switch( letra ){
+        case '0' : return 0;
+        case '1' : return 1;
+        case '2' : return 2;
+        case '3' : return 3;
+        case '4' : return 4;
+        case '5' : return 5;
+        case '6' : return 6;
+        case '7' : return 7;
+        case '8' : return 8;
+        case '9' : return 9;
+        default: return -1;                     
+    }
+}
+bool sair( char sinal, char valor ){
+    if( sinal == '-' && valor == '1' ) return true;
+    else return false;
+}
+void padronizaNome( char nome[] ){
+    strcpy( nome, caixaBaixa( nome ) );
+    for( int caracter = 0; nome[caracter] != '\0'; caracter++ ){
+        if( nome[caracter+1] == ' ' ){
+            nome[caracter] = nome[caracter] - 32; }}
 }
 #endif ///GERAIS_FILE_H
