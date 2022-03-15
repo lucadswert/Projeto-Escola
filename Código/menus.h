@@ -47,7 +47,7 @@ int menuListar( ){
 }
 int menuPrincipal( ){
     char resposta = '\0';
-    enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Encerrar_Programa = '0'};
+    enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2',Matricular_Aluno = '3', Encerrar_Programa = '0'};
     
     do{
             puts( "=====================================\n"
@@ -56,12 +56,12 @@ int menuPrincipal( ){
             printf ("MENU PRINCIPAL\n"
                     "[1] | Cadastrar\n"
                     "[2] | Listar \n"
+                    "[3] | Matricular\n"
                     "[0] | Encerrar \n\n-> ");
             resposta = getchar( ); getchar( ); 
-            if( !(resposta == Realizar_Cadastro) && !(resposta == Listar_Informações) && !(resposta == Encerrar_Programa) ){
-                puts("   ^ Valor inserido inválido! \n");
+            if( !(resposta == Realizar_Cadastro) && !(resposta == Listar_Informações) && !(resposta == Encerrar_Programa) && !(resposta == Matricular_Aluno)){
             }else putchar('\n');
-        }while( !(resposta == Realizar_Cadastro) && !(resposta == Listar_Informações) &&  !(resposta == Encerrar_Programa) );
+        }while( !(resposta == Realizar_Cadastro) && !(resposta == Listar_Informações) &&  !(resposta == Encerrar_Programa) && !(resposta == Matricular_Aluno));
     return resposta;
 }
 

@@ -1,4 +1,4 @@
-#ifndef GERAIS_FILE_H
+  #ifndef GERAIS_FILE_H
 #define GERAIS_FILE_H
 
 #define bool _Bool 
@@ -19,10 +19,13 @@
 #define TAM_COD_DISC 8
 #define TAM_SEM 7
 #define TAM_NOME_DISC 31
+#define TAM_TURMA 40
 
 #define quantMaxAluno 3
 #define quantMaxProfessor 3
 #define quantMaxDisciplina 3
+
+struct Disciplinas;
 
 struct dados{
     char cpf[TAM_CPF],
@@ -34,12 +37,12 @@ struct dados{
 typedef struct dados Dados;
 
 struct professor{
-    Dados dado;     
+    Dados dado;    
 }docente[quantMaxProfessor];
 typedef struct professor Professor;
 
 struct aluno{
-    Dados dado; 
+    Dados dado;
 }discente[quantMaxAluno];
 typedef struct aluno Aluno;
 
@@ -50,7 +53,9 @@ struct Disciplinas{
     int vagas,
         quantidadeMatriculado;
     Professor professor;
+    Aluno *turma[TAM_TURMA];
 }materia[quantMaxDisciplina];
+typedef struct Disciplinas Disciplinas;
 
 int professoresCadastrados = 0,
     alunosCadastrados = 0,
@@ -171,7 +176,7 @@ bool sair( char sinal, char valor ){
 void padronizaNome( char nome[] ){
     strcpy( nome, caixaBaixa( nome ) );
     for( int caracter = 0; nome[caracter] != '\0'; caracter++ ){
-        if( nome[caracter+1] == ' ' ){
+        if( nome[caracter-1] == ' ' ){
             nome[caracter] = nome[caracter] - 32; }}
 }
 #endif ///GERAIS_FILE_H

@@ -18,7 +18,6 @@ bool validaProfessores( char* );
 bool validaNomeDisciplina(char *);
 
 ///VALIDA DADOS SOLICITADOS DE PROFESSORES E ALUNOS
-
 bool validaMatricula( char *matricula ){ 
     char *mensagensDeErro[4] = { };
     int erro = 0;
@@ -70,6 +69,7 @@ bool validaNascimento( char *data ){
             break;}}
     mensagensDeErro[erro] = NULL;
   ///PESSOAL, ESSA VALIDAÇÃO PODERIA SER FEITA
+  
   for( int i = 0; i < 2; i++){
     if(!ehNumero(data[i])){
       puts( "  Formato invalido" );
@@ -94,7 +94,8 @@ bool validaNascimento( char *data ){
             puts( "  Formato invalido" );
             return false;}}
     
-    /*/// DESSA MANEIRA, COM APENAS UM LAÇO
+    /// DESSA MANEIRA, COM APENAS UM LAÇO
+  /*
     for( int caracter = 0; data[caracter] != '\0'; caracter++ ){
         if( !ehNumero(data[caracter]) && caracter != 2 && caracter != 5 ){
             puts( "  Formato invalido" );
@@ -104,7 +105,7 @@ bool validaNascimento( char *data ){
         mes = (charParaInt(data[3])*10)+charParaInt(data[4]),
         ano = (charParaInt(data[6])*1000)+charParaInt(data[7])*100+charParaInt(data[8]*10)+charParaInt(data[9]);
 
-    if( dia <= 31 || mes <= 12 || ( ano <= 2022 || ano < 2003 ) ){
+    if( dia <= 31 && mes <= 12 && ano < 2003  ){
         if( mes == 4 || mes == 6 || mes == 9 || mes == 11 && dia > 30  ){ 
             puts(" Data invalida");
             return false;
@@ -136,8 +137,6 @@ bool validaCpf (char *cpf){
             break;}}
   
     mensagensDeErro[erro] = NULL;
-  // 0 0 0 . 0 0 0 . 0 0 0   - 0 0
-  // 0 1 2 3 4 5 6 7 8 9 10 11
     
     for(int i = 0; i < 3 ; i++){
         if ( !ehNumero(cpf[i])){
@@ -275,8 +274,6 @@ bool validaSemestre( char *semestre ){
             mensagensDeErro[erro++] = "  Caractere inserido inválido";
             break;}}
   
-    // 2 0 2 1 . 5
-    // 0 1 2 3 4 5
     mensagensDeErro[erro] = NULL;
 
     /*
@@ -291,7 +288,6 @@ bool validaSemestre( char *semestre ){
         ///QUE SO REPETE UMA UNICA VEZ??????????
 
         if ( !(semestre[i] == '.') ){
-            ////
             puts ( "  Formato invalido" );
             return false;}}
     */
@@ -309,7 +305,6 @@ bool validaSemestre( char *semestre ){
     ///VAMOS TER QUE DEIXAR COMENTADO E FALAR COM O PROFESSOR.
     
     if ((semestre[5] != '1') && (semestre[5] != '2')){
-        printf( " === %c \n", semestre[5] );
         puts ( "  Semestre invalido" );
         return false;}
     */

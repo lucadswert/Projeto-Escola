@@ -1,4 +1,4 @@
------------------------------ ESQUEMA PROJETO ESCOLA -------------------------------
+Ins----------------------------- ESQUEMA PROJETO ESCOLA -------------------------------
 
 ** Definir vagas das disciplinas
 ** Lista de aniversariantes do mes: atual ou manual?
@@ -77,15 +77,30 @@ LHA6
 -> Digite o codigo de uma discplina para sober os alunos matriculados
 -> LHA1
 
-
+------------------------matricular aluno
 Listar Alunos
-    matricula       nome         sexo         nascimento            cpf 
-    matricula       nome         sexo         nascimento            cpf 
-    matricula       nome         sexo         nascimento            cpf 
-    matricula       nome         sexo         nascimento            cpf 
-    matricula       nome         sexo         nascimento            cpf 
-    matricula       nome         sexo         nascimento            cpf 
-    matricula       nome         sexo         nascimento            cpf 
+    nome        matricula       
+    nome        matricula    
+    nome        matricula    
+    nome        matricula    
+    nome        matricula    
+    nome        matricula    
+       
+
+Listar Disciplinas
+    codigo          nome         semestre     professor           vagas
+    codigo          nome         semestre     professor           vagas
+    codigo          nome         semestre     professor           vagas
+    codigo          nome         semestre     professor           vagas
+    codigo          nome         semestre     professor           vagas
+    codigo          nome         semestre     professor           vagas
+    codigo          nome         semestre     professor           vagas
+    codigo          nome         semestre     professor           vagas
+
+
+Inseria a amatricula do aluno seguido do codigo da discplina
+matricula/codigo;
+
 
 -> [1] Listar por sexo
 -> [2] Lista por nascimento

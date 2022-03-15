@@ -5,20 +5,23 @@
 #include "cadastro.h"
 #include "listas.h"
 #include "menus.h"
+#include "matricular.h"
 
 int main( ){
     int menuPrincipal(  );
     void cadastrar( ); 
     void listar( );
+	  void matricular( );
 
 	char resposta = '\0';
-    enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Encerrar_Programa = '0'};
+    enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Matricular_Aluno = '3', Encerrar_Programa = '0'};
     
     do{ 	
         resposta = menuPrincipal( );
         switch( resposta ){
             case Realizar_Cadastro : cadastrar( ); break;
             case Listar_Informações: listar( ); break;
+            case Matricular_Aluno : matricular( ); break;
             case Encerrar_Programa: printf ("Programa Encerrado\n"); break;}
     }while( resposta != Encerrar_Programa );
 
@@ -56,7 +59,7 @@ void cadastrar( ){
 void listar( ){
     void listarProfessores( );
     void listarAlunos( );
-    void listarDiscplinas( );
+    void listarDisciplinas( );
     
     int menuListar( );
     int opcao = -1;
@@ -67,7 +70,7 @@ void listar( ){
         switch( opcao ){
                 case Professor: listarProfessores( ); break;
                 case Aluno: listarAlunos( ); break;
-                case Disciplina: listarDiscplinas( ); break;
+                case Disciplina: listarDisciplinas( ); break;
                 case Voltar: break;   
         }
     }while( opcao != Voltar );

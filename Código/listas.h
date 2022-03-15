@@ -4,16 +4,16 @@
 void listarProfessores( ){
 
 
-    
+ 
 }
 void listarAlunos( ){
-
+//principais
 
 
     
 }
-void listarDiscplinas( ){
-
+void listarDisciplinas( ){
+//principais
 
 
     
