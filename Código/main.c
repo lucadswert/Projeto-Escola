@@ -5,7 +5,7 @@
 #include "cadastro.h"
 #include "listas.h"
 #include "menus.h"
-#include "matricular.h"
+#include "matricula.h"
 
 int main( ){
     int menuPrincipal(  );

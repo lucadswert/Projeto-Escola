@@ -1,4 +1,4 @@
-  #ifndef GERAIS_FILE_H
+#ifndef GERAIS_FILE_H
 #define GERAIS_FILE_H
 
 #define bool _Bool 
@@ -14,7 +14,7 @@
 #define TAM_NAC 12
 #define TAM_NOME 61
 #define TAM_MAT 13
-
+#define TAM_COD_MAT (TAM_MAT+TAM_COD_DISC-1)
 //Dados - Disciplina//
 #define TAM_COD_DISC 8
 #define TAM_SEM 7
