@@ -16,7 +16,7 @@ bool cadastrarProfessor( ){
             if( solicitaNomeProfessor( ) ) 
                 //if( solicitaNascimentoProfessor( ) )
                     //if( solicitaCpfProfessor( ) )
-                        //if( solicitaSexoProfessor( ) )
+                        if( solicitaSexoProfessor( ) )
                             return true;
         professoresCadastrados--; 
         return false; 
@@ -96,20 +96,24 @@ bool solicitaSexoProfessor( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     int posicao = professoresCadastrados - 1;
-    char TesteSaida[3]; 
+    char TesteSaida[4]; 
     
     do{
         printf("Digite o sexo:\n");
-        fgets( TesteSaida, 2, stdin);
+        fgets( TesteSaida, 4, stdin);
         
         if( sair( TesteSaida[0], TesteSaida[1] ) ){              
             return false;
         }else{ 
             docente[posicao].dado.sexo = TesteSaida[0];
-            DADO = validaSexo (docente[posicao].dado.sexo);}
+            DADO = validaSexo(docente[posicao].dado.sexo);}
     }while( DADO == INVALIDO );
-    
-    return true;
+    if( docente[posicao].dado.sexo == 'f' || docente[posicao].dado.sexo == 'm'  ){
+      docente[posicao].dado.sexo = docente[posicao].dado.sexo - 32;
+      return true;
+    }
+    else { 
+      return true;}
 }
 
 bool cadastrarAluno(){
@@ -121,11 +125,11 @@ bool cadastrarAluno(){
 
     if( alunosCadastrados <= quantMaxAluno ){ 
         alunosCadastrados++;
-        if( solicitaMatriculaAluno( ) )
+        //if( solicitaMatriculaAluno( ) )
            if( solicitaNomeAluno( ) ) 
                 //if( solicitaNascimentoAluno( ) )
                     //if( solicitaCpfAluno( ) )
-                        //if( solicitaSexoAluno( ) )
+                        if( solicitaSexoAluno( ) )
                             return true;
         alunosCadastrados--;
         return false; 
@@ -171,11 +175,11 @@ bool solicitaSexoAluno( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     int posicao = alunosCadastrados - 1;
-    char testeSaida[3];
+    char testeSaida[4];
     
     do{
         printf("Digite o sexo:\n");
-        fgets( testeSaida, 2, stdin );
+        fgets( testeSaida, 3, stdin );
         
         if( sair( testeSaida[0], testeSaida[1] ) ){ 
             return false;
@@ -183,8 +187,12 @@ bool solicitaSexoAluno( ){
             discente[posicao].dado.sexo = testeSaida[0];
             DADO = validaSexo (discente[posicao].dado.sexo);}
     }while( DADO == INVALIDO );
-
-    return true;
+    if( discente[posicao].dado.sexo == 'f' || discente[posicao].dado.sexo == 'm'  ){
+      discente[posicao].dado.sexo = discente[posicao].dado.sexo - 32;
+      return true;
+    }
+    else { 
+      return true;}
 }
 bool solicitaCpfAluno( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
@@ -337,7 +345,6 @@ bool solicitaProfessor( ){
             DADO = validaProfessores(materia[posicao].professor.dado.nome);} 
     }while( DADO == INVALIDO );
     
-    materia[posicao].quantidadeMatriculado++;
     return true;
 }
 #endif ///CADASTRO_FILE_H

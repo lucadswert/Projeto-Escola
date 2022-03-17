@@ -202,12 +202,6 @@ bool validaSexo( char sexo ){
 
 ///VALIDA DADOS SOLICITADOS DAS DISCIPLINAS
 bool validaNomeDisciplina( char *nomeDisciplina ){ 
-    ///PESSOAL EU CRIEI A FUNCAO caixaAlta que recebe um texto
-    ///e deixa ele completamente em caixa alta.
-    ///Dessa maneira, se um nome de discplina for inserido
-    ///repetidamente, mas com alguma letra com um case
-    //diferente( exemplo: Matematica e matematica ),
-    //nao vai ser aceita também.
     for(int i = 0; nomeDisciplina[i] != '\0'; i++){
         if(!(ehLetra(nomeDisciplina[i])) && !(nomeDisciplina[i] == ' ')){
             puts("  Caractere Invalido");

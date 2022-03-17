@@ -70,6 +70,8 @@ char *caixaBaixa( char* );
 int charParaInt( char );
 bool sair( char sinal, char valor );
 void padronizaNome( char* );
+char diminuiLetra( char );
+char aumentaLetra( char );
 
 void limpaTexto( char *texto ){
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
@@ -108,24 +110,9 @@ bool ehLetra(char caracter){
 }
 char *caixaAlta( char *texto ){
     char *textoBackup = (char*)malloc((strlen( texto ))*sizeof(char) );
-    
-    char caracteresEspeciais[] = "àèìòùáéíóúýâêîôûãñõçÀÈÌÒÙÁÉÍÓÚÝÂÊÎÔÛÃÑÕÇ";
-    
-    strcpy(textoBackup, texto );
-    
+
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
-        if( texto[caracter] >= 'a' && texto[caracter] <= 'z' ){
-            textoBackup[caracter] = ( texto[caracter] - 32);
-        }else{//
-        //PESSOAL ESSA PARTE DO CODIGO ESTA PREJUDICA. 
-        //O REPLIT N LIDA BEM COM CARACTERES ESPECIAIS
-        //MESMO COM A BIBLIOTECA LOCALE.H. JA TESTEI.
-        ///POREM SE VCS TESTAREM EM QUALQUER OUTRA IDE FUNCIONA
-            for( int caracterEsp = 0; caracterEsp < 20; caracterEsp++ ){
-                if( texto[caracter] == caracteresEspeciais[caracterEsp] ){
-                    textoBackup[caracter] = caracteresEspeciais[caracterEsp + 20];
-                    break;
-                }}}
+        textoBackup[caracter] = aumentaLetra(texto[caracter]);
     }
     //free( textoBackup );
     return textoBackup;
@@ -133,23 +120,8 @@ char *caixaAlta( char *texto ){
 char *caixaBaixa( char *texto ){
     char *textoBackup = (char*)malloc((strlen( texto ))*sizeof(char) );
     
-    char caracteresEspeciais[] = "ÀÈÌÒÙÁÉÍÓÚÝÂÊÎÔÛÃÑÕÇàèìòùáéíóúýâêîôûãñõç";
-    
-    strcpy(textoBackup, texto );
-    
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
-        if( texto[caracter] >= 'A' && texto[caracter] <= 'Z' ){
-            textoBackup[caracter] = ( texto[caracter] + 32);
-        }else{//
-        //PESSOAL ESSA PARTE DO CODIGO ESTA PREJUDICA. 
-        //O REPLIT N LIDA BEM COM CARACTERES ESPECIAIS
-        //MESMO COM A BIBLIOTECA LOCALE.H. JA TESTEI.
-        ///POREM SE VCS TESTAREM EM QUALQUER OUTRA IDE FUNCIONA
-            for( int caracterEsp = 0; caracterEsp < 20; caracterEsp++ ){
-                if( texto[caracter] == caracteresEspeciais[caracterEsp] ){
-                    textoBackup[caracter] = caracteresEspeciais[caracterEsp + 20];
-                    break;
-                }}}
+        textoBackup[caracter] = diminuiLetra(texto[caracter]);
     }
     //free( textoBackup );
     return textoBackup;
@@ -175,8 +147,33 @@ bool sair( char sinal, char valor ){
 }
 void padronizaNome( char nome[] ){
     strcpy( nome, caixaBaixa( nome ) );
+    nome[0] = aumentaLetra(nome[0]); 
     for( int caracter = 0; nome[caracter] != '\0'; caracter++ ){
         if( nome[caracter-1] == ' ' ){
-            nome[caracter] = nome[caracter] - 32; }}
+            nome[caracter] = aumentaLetra(nome[caracter]); }}
+}
+char diminuiLetra( char letra ){
+    char caracteresEspeciais[] = "àèìòùáéíóúýâêîôûãñõçÀÈÌÒÙÁÉÍÓÚÝÂÊÎÔÛÃÑÕÇ";
+
+    if( letra < 91 && letra > 64 ){
+        return letra + 32;
+    }else{
+        for( int caracterEsp = 20; caracterEsp < 40; caracterEsp++ ){
+            if( letra == caracteresEspeciais[caracterEsp] ){
+                letra = caracteresEspeciais[caracterEsp - 20];
+                return letra; }}}
+    return letra;
+}
+char aumentaLetra( char letra ){
+    char caracteresEspeciais[] = "àèìòùáéíóúýâêîôûãñõçÀÈÌÒÙÁÉÍÓÚÝÂÊÎÔÛÃÑÕÇ";
+putchar('\n');
+    if( letra < 123 && letra > 96 ){
+        return letra - 32;
+    }else{
+        for( int caracterEsp = 0; caracterEsp < 20; caracterEsp++ ){
+            if( letra == caracteresEspeciais[caracterEsp] ){
+                letra = caracteresEspeciais[caracterEsp + 20];
+                return letra; }}}
+    return letra;
 }
 #endif ///GERAIS_FILE_H
