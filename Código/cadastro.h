@@ -12,11 +12,11 @@ bool cadastrarProfessor( ){
 
     if( professoresCadastrados <= quantMaxProfessor ){ 
         professoresCadastrados++;
-        if( solicitaMatriculaProfessor( ) )
+        //if( solicitaMatriculaProfessor( ) )
             if( solicitaNomeProfessor( ) ) 
-                if( solicitaNascimentoProfessor( ) )
-                    if( solicitaCpfProfessor( ) )
-                        if( solicitaSexoProfessor( ) )
+                //if( solicitaNascimentoProfessor( ) )
+                    //if( solicitaCpfProfessor( ) )
+                        //if( solicitaSexoProfessor( ) )
                             return true;
         professoresCadastrados--; 
         return false; 
@@ -123,9 +123,9 @@ bool cadastrarAluno(){
         alunosCadastrados++;
         if( solicitaMatriculaAluno( ) )
            if( solicitaNomeAluno( ) ) 
-                if( solicitaNascimentoAluno( ) )
-                    if( solicitaCpfAluno( ) )
-                        if( solicitaSexoAluno( ) )
+                //if( solicitaNascimentoAluno( ) )
+                    //if( solicitaCpfAluno( ) )
+                        //if( solicitaSexoAluno( ) )
                             return true;
         alunosCadastrados--;
         return false; 
@@ -233,10 +233,10 @@ bool cadastrarDisciplina(){
     if( disciplinasCadastradas <= quantMaxDisciplina ){
         disciplinasCadastradas++;
         if( solicitaNomeDisciplina( ) )
-            if( solicitaCodigo( ) )
-                if( solicitaSemestre( ) )
+            //if( solicitaCodigo( ) )
+                //if( solicitaSemestre( ) )
                     if( solicitaVagas( ) )
-                        if( solicitaProfessor( ) )
+                       // if( solicitaProfessor( ) )
                                 return true;
         disciplinasCadastradas--;
         return false;
@@ -304,16 +304,19 @@ bool solicitaVagas( ){
     enum VALIDAR DADO;
     int posicao = disciplinasCadastradas - 1;
     char testeSaida[3];
-    
+    Aluno carlos = { "000.000.000-00 ", "nascimento", "carlos", "5431213", 's' };
+        
     do{
         printf("Digite o número de vagas da disciplina:\n");
-        fgets( testeSaida, 2, stdin );
+        fgets( testeSaida, 3, stdin );
         
         if( sair(testeSaida[0], testeSaida[1] ) ){
             return false;
         }else{ 
-            materia[posicao].vagas = charParaInt( testeSaida[0] );
+            materia[posicao].vagas = charParaInt( testeSaida[0] )*10 + charParaInt( testeSaida[1] ); ///aprimorar
+            printf( "\nvagas = %d\n", materia[posicao].vagas );
             DADO = validaVagas(materia[posicao].vagas);}
+            materia[posicao].turma = (Aluno*)malloc( (materia[posicao].vagas) * sizeof(Aluno**) );
     }while( DADO == INVALIDO );
   
     return true;

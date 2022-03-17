@@ -4,70 +4,83 @@
 #include "valida.h"
 
 void matricular( ){
-    char *solicitaCodigoMatricula( ); 
+    bool solicitaCodigoMatricula( char[] ); 
     char codigoDeMatricula[TAM_COD_MAT];
+    
+    enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
+    enum VALIDAR DADO;
     
     do{
         listarAlunos( );
         listarDisciplinas( );
-        strcpy( codigoDeMatricula, solicitaCodigoMatricula( ) );
-        if( codigoDeMatricula[0] != " " ){
-        /// verificar se matricula existe
-        /// verificar se codigo de disciplina existe
-        /// 
+        DADO = solicitaCodigoMatricula( codigoDeMatricula );
+        if( !DADO == INVALIDO ){
+            strcpy( &codigoDeMatricula[0], (caixaAlta( &codigoDeMatricula[0] )) );
+            for( int i = 0; i < disciplinasCadastradas; i++){
+                if( (strcmp( &codigoDeMatricula[12], materia[i].codigo )) == 0 ){
+                    int matriculaAluno[TAM_MAT - 1];
+                    strncpy( matriculaAluno, codigoDeMatricula, TAM_MAT - 2 );
+                    for( int x = 0; x < alunosCadastrados; x++ ){
+                        if ( (strcmp(matriculaAluno, discente[x].dado.matricula  )) == 0  ){
+                            materia[i].turma[materia[i].quantidadeMatriculado] = &discente[x];
+                            materia[i].quantidadeMatriculado++;
+                            printf( "%s cadastrado em %s \n", discente[x].dado.nome, materia[i].nome );
+                            break;
+                        }else{ puts( "Aluno não cadastrado" );}
+                    }break;
+                }else{ puts( "Disciplina não cadastrada" ); }
+            }
         }
-    }while( codigoDeMatricula[0] != " " );
+    }while( DADO != INVALIDO );
 }
-char *solicitaCodigoMatricula( ){
-    bool validaCodigoMatricula( char* );
-    char codigoMatricula[TAM_COD_MAT];
+bool solicitaCodigoMatricula( char codigoDeMatricula[] ){
+    bool validaCodigoMatricula( char[] );
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     
     do{
         printf("Digite o Codigo de Matricula [matriculaDoAluno/codigoDaDisciplina]\n  -" );
-        fgets( codigoMatricula, TAM_COD_MAT, stdin );
-        if( sair(codigoMatricula[0], codigoMatricula[1] ) ){
-            return " ";
+        fgets( codigoDeMatricula, TAM_COD_MAT, stdin );
+        if( sair(codigoDeMatricula[0], codigoDeMatricula[1] ) ){
+            return false;
         }else{
-            limpaTexto( codigoMatricula );
-            DADO = validaCodigoMatricula( codigoMatricula );}
+            limpaTexto( codigoDeMatricula );
+            DADO = validaCodigoMatricula( codigoDeMatricula );}
     }while( DADO == INVALIDO );
 
-    return codigoMatricula;
+    return true;
 }
-bool validaCodigoMatricula( char *codigoMatricula ){
+bool validaCodigoMatricula( char codigoDeMatricula[] ){
     char matricula[TAM_MAT-1];
     char codigoDisciplina[TAM_COD_DISC];
     char *mensagemDeErro[3];
     int erro = 0;
+    
+    strncpy( matricula, codigoDeMatricula, 11  ); 
 
-    strncpy( matricula, TAM_MAT-2, codigoMatricula );
-    strncpy( codigoDisciplina, TAM_COD_DISC -2, codigoMatricula[TAM_MAT+1] );
-    
-    if( !tamanhoCerto( codigoMatricula, TAM_COD_MAT ) ){
+    if( !tamanhoCerto( TAM_COD_MAT, codigoDeMatricula ) ){
         mensagemDeErro[erro++] = "Codigo invalido!";}
-    
-    for( int caracter = 0; codigoMatricula[caracter] != '\0'; caracter++ ){
-        if( !ehNumero(codigoMatricula[caracter]) && !ehLetra(codigoMatricula[caracter] ) && codigoMatricula[caracter] != '/' ){
+
+    for( int caracter = 0; codigoDeMatricula[caracter] != '\0'; caracter++ ){
+        if( !ehNumero(codigoDeMatricula[caracter]) && !ehLetra(codigoDeMatricula[caracter] ) && codigoDeMatricula[caracter] != '/' ){
              mensagemDeErro[erro++] = "Caracteres inválidos";}
-        if( codigoMatricula[caracter] != '/' && caracter != 11 ){
+        if( codigoDeMatricula[caracter] == '/' && caracter != 11 ){
             puts( "Codigo invalido!" );
             return false;}
     }
     if( !validaMatricula( matricula ) ){
-        puts( "Matricula invalida!" );
         return false;}
-    if( !validaCodigo( codigoDisciplina ) ){
-        puts( "Disciplina invalida!" );
+    
+    if( !validaCodigo( &codigoDeMatricula[TAM_MAT-1] ) ){
         return false;}
 
     mensagemDeErro[erro] = NULL;
     
-    if( mensagemDeErro[0] = NULL ){
+    if( mensagemDeErro[0] == NULL ){
         return true;
     }else{
         for( int posicao = 0; mensagemDeErro[posicao] != NULL; posicao++ ){
+      
             puts( mensagemDeErro[posicao] );}
         return false;}
 }

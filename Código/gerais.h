@@ -14,7 +14,7 @@
 #define TAM_NAC 12
 #define TAM_NOME 61
 #define TAM_MAT 13
-#define TAM_COD_MAT (TAM_MAT+TAM_COD_DISC-1)
+#define TAM_COD_MAT 20
 //Dados - Disciplina//
 #define TAM_COD_DISC 8
 #define TAM_SEM 7
@@ -53,7 +53,7 @@ struct Disciplinas{
     int vagas,
         quantidadeMatriculado;
     Professor professor;
-    Aluno *turma[TAM_TURMA];
+    Aluno **turma;
 }materia[quantMaxDisciplina];
 typedef struct Disciplinas Disciplinas;
 

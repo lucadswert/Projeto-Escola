@@ -11,7 +11,7 @@ int main( ){
     int menuPrincipal(  );
     void cadastrar( ); 
     void listar( );
-	  void matricular( );
+	void matricular( );
 
 	char resposta = '\0';
     enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Matricular_Aluno = '3', Encerrar_Programa = '0'};

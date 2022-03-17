@@ -2,19 +2,15 @@
 #define LISTA_FILE_H
 
 void listarProfessores( ){
-
-
- 
+  menuListarProfessor( );
+  
 }
 void listarAlunos( ){
-//principais
-
-
-    
+  menuListarAluno( );
+  
 }
 void listarDisciplinas( ){
-//principais
-
+  menuListarDisciplinas( );
 
     
 }

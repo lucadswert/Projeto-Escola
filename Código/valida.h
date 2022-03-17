@@ -249,7 +249,7 @@ bool validaCodigo( char *codigo ){
             puts("  Formato invalido");
             return false;}}
     */
-    if( mensagensDeErro[0] == NULL ) {
+    if( mensagensDeErro[0] == NULL ){
         if( disciplinasCadastradas > 1 ){ 
             for( int cadastrado = 0; cadastrado < disciplinasCadastradas; cadastrado++){
                 if( (strcmp( codigo, materia[cadastrado].codigo)) == 0 ){ 
