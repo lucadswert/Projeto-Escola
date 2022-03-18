@@ -31,22 +31,11 @@ bool validaMatricula( char *matricula ){
 
     mensagensDeErro[erro] = NULL;
     
-    if( mensagensDeErro[0] == NULL ){
-        if( alunosCadastrados > 1 ){ 
-            for( int cadastrado = 0; cadastrado < alunosCadastrados; cadastrado++){
-                if( (strcmp( matricula, discente[cadastrado].dado.matricula)) == 0 ){ 
-                    puts("  Matricula repetida");
-                    return false;}}}
-    
-        if( professoresCadastrados > 1 ){
-            for( int cadastrado = 0; cadastrado < professoresCadastrados; cadastrado++){
-                if( (strcmp( matricula, docente[cadastrado].dado.matricula)) == 0 ){ 
-                    puts ( "   Matricula repetida");
-                    return false;}}}
-    }else{
+    if( mensagensDeErro[0] != NULL ){
         for( int posicoes = 0; mensagensDeErro[posicoes] != NULL; posicoes++ ){
             puts( mensagensDeErro[posicoes] );}
         return false;}
+    
     return true;
 }
 bool validaNome(char *nome){ 
@@ -105,8 +94,8 @@ bool validaNascimento( char *data ){
         mes = (charParaInt(data[3])*10)+charParaInt(data[4]),
         ano = (charParaInt(data[6])*1000)+charParaInt(data[7])*100+charParaInt(data[8]*10)+charParaInt(data[9]);
 
-    if( dia <= 31 && mes <= 12 && ano < 2003  ){
-        if( mes == 4 || mes == 6 || mes == 9 || mes == 11 && dia > 30  ){ 
+    if(  dia <= 31 &&  mes <= 12 && ano >= 1899  && ano <= 2003){
+        if( ( mes == 4 || mes == 6 || mes == 9 || mes == 11 ) && dia > 30  ){ 
             puts(" Data invalida");
             return false;
         }else if( mes == 2 && dia > 29 ){
@@ -173,19 +162,7 @@ bool validaCpf (char *cpf){
             puts( "  Formato invalido" );
             return false;}}
     */
-    if( mensagensDeErro[0] == NULL ){
-        if( alunosCadastrados > 1 ){ 
-            for( int cadastrado = 0; cadastrado < alunosCadastrados; cadastrado++){
-                if( (strcmp( cpf, discente[cadastrado].dado.cpf)) == 0 ){ 
-                    puts("  CPF repetido");
-                    return false;}}}
-    
-        if( professoresCadastrados > 1 ){
-            for( int cadastrado = 0; cadastrado < professoresCadastrados; cadastrado++){
-                if( (strcmp( cpf, docente[cadastrado].dado.cpf)) == 0 ){ 
-                    puts( "   CPF repetido" );
-                    return false;}}}
-    }else{
+    if( mensagensDeErro[0] != NULL ){
         for( int posicoes = 0; mensagensDeErro[posicoes] != NULL; posicoes++ ){
             puts( mensagensDeErro[posicoes] );}
         return false;}
@@ -345,4 +322,5 @@ bool validaProfessores( char *professor ){
             return false;}
     }else{ return false;}
 }
+
 #endif ///VALIDA_FILE_H

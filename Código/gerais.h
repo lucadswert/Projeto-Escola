@@ -17,12 +17,12 @@
 #define TAM_COD_MAT 20
 //Dados - Disciplina//
 #define TAM_COD_DISC 8
-#define TAM_SEM 7
+#define TAM_SEM 8
 #define TAM_NOME_DISC 31
 #define TAM_TURMA 40
 
 #define quantMaxAluno 3
-#define quantMaxProfessor 3
+#define quantMaxProfessor 4
 #define quantMaxDisciplina 3
 
 struct Disciplinas;
@@ -63,15 +63,25 @@ int professoresCadastrados = 0,
 
 void limpaTexto( char* );
 bool tamanhoCerto( int, char* );
+
 bool ehNumero( char );
 bool ehLetra ( char );
+
 char *caixaAlta( char* );
 char *caixaBaixa( char* );
+
 int charParaInt( char );
 bool sair( char sinal, char valor );
 void padronizaNome( char* );
+
 char diminuiLetra( char );
 char aumentaLetra( char );
+
+bool verificaMatriculaProfessor( int, char * );
+bool verificaMatriculaAluno( int, char*  );
+bool verificaCpfAluno( int, char * );
+bool verificaCpfProfessor( int, char * );
+bool verificaCodigoDisciplina( char* );
 
 void limpaTexto( char *texto ){
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
@@ -94,7 +104,6 @@ bool tamanhoCerto( const int tamanho, char *dado){
     
     return true;
 }
-
 bool ehLetra(char caracter){
     char caracteresEspeciais[] = "àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ";
     
@@ -112,8 +121,8 @@ char *caixaAlta( char *texto ){
     char *textoBackup = (char*)malloc((strlen( texto ))*sizeof(char) );
 
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
-        textoBackup[caracter] = aumentaLetra(texto[caracter]);
-    }
+        textoBackup[caracter] = aumentaLetra(texto[caracter]);}
+    
     //free( textoBackup );
     return textoBackup;
 }
@@ -166,7 +175,7 @@ char diminuiLetra( char letra ){
 }
 char aumentaLetra( char letra ){
     char caracteresEspeciais[] = "àèìòùáéíóúýâêîôûãñõçÀÈÌÒÙÁÉÍÓÚÝÂÊÎÔÛÃÑÕÇ";
-putchar('\n');
+
     if( letra < 123 && letra > 96 ){
         return letra - 32;
     }else{
@@ -175,5 +184,86 @@ putchar('\n');
                 letra = caracteresEspeciais[caracterEsp + 20];
                 return letra; }}}
     return letra;
+}
+bool verificaMatriculaProfessor( int filtro, char *matricula ){
+    switch( filtro ){ 
+        case 0:
+            if( professoresCadastrados > 0 ){ 
+                for( int cadastrado = 0; cadastrado < professoresCadastrados; cadastrado++){
+                    if( (strcmp( matricula, docente[cadastrado].dado.matricula)) == 0 ){ 
+                        return true;}}
+                        }break;
+        case 1:
+            if( professoresCadastrados > 1 ){ 
+                for( int cadastrado = 0; cadastrado < (professoresCadastrados - 1); cadastrado++){
+                    if( (strcmp( matricula, docente[cadastrado].dado.matricula)) == 0 ){ 
+                        return true;}}
+                        }break;
+        default: puts( "filtro invalido\n" ); 
+      }
+    return false;
+}
+bool verificaMatriculaAluno( int filtro, char *matricula ){
+    switch( filtro ){ 
+        case 0:
+            if( alunosCadastrados > 0 ){ 
+                for( int cadastrado = 0; cadastrado < alunosCadastrados; cadastrado++){
+                    if( (strcmp( matricula, discente[cadastrado].dado.matricula)) == 0 ){ 
+                        return true;}}
+                      }break;
+        case 1:
+            if( alunosCadastrados > 1 ){ 
+                for( int cadastrado = 0; cadastrado < (alunosCadastrados - 1); cadastrado++){
+                    if( (strcmp( matricula, discente[cadastrado].dado.matricula)) == 0 ){ 
+                        return true;}}
+                    }break;
+        default: puts( "filtro invalido\n" ); 
+    }
+    return false;
+}
+bool verificaCpfAluno( int filtro, char *cpf  ){
+    
+      switch( filtro ){ 
+        case 0:
+            if( alunosCadastrados > 0 ){ 
+                for( int cadastrado = 0; cadastrado < alunosCadastrados; cadastrado++){
+                    if( (strcmp( cpf, discente[cadastrado].dado.cpf)) == 0 ){ 
+                        return true;}}
+                }break;
+        case 1:
+            if( alunosCadastrados > 1 ){ 
+                for( int cadastrado = 0; cadastrado < (alunosCadastrados - 1); cadastrado++){
+                    if( (strcmp( cpf, discente[cadastrado].dado.cpf)) == 0 ){ 
+                        return true;}}
+                 }break;
+        default: puts( "filtro invalido\n" ); 
+    }
+    return false;
+}
+bool verificaCpfProfessor( int filtro, char *cpf ){
+      switch( filtro ){ 
+        case 0:
+            if( professoresCadastrados > 0 ){ 
+                for( int cadastrado = 0; cadastrado < professoresCadastrados; cadastrado++){
+                    if( (strcmp( cpf, docente[cadastrado].dado.cpf)) == 0 ){ 
+                        return true;}}
+                }break;
+        case 1:
+            if( professoresCadastrados > 1 ){ 
+                for( int cadastrado = 0; cadastrado < (professoresCadastrados - 1); cadastrado++){
+                    if( (strcmp( cpf, docente[cadastrado].dado.cpf)) == 0 ){ 
+                        return true;}}
+            }break;
+        default: puts( "filtro invalido\n" ); 
+    }
+    return false;
+}
+bool verificaCodigoDisciplina( char *codigoMatricula ){
+    if( disciplinasCadastradas > 1 ){
+        for( int cadastrada = 0; cadastrada < disciplinasCadastradas; cadastrada++){
+            if( (strcmp(codigoMatricula, materia[cadastrada].codigo )) == 0 ){
+              return true;}}
+    }else{
+        return false;}
 }
 #endif ///GERAIS_FILE_H

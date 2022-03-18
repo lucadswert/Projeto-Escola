@@ -60,9 +60,9 @@ int menuPrincipal( ){
                     "[3] | Matricular\n"
                     "[0] | Encerrar \n\n-> ");
             fgets(resposta, 3, stdin ); 
-            if( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Listar_Informações) && !(resposta[0] == Encerrar_Programa) && !(resposta[0] == Matricular_Aluno)){
+            if( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Listar_Informações) && !(resposta[0] == Matricular_Aluno) && !(resposta[0] == Encerrar_Programa)){
             }else putchar('\n');
-        }while( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Listar_Informações) &&  !(resposta[0] == Encerrar_Programa) && !(resposta[0] == Matricular_Aluno));
+        }while( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Listar_Informações) && !(resposta[0] == Matricular_Aluno) && !(resposta[0] == Encerrar_Programa));
 
     return resposta[0];
 }

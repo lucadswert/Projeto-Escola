@@ -10,13 +10,13 @@ bool cadastrarProfessor( ){
     bool solicitaCpfProfessor( );
     bool solicitaSexoProfessor( );
 
-    if( professoresCadastrados <= quantMaxProfessor ){ 
+    if( professoresCadastrados < quantMaxProfessor ){ 
         professoresCadastrados++;
         //if( solicitaMatriculaProfessor( ) )
             if( solicitaNomeProfessor( ) ) 
                 //if( solicitaNascimentoProfessor( ) )
                     //if( solicitaCpfProfessor( ) )
-                        if( solicitaSexoProfessor( ) )
+                       // if( solicitaSexoProfessor( ) )
                             return true;
         professoresCadastrados--; 
         return false; 
@@ -27,14 +27,20 @@ bool solicitaMatriculaProfessor( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     int posicao = professoresCadastrados - 1;
+    
     do{
         printf("Digite o numero de matricula: \n");
         fgets((docente[posicao].dado.matricula), TAM_MAT, stdin);
-        limpaTexto(docente[posicao].dado.matricula);
         
         if( sair( docente[posicao].dado.matricula[0], docente[posicao].dado.matricula[1] ) ){ 
             return false;
-        }else{ DADO = validaMatricula( docente[posicao].dado.matricula );}
+        }else{
+            limpaTexto(docente[posicao].dado.matricula);
+            DADO = validaMatricula( docente[posicao].dado.matricula );
+            if( DADO == VALIDO && ( verificaMatriculaProfessor( 1, docente[posicao].dado.matricula )
+                || verificaMatriculaAluno( 0, docente[posicao].dado.matricula ) ) ){
+                puts( "Matricula repetida");
+                DADO = INVALIDO;}}
     }while( DADO == INVALIDO );
     
     return true;
@@ -87,7 +93,11 @@ bool solicitaCpfProfessor(){
             return false;
         }else{ 
             limpaTexto(docente[posicao].dado.cpf);
-            DADO = validaCpf ( docente[posicao].dado.cpf );} 
+            DADO = validaCpf ( docente[posicao].dado.cpf );            
+            if( DADO == VALIDO && ( verificaCpfProfessor( 1, docente[posicao].dado.cpf )
+                || verificaCpfAluno( 0, docente[posicao].dado.cpf ) ) ){
+                puts( "CPF repetido");
+                DADO = INVALIDO;}}
     }while( DADO == INVALIDO );
     
     return true;
@@ -123,13 +133,13 @@ bool cadastrarAluno(){
     bool solicitaCpfAluno( );
     bool solicitaSexoAluno( );
 
-    if( alunosCadastrados <= quantMaxAluno ){ 
+    if( alunosCadastrados < quantMaxAluno ){ 
         alunosCadastrados++;
-        //if( solicitaMatriculaAluno( ) )
+        if( solicitaMatriculaAluno( ) )
            if( solicitaNomeAluno( ) ) 
-                //if( solicitaNascimentoAluno( ) )
-                    //if( solicitaCpfAluno( ) )
-                        if( solicitaSexoAluno( ) )
+              //  if( solicitaNascimentoAluno( ) )
+                    if( solicitaCpfAluno( ) )
+                     //   if( solicitaSexoAluno( ) )
                             return true;
         alunosCadastrados--;
         return false; 
@@ -149,9 +159,12 @@ bool solicitaMatriculaAluno( ){
             return false;
         }else{ 
             limpaTexto(discente[posicao].dado.matricula);
-            DADO = validaMatricula(discente[posicao].dado.matricula );} 
+            DADO = validaMatricula(discente[posicao].dado.matricula );
+            if( DADO == VALIDO && ( verificaMatriculaProfessor( 0, discente[posicao].dado.matricula )
+                || verificaMatriculaAluno( 1, discente[posicao].dado.matricula ) ) ){
+                puts( "Matricula repetida");
+                DADO = INVALIDO;}}
     }while( DADO == INVALIDO );
-
     return true;
 }
 bool solicitaNomeAluno(){
@@ -207,7 +220,11 @@ bool solicitaCpfAluno( ){
             return false;
         }else{ 
             limpaTexto(discente[posicao].dado.cpf);
-            DADO = validaCpf ( discente[posicao].dado.cpf ); }
+            DADO = validaCpf ( discente[posicao].dado.cpf );
+            if( DADO == VALIDO && ( verificaCpfAluno( 1, discente[posicao].dado.cpf )
+                || verificaCpfProfessor( 0, discente[posicao].dado.cpf ) ) ){
+                puts( "CPF repetido");
+                DADO = INVALIDO;}}
     }while( DADO == INVALIDO );
  
     return true;
@@ -238,14 +255,14 @@ bool cadastrarDisciplina(){
     bool solicitaVagas( );
     bool solicitaProfessor( );
     
-    if( disciplinasCadastradas <= quantMaxDisciplina ){
+    if( disciplinasCadastradas < quantMaxDisciplina ){
         disciplinasCadastradas++;
         if( solicitaNomeDisciplina( ) )
-            //if( solicitaCodigo( ) )
-                //if( solicitaSemestre( ) )
+            if( solicitaCodigo( ) )
+                if( solicitaSemestre( ) )
                     if( solicitaVagas( ) )
-                       // if( solicitaProfessor( ) )
-                                return true;
+                       if( solicitaProfessor( ) )
+                            return true;
         disciplinasCadastradas--;
         return false;
     }else return false;
@@ -311,18 +328,16 @@ bool solicitaVagas( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     int posicao = disciplinasCadastradas - 1;
-    char testeSaida[3];
-    Aluno carlos = { "000.000.000-00 ", "nascimento", "carlos", "5431213", 's' };
+    char testeSaida[4];
         
     do{
         printf("Digite o número de vagas da disciplina:\n");
-        fgets( testeSaida, 3, stdin );
+        fgets( testeSaida, 4, stdin );
         
         if( sair(testeSaida[0], testeSaida[1] ) ){
             return false;
-        }else{ 
-            materia[posicao].vagas = charParaInt( testeSaida[0] )*10 + charParaInt( testeSaida[1] ); ///aprimorar
-            printf( "\nvagas = %d\n", materia[posicao].vagas );
+        }else{ //aprimorar
+            materia[posicao].vagas = charParaInt( testeSaida[0] )*10 + charParaInt( testeSaida[1] );
             DADO = validaVagas(materia[posicao].vagas);}
             materia[posicao].turma = (Aluno*)malloc( (materia[posicao].vagas) * sizeof(Aluno**) );
     }while( DADO == INVALIDO );

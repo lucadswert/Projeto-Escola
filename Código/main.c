@@ -11,7 +11,7 @@ int main( ){
     int menuPrincipal(  );
     void cadastrar( ); 
     void listar( );
-	void matricular( );
+	  void matricular( );
 
 	char resposta = '\0';
     enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Matricular_Aluno = '3', Encerrar_Programa = '0'};
@@ -76,3 +76,31 @@ void listar( ){
     }while( opcao != Voltar );
 }
 
+void matricular( ){
+    bool solicitaCodigoMatricula( char[] ); 
+    char codigoDeMatricula[TAM_COD_MAT];
+    
+    enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
+    enum VALIDAR DADO;
+    
+    do{
+        DADO = solicitaCodigoMatricula( codigoDeMatricula );
+        if( !DADO == INVALIDO ){
+            strcpy( &codigoDeMatricula[0], (caixaAlta( &codigoDeMatricula[0] )) );for( int i = 0; i < disciplinasCadastradas; i++){
+                if( (strcmp( &codigoDeMatricula[12], materia[i].codigo )) == 0 ){
+                    int matriculaAluno[TAM_MAT - 1];
+                    strncpy( matriculaAluno, codigoDeMatricula, TAM_MAT - 2 );
+                    for( int x = 0; x < alunosCadastrados; x++ ){
+                        if ( (strcmp(matriculaAluno, discente[x].dado.matricula  )) == 0  ){
+                            materia[i].turma[materia[i].quantidadeMatriculado] = &discente[x];
+                            materia[i].quantidadeMatriculado++;
+                            materia[i].vagas--;
+                            printf( "%s cadastrado em %s \n", discente[x].dado.nome, materia[i].nome );
+                            break;
+                        }else{ puts( "Aluno não cadastrado" );}
+                    }break;
+                }else{ puts( "Disciplina não cadastrada" ); }
+            }
+        }
+    }while( DADO != INVALIDO );
+  }

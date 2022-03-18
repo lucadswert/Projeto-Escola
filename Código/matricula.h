@@ -1,38 +1,8 @@
-#ifndef MATRICULA_FILE_H 
+ #ifndef MATRICULA_FILE_H 
 #define  MATRICULA_FILE_H
 
 #include "valida.h"
 
-void matricular( ){
-    bool solicitaCodigoMatricula( char[] ); 
-    char codigoDeMatricula[TAM_COD_MAT];
-    
-    enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
-    enum VALIDAR DADO;
-    
-    do{
-        listarAlunos( );
-        listarDisciplinas( );
-        DADO = solicitaCodigoMatricula( codigoDeMatricula );
-        if( !DADO == INVALIDO ){
-            strcpy( &codigoDeMatricula[0], (caixaAlta( &codigoDeMatricula[0] )) );
-            for( int i = 0; i < disciplinasCadastradas; i++){
-                if( (strcmp( &codigoDeMatricula[12], materia[i].codigo )) == 0 ){
-                    int matriculaAluno[TAM_MAT - 1];
-                    strncpy( matriculaAluno, codigoDeMatricula, TAM_MAT - 2 );
-                    for( int x = 0; x < alunosCadastrados; x++ ){
-                        if ( (strcmp(matriculaAluno, discente[x].dado.matricula  )) == 0  ){
-                            materia[i].turma[materia[i].quantidadeMatriculado] = &discente[x];
-                            materia[i].quantidadeMatriculado++;
-                            printf( "%s cadastrado em %s \n", discente[x].dado.nome, materia[i].nome );
-                            break;
-                        }else{ puts( "Aluno não cadastrado" );}
-                    }break;
-                }else{ puts( "Disciplina não cadastrada" ); }
-            }
-        }
-    }while( DADO != INVALIDO );
-}
 bool solicitaCodigoMatricula( char codigoDeMatricula[] ){
     bool validaCodigoMatricula( char[] );
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
