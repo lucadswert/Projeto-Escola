@@ -183,11 +183,9 @@ bool validaNomeDisciplina( char *nomeDisciplina ){
         if(!(ehLetra(nomeDisciplina[i])) && !(nomeDisciplina[i] == ' ')){
             puts("  Caractere Invalido");
             return false;}}
-    if( disciplinasCadastradas > 1 ){ 
-        for( int cadastrado = 0; cadastrado < disciplinasCadastradas; cadastrado++){
-            if( (strcmp( nomeDisciplina, materia[cadastrado].nome)) == 0 ){ 
-                puts("  Este nome já está associado a uma disciplina");
-                return false;}}}
+    if( verificaNomeDisciplina( nomeDisciplina) ){ 
+        puts( "Este nome já está associado a uma disciplina." );
+        return false;}
     return true;
 }
 bool validaCodigo( char *codigo ){ 
@@ -220,13 +218,7 @@ bool validaCodigo( char *codigo ){
             puts("  Formato invalido");
             return false;}}
     */
-    if( mensagensDeErro[0] == NULL ){
-        if( disciplinasCadastradas > 1 ){ 
-            for( int cadastrado = 0; cadastrado < disciplinasCadastradas; cadastrado++){
-                if( (strcmp( codigo, materia[cadastrado].codigo)) == 0 ){ 
-                    puts("  Código já associado a uma disciplina" );
-                    return false;}}}
-    }else{
+    if( mensagensDeErro[0] != NULL ){
         for( int posicoes = 0; mensagensDeErro[posicoes] != NULL; posicoes++ ){
             puts( mensagensDeErro[posicoes] );}
         return false;}

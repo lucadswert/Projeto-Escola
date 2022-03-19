@@ -12,7 +12,7 @@
 /// Formato Data Nascimento: 0 0 / 0 0 / 0 0 0 0 '\0' \n
 ///                          0 1 2 3 4 5 6 7 8 9   0   1 
 #define TAM_NAC 12
-#define TAM_NOME 61
+#define TAM_NOME 32
 #define TAM_MAT 13
 #define TAM_COD_MAT 20
 //Dados - Disciplina//
@@ -81,7 +81,7 @@ bool verificaMatriculaProfessor( int, char * );
 bool verificaMatriculaAluno( int, char*  );
 bool verificaCpfAluno( int, char * );
 bool verificaCpfProfessor( int, char * );
-bool verificaCodigoDisciplina( char* );
+int verificaCodigoDisciplina( int, char* );
 
 void limpaTexto( char *texto ){
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
@@ -258,12 +258,30 @@ bool verificaCpfProfessor( int filtro, char *cpf ){
     }
     return false;
 }
-bool verificaCodigoDisciplina( char *codigoMatricula ){
-    if( disciplinasCadastradas > 1 ){
-        for( int cadastrada = 0; cadastrada < disciplinasCadastradas; cadastrada++){
-            if( (strcmp(codigoMatricula, materia[cadastrada].codigo )) == 0 ){
-              return true;}}
-    }else{
-        return false;}
+int verificaCodigoDisciplina( int filtro, char *codigoMatricula ){
+    enum VERIFICA{ EXISTENCIA = 0, REPETICAO = 1 };
+    switch( filtro ){
+        case EXISTENCIA:
+            if( disciplinasCadastradas > 0 ){
+                for( int cadastrada = 0; cadastrada < disciplinasCadastradas; cadastrada++){
+                    if( (strcmp(codigoMatricula, materia[cadastrada].codigo )) == 0 ){
+                      return cadastrada;}}}
+            break;
+
+        case REPETICAO:
+            if( disciplinasCadastradas > 1 ){
+                for( int cadastrada = 0; cadastrada < disciplinasCadastradas-1; cadastrada++){
+                    if( (strcmp(codigoMatricula, materia[cadastrada].codigo )) == 0 ){
+                      return cadastrada;}}}
+            break;
+    }
+    return -1;
+}
+bool verificaNomeDisciplina( char *nomeDisciplina ){
+    if( disciplinasCadastradas > 0 ){ 
+        for( int cadastrado = 0; cadastrado < disciplinasCadastradas-1; cadastrado++){
+            if( (strcmp( nomeDisciplina, materia[cadastrado].nome)) == 0 ){ 
+                return cadastrado;}}
+    }return false;
 }
 #endif ///GERAIS_FILE_H

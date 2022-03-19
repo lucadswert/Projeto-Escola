@@ -1,4 +1,4 @@
-#include "valida.h"
+ #include "valida.h"
 
 #ifndef CADASTRO_FILE_H
 #define CADASTRO_FILE_H
@@ -12,11 +12,11 @@ bool cadastrarProfessor( ){
 
     if( professoresCadastrados < quantMaxProfessor ){ 
         professoresCadastrados++;
-        //if( solicitaMatriculaProfessor( ) )
+       // if( solicitaMatriculaProfessor( ) )
             if( solicitaNomeProfessor( ) ) 
                 //if( solicitaNascimentoProfessor( ) )
                     //if( solicitaCpfProfessor( ) )
-                       // if( solicitaSexoProfessor( ) )
+                      //  if( solicitaSexoProfessor( ) )
                             return true;
         professoresCadastrados--; 
         return false; 
@@ -57,7 +57,8 @@ bool solicitaNomeProfessor( ){
         
         if( sair( docente[posicao].dado.nome[0], docente[posicao].dado.nome[1] ) ){              
             return false;
-        }else{ DADO = validaNome( docente[posicao].dado.nome );}
+        }else{ 
+            DADO = validaNome( docente[posicao].dado.nome );}
     }while( DADO == INVALIDO );
     
     padronizaNome( docente[posicao].dado.nome );
@@ -302,6 +303,9 @@ bool solicitaCodigo( ){
             limpaTexto(materia[posicao].codigo);
             strcpy( materia[posicao].codigo, caixaAlta(materia[posicao].codigo ) );
             DADO = validaCodigo (materia[posicao].codigo );} 
+            if( DADO == VALIDO && ( verificaCodigoDisciplina( 1 ,materia[posicao].codigo ) > -1 ) ){
+                puts( "Codigo associado a outra disciplina" );
+                DADO = INVALIDO;}
     }while( DADO == INVALIDO );
   
     return true;
@@ -359,7 +363,8 @@ bool solicitaProfessor( ){
             limpaTexto(materia[posicao].professor.dado.nome);
             DADO = validaProfessores(materia[posicao].professor.dado.nome);} 
     }while( DADO == INVALIDO );
-    
+
+    padronizaNome( materia[posicao].professor.dado.nome );
     return true;
 }
 #endif ///CADASTRO_FILE_H
