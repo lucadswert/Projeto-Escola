@@ -12,15 +12,17 @@ bool cadastrarProfessor( ){
 
     if( professoresCadastrados < quantMaxProfessor ){ 
         professoresCadastrados++;
-       // if( solicitaMatriculaProfessor( ) )
+        if( solicitaMatriculaProfessor( ) )
             if( solicitaNomeProfessor( ) ) 
-                //if( solicitaNascimentoProfessor( ) )
-                    //if( solicitaCpfProfessor( ) )
-                      //  if( solicitaSexoProfessor( ) )
+                if( solicitaNascimentoProfessor( ) )
+                    if( solicitaCpfProfessor( ) )
+                        if( solicitaSexoProfessor( ) )
                             return true;
         professoresCadastrados--; 
         return false; 
-    }else return false; 
+    }else{  
+        puts( "Quantidae máxima atingida!" );
+        return false; }
 }
 
 bool solicitaMatriculaProfessor( ){ 
@@ -138,13 +140,15 @@ bool cadastrarAluno(){
         alunosCadastrados++;
         if( solicitaMatriculaAluno( ) )
            if( solicitaNomeAluno( ) ) 
-              //  if( solicitaNascimentoAluno( ) )
+                if( solicitaNascimentoAluno( ) )
                     if( solicitaCpfAluno( ) )
-                     //   if( solicitaSexoAluno( ) )
+                        if( solicitaSexoAluno( ) )
                             return true;
         alunosCadastrados--;
         return false; 
-    }else return false;
+    }else{  
+        puts( "Quantidae máxima atingida!" );
+        return false; }
 }  
 
 bool solicitaMatriculaAluno( ){
@@ -266,7 +270,9 @@ bool cadastrarDisciplina(){
                             return true;
         disciplinasCadastradas--;
         return false;
-    }else return false;
+    }else{  
+        puts( "Quantidae máxima atingida!" );
+        return false; }
 }
 
 bool solicitaNomeDisciplina( ){

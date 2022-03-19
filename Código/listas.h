@@ -193,8 +193,9 @@ void ordenaAlunosPorNascimento( Aluno *alunos ){
                     strcpy(alunos[i+1].dado.nascimento, aux.dado.nascimento);}}}}
 }
 void relatorioAlunos( Aluno alunosOrdenados[] ){
+    printf( "\t\t\tALUNOS CADASTRADOS\n" );
     printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
-                                            TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 4, "NOME" );
+                                            TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
     for( int posicao = 0; posicao < alunosCadastrados; posicao++ ){
         printf( " %*s  %*s  %*s  %*c      %-*s\n", TAM_MAT+5, alunosOrdenados[posicao].dado.matricula, 
                                                TAM_CPF+5, alunosOrdenados[posicao].dado.cpf, 
@@ -203,6 +204,7 @@ void relatorioAlunos( Aluno alunosOrdenados[] ){
                                                TAM_NOME, alunosOrdenados[posicao].dado.nome );} 
 }
 void relatorioProfessores( Professor professoresOrdenados[] ){
+    printf( "\t\t\tPROFESSORES CADASTRADOS\n" );
     printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+5, "MATRÍCULA", TAM_CPF, "CPF", 
                                             TAM_NAC+11, "NASCIMENTO", 12, "SEXO ", 14, "NOME" );
     for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
@@ -213,30 +215,33 @@ void relatorioProfessores( Professor professoresOrdenados[] ){
                                                 professoresOrdenados[posicao].dado.nome );} 
 }
 void relatorioDisciplinas( ){
+    printf( "\t\t\tDISCIPLINAS CADASTRADAS\n" );
     printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "CÓDIGO", TAM_SEM+4, "SEMESTRE", 
                                      11,"RELAÇÃO", 18, "PROFESSOR", 18, "NOME" );
     for( int posicao = 0; posicao < disciplinasCadastradas; posicao++ ){
-        printf( "%*s  %*s  %*d/%d      %-*s  %-*s\n", TAM_COD_DISC+3, materia[posicao].codigo, 
+        printf( "%*s  %*s  %*d/%02.d      %-*s  %-*s\n", TAM_COD_DISC+3, materia[posicao].codigo, 
                                                           TAM_SEM+2, materia[posicao].semestre,
                                                           4 ,materia[posicao].quantidadeMatriculado, 
                                                           materia[posicao].vagas + materia[posicao].quantidadeMatriculado, 
                                                           20, materia[posicao].professor.dado.nome, 20 ,materia[posicao].nome );} 
 }
 void disciplinaComAlunos( int posicao ){
-    
-    printf( "DISCIPLINA\n%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "CÓDIGO", TAM_SEM+4, "SEMESTRE", 
+    printf( "\n  DISCIPLINA:\n" );
+    printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "CÓDIGO", TAM_SEM+4, "SEMESTRE", 
                                      11,"RELAÇÃO", 18, "PROFESSOR", 18, "NOME" );
-    for( int posicao = 0; posicao < disciplinasCadastradas; posicao++ ){
-        printf( "AlLUNOS MATRICULADOS\n%*s  %*s  %*d/%d      %-*s  %-*s\n", TAM_COD_DISC+3, materia[posicao].codigo, 
-                                                          TAM_SEM+2, materia[posicao].semestre,
-                                                          4 ,materia[posicao].quantidadeMatriculado, 
-                                                          materia[posicao].vagas + materia[posicao].quantidadeMatriculado, 
-                                                          20, materia[posicao].professor.dado.nome, 20 ,materia[posicao].nome );} 
-    printf( "\n%*s %*s  \n", TAM_MAT+4, "MATRÍCULA", 4, "NOME" );
+
+    printf( "%*s  %*s  %*d/%02d      %-*s  %-*s\n", TAM_COD_DISC+3, materia[posicao].codigo, 
+                                                      TAM_SEM+2, materia[posicao].semestre,
+                                                      4 ,materia[posicao].quantidadeMatriculado, 
+                                                      materia[posicao].vagas + materia[posicao].quantidadeMatriculado, 
+                                                      20, materia[posicao].professor.dado.nome, 20 ,materia[posicao].nome );
+    
+    printf( "\n  MATRICULADOS:\n" );
+    printf( "%*s %*s  \n", TAM_MAT+3, "MATRÍCULA", 15, "NOME" );
     
     for( int alunos = 0; alunos < materia[posicao].quantidadeMatriculado; alunos++ ){
-        printf( " %*s      %-*s\n", TAM_MAT+5, materia[posicao].turma[alunos]->dado.matricula,
-                                               TAM_NOME, materia[posicao].turma[alunos]->dado.nome );} 
+        printf( " %*s      %-*s\n", TAM_MAT+2, materia[posicao].turma[alunos]->dado.matricula,
+                                               TAM_NOME+6, materia[posicao].turma[alunos]->dado.nome );} 
 }
 int solicitaCodigoFiltro( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };

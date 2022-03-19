@@ -21,9 +21,9 @@
 #define TAM_NOME_DISC 31
 #define TAM_TURMA 40
 
-#define quantMaxAluno 3
+#define quantMaxAluno 4
 #define quantMaxProfessor 4
-#define quantMaxDisciplina 3
+#define quantMaxDisciplina 4
 
 struct Disciplinas;
 
