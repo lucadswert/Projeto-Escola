@@ -14,16 +14,16 @@ bool cadastrarProfessor( ){
         for( int posicao = 0; posicao < TAM_MINIS; posicao++ ){
             docente[professoresCadastrados].ministrando[posicao] = -1;}
         professoresCadastrados++;
-        if( solicitaMatriculaProfessor( ) )
+       // if( solicitaMatriculaProfessor( ) )
             if( solicitaNomeProfessor( ) ) 
                 if( solicitaNascimentoProfessor( ) )
-                    if( solicitaCpfProfessor( ) )
-                        if( solicitaSexoProfessor( ) ){
-                            return true;}
+                   // if( solicitaCpfProfessor( ) )
+                        //if( solicitaSexoProfessor( ) )
+                            return true;
         professoresCadastrados--; 
         return false; 
     }else{  
-        puts( "Quantidae máxima atingida!" );
+        puts( "Quantidade máxima atingida!" );
         return false; }
 }
 

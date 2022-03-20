@@ -23,8 +23,7 @@ void listarProfessores( ){
     Professor professoresOrdenados[professoresCadastrados];
     char resposta = '\0';
     enum MENU{ Filtro_Geral = '1', Filtro_Sexo = '2', Filtro_Nome = '3',
-               Filtro_Nascimento = '4', Filtro_Buscar = '5', 
-               Filtro_Aniversario = '6', Voltar = '0'};
+               Filtro_Nascimento = '4', Filtro_Buscar = '5', Voltar = '0'};
     
     if( professoresCadastrados > 0 ){
         for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
@@ -48,7 +47,6 @@ void listarProfessores( ){
                     relatorioProfessores( professoresOrdenados );
                     break;
                 //case Filtro_Buscar : faltaCriar( ); break;
-                //case Filtro_Aniversario : faltaCriar( ); break;
                 case Voltar: break;}
         }while( resposta != Voltar );
     }else{ puts( "\tNão há professores cadastrados" );}
@@ -58,8 +56,7 @@ void listarAlunos( ){
     Aluno alunosOrdenados[alunosCadastrados];
     char resposta = '\0';
     enum MENU{ Filtro_Geral = '1', Filtro_Sexo = '2', Filtro_Nome = '3', 
-               Filtro_Nascimento = '4', Filtro_Buscar = '5',
-               Filtro_Aniversario = '6', Voltar = '0'};
+               Filtro_Nascimento = '4', Filtro_Buscar = '5', Voltar = '0'};
 
     if( alunosCadastrados > 0 ){ 
         for( int posicao = 0; posicao < alunosCadastrados; posicao++ ){
@@ -82,10 +79,6 @@ void listarAlunos( ){
                     ordenaAlunosPorNascimento( alunosOrdenados );
                     relatorioAlunos( alunosOrdenados );
                     break;
-                case Filtro_Aniversario: 
-                    aniversarianteMes( ); 
-                    break;
-                //case Filtro_Aniversario : faltaCriar( ); break;
                 case Voltar: break;
             }
         }while( resposta != Voltar );
@@ -97,7 +90,7 @@ void listarDisciplinas( ){
     int menuListarDisciplinas( );
     char resposta = '\0';
     enum MENU{ Filtro_Geral = '1', Filtro_disciplinas_com_alunos = '2',
-               Filtro_disciplinas_vagas = '3', Voltar = '0'};
+               Filtro_disciplinas_vagas = '3',  Voltar = '0'};
     
     if( disciplinasCadastradas > 0 ){ 
         do{ 	
@@ -201,20 +194,45 @@ void ordenaAlunosPorNascimento( Aluno *alunos ){
 }
 
 void aniversarianteMes(){
-  char mesAtual[4];
-  int *aniversariantesDoMes;
-  int* professoresAniversariantes (char* mesAtual);
-  int* alunosAniversariantes (char* mesAtual);
-    
-  printf ("Insira o mês que deseja realizar a busca:");
-  fgets(mesAtual, 4, stdin);
-    limpaTexto( mesAtual );
-    //validar mes;
-    aniversariantesDoMes = alunosAniversariantes( mesAtual );
+    char mesAtual[4];
+    int mesAtualNum;
+    int* aniversariantesDoMes;
+    int* professoresAniversariantes (char* mesAtual);
+    int* alunosAniversariantes (char* mesAtual);
 
-    /*for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
-        printf( "%s = %s\n", discente[aniversariantesDoMes[corredor]].dado.nome, discente[aniversariantesDoMes[corredor]].dado.nascimento );
-    }*/
+    do{
+        printf ("Insira o mês que deseja realizar a busca:");
+        fgets(mesAtual, 4, stdin);
+        if( sair( mesAtual[0], mesAtual[1] ) ){
+            break;
+        }else{
+            limpaTexto( mesAtual );
+            mesAtualNum = charParaInt(mesAtual[0])*10 + charParaInt(mesAtual[1]);
+            if( mesAtualNum > 12 || mesAtualNum < 1 ){
+                puts( "Mês invalido!" );
+            }else{ 
+                printf( "\t\tANIVERSARIANTES DO MES\n");
+                aniversariantesDoMes = alunosAniversariantes( mesAtual );
+                if( aniversariantesDoMes[0] != -1  ){ 
+                    printf( "\n   ALUNOS \n" );
+                    printf( " %*s  %*s  \n", TAM_NAC+11, "NASCIMENTO", 14, "NOME" );
+                    for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
+                        printf( "%*s %*s \n", TAM_NAC+11, discente[aniversariantesDoMes[corredor]].dado.nascimento, 
+                                             10, discente[aniversariantesDoMes[corredor]].dado.nome );}
+                }else{ puts( "Não há alunos aniversariantes neste mês" );}
+                
+                aniversariantesDoMes = professoresAniversariantes( mesAtual );
+                
+                if( aniversariantesDoMes[0] != -1  ){ 
+                    printf( "\n   PROFESSORES\n" );
+                    printf( " %*s  %*s  \n", TAM_NAC+11, "NASCIMENTO", 14, "NOME" );
+                    for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
+                        printf( "%*s %*s \n", TAM_NAC+11, docente[aniversariantesDoMes[corredor]].dado.nascimento,
+                                              10, docente[aniversariantesDoMes[corredor]].dado.nome );}
+                }else{ puts( "Não há professores aniversariantes neste mês" );}
+            }
+        }
+    }while( true );
 }
 
 int *alunosAniversariantes( char *mesAtual){
@@ -224,7 +242,7 @@ int *alunosAniversariantes( char *mesAtual){
     char mes[3],
          dia_1[3],
          dia_2[3];
-    
+
     for( int i = 0; i < alunosCadastrados; i++){
         aniversarianteDoMes[i] = discente[i];
         if( mesAtual[0] == discente[i].dado.nascimento[3] && mesAtual[1] == discente[i].dado.nascimento[4]){
@@ -233,10 +251,9 @@ int *alunosAniversariantes( char *mesAtual){
     
      int *alunosAniversariantesId = (int *)malloc( quantidade*sizeof( int ) ),
          corredor = 0;
-    
-    
+
     for( int x = 1; x < alunosCadastrados; x++ ){
-        for( int i = 0; i < alunosCadastrados; i++){
+        for( int i = 0; i < alunosCadastrados-1; i++){
             dia_1[0] = aniversarianteDoMes[i].dado.nascimento[0];
             dia_1[1] = aniversarianteDoMes[i].dado.nascimento[1];
             dia_1[2] = '\0';
@@ -248,31 +265,67 @@ int *alunosAniversariantes( char *mesAtual){
                 strcpy( aniversarianteDoMes[i].dado.nascimento, aniversarianteDoMes[i+1].dado.nascimento  );
                 strcpy( aniversarianteDoMes[i+1].dado.nascimento, alunoBackup.dado.nascimento );
             }}}
-
+    
     for( int i = 0; i < alunosCadastrados; i++){
         mes[0] = aniversarianteDoMes[i].dado.nascimento[3];
         mes[1] = aniversarianteDoMes[i].dado.nascimento[4];
         mes[2] = '\0';
      
         if( ( strcmp( mesAtual, mes) ) == 0 ){
-            
             for( int y = 0; y < alunosCadastrados; y++ ){
-            
                 if( strcmp( aniversarianteDoMes[i].dado.nascimento, discente[y].dado.nascimento ) == 0){
-
                     alunosAniversariantesId[corredor++] = y;
-                    //printf("Nome: %s  \nAniversário: %s \n\n", discente[y].dado.nome, discente[y].dado.nascimento);
-                }
-            }  
-        }
-     }
+                }}}}
     alunosAniversariantesId[ corredor ] = -1; 
+    
     return alunosAniversariantesId;
 }
 
 int *professoresAniversariantes(char* mesAtual){
+    Professor aniversarianteDoMes[professoresCadastrados],
+          professoresBackup;
+    int quantidade = 0;
+    char mes[3],
+         dia_1[3],
+         dia_2[3];
+    
+    for( int i = 0; i < professoresCadastrados; i++){
+        aniversarianteDoMes[i] = docente[i];
+        if( mesAtual[0] == docente[i].dado.nascimento[3] && mesAtual[1] == docente[i].dado.nascimento[4]){
+            quantidade++;}}
+    quantidade++;
+    
+     int *professoresAniversariantesId = (int *)malloc( quantidade*sizeof( int ) ),
+         corredor = 0;
 
-  
+    
+    for( int x = 1; x < professoresCadastrados; x++ ){
+        for( int i = 0; i < professoresCadastrados-1; i++){
+            dia_1[0] = aniversarianteDoMes[i].dado.nascimento[0];
+            dia_1[1] = aniversarianteDoMes[i].dado.nascimento[1];
+            dia_1[2] = '\0';
+            dia_2[0] = aniversarianteDoMes[i+1].dado.nascimento[0];
+            dia_2[1] = aniversarianteDoMes[i+1].dado.nascimento[1];
+            dia_2[2] = '\0';
+            if( strcmp( dia_1, dia_2 ) > 0  ){
+                strcpy( professoresBackup.dado.nascimento, aniversarianteDoMes[i].dado.nascimento );
+                strcpy( aniversarianteDoMes[i].dado.nascimento, aniversarianteDoMes[i+1].dado.nascimento  );
+                strcpy( aniversarianteDoMes[i+1].dado.nascimento, professoresBackup.dado.nascimento );
+            }}}
+    
+    for( int i = 0; i < professoresCadastrados; i++){
+        mes[0] = aniversarianteDoMes[i].dado.nascimento[3];
+        mes[1] = aniversarianteDoMes[i].dado.nascimento[4];
+        mes[2] = '\0';
+     
+        if( ( strcmp( mesAtual, mes) ) == 0 ){
+            for( int y = 0; y < professoresCadastrados; y++ ){
+                if( strcmp( aniversarianteDoMes[i].dado.nascimento, docente[y].dado.nascimento ) == 0){
+                    professoresAniversariantesId[corredor++] = y;
+                }}}}
+    professoresAniversariantesId[ corredor ] = -1; 
+    
+    return professoresAniversariantesId;
 }
 
 void relatorioAlunos( Aluno alunosOrdenados[] ){

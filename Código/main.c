@@ -59,10 +59,11 @@ void listar( ){
     void listarProfessores( );
     void listarAlunos( );
     void listarDisciplinas( );
+    void aniversarianteMes( );
     
     int menuListar( );
     int opcao = -1;
-    enum MENU { Aluno = '1', Professor = '2', Disciplina = '3', Voltar = '0'};
+    enum MENU { Aluno = '1', Professor = '2', Disciplina = '3', Aniversariantes = '4', Voltar = '0'};
     
     do{
         opcao = menuListar( );
@@ -70,6 +71,7 @@ void listar( ){
                 case Professor: listarProfessores( ); break;
                 case Aluno: listarAlunos( ); break;
                 case Disciplina: listarDisciplinas( ); break;
+                case Aniversariantes: aniversarianteMes( ); break; 
                 case Voltar: break;   
         }
     }while( opcao != Voltar );
