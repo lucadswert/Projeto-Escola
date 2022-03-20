@@ -25,7 +25,8 @@
 #define quantMaxProfessor 4
 #define quantMaxDisciplina 4
 
-struct Disciplinas;
+#define TAM_MATRIZ 8
+#define TAM_MINIS 4
 
 struct dados{
     char cpf[TAM_CPF],
@@ -38,11 +39,13 @@ typedef struct dados Dados;
 
 struct professor{
     Dados dado;    
+    int ministrando[TAM_MINIS];
 }docente[quantMaxProfessor];
 typedef struct professor Professor;
 
 struct aluno{
     Dados dado;
+    int matrizCurricular[TAM_MATRIZ];
 }discente[quantMaxAluno];
 typedef struct aluno Aluno;
 
@@ -82,6 +85,7 @@ bool verificaMatriculaAluno( int, char*  );
 bool verificaCpfAluno( int, char * );
 bool verificaCpfProfessor( int, char * );
 int verificaCodigoDisciplina( int, char* );
+int verificaNomeProfessor( int, char* );
 
 void limpaTexto( char *texto ){
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
@@ -283,5 +287,24 @@ bool verificaNomeDisciplina( char *nomeDisciplina ){
             if( (strcmp( nomeDisciplina, materia[cadastrado].nome)) == 0 ){ 
                 return cadastrado;}}
     }return false;
+}
+int verificaNomeProfessor( int filtro, char *nomeProfessor ){
+     enum VERIFICA{ EXISTENCIA = 0, REPETICAO = 1 };
+    
+    switch( filtro ){
+        case EXISTENCIA:
+            if( professoresCadastrados > 0 ){
+                for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
+                    if( (strcmp(docente[posicao].dado.nome, nomeProfessor )) == 0  )
+                        return posicao;}}   
+            break;
+        case REPETICAO:
+            if( professoresCadastrados > 1 ){
+                    for( int posicao = 0; posicao < professoresCadastrados - 1 ; posicao++ ){
+                        if( (strcmp(docente[posicao].dado.nome, nomeProfessor )) == 0  )
+                            return posicao;}}  
+            break;
+    }
+    return -1;
 }
 #endif ///GERAIS_FILE_H

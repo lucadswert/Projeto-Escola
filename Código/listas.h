@@ -1,6 +1,8 @@
 #ifndef LISTA_FILE_H
 #define LISTA_FILE_H
 
+void aniversarianteMes();
+
 void ordenaAlunosPorSexo( Aluno * ); 
 void ordenaAlunosPorOrdemAlfabetica( Aluno * );
 void ordenaAlunosPorNascimento( Aluno * );
@@ -13,6 +15,8 @@ void relatorioAlunos( Aluno[] );
 void relatorioProfessores( Professor[] );
 void relatorioDisciplinas( );
 void disciplinaComAlunos( int );
+void disciplinasComFiltroVagas( );
+void alunosComFiltroQuantidadeDisciplinas( );
 
 void listarProfessores( ){
     int menuListarProfessor( );
@@ -78,7 +82,9 @@ void listarAlunos( ){
                     ordenaAlunosPorNascimento( alunosOrdenados );
                     relatorioAlunos( alunosOrdenados );
                     break;
-                //case Filtro_Buscar : faltaCriar( ); break;
+                case Filtro_Aniversario: 
+                    aniversarianteMes( ); 
+                    break;
                 //case Filtro_Aniversario : faltaCriar( ); break;
                 case Voltar: break;
             }
@@ -105,7 +111,8 @@ void listarDisciplinas( ){
                     if( posicao > -1 ){
                         disciplinaComAlunos( posicao );}
                     break;
-                //case Filtro_Vagas : 
+                case Filtro_disciplinas_vagas: disciplinasComFiltroVagas( );
+                    break;
                 case Voltar: break;}
         }while( resposta != Voltar );
     }else{ puts( "\tNão há disciplinas cadastradas" );}
@@ -192,6 +199,82 @@ void ordenaAlunosPorNascimento( Aluno *alunos ){
                     strcpy(alunos[i].dado.nascimento, alunos[i+1].dado.nascimento);
                     strcpy(alunos[i+1].dado.nascimento, aux.dado.nascimento);}}}}
 }
+
+void aniversarianteMes(){
+  char mesAtual[4];
+  int *aniversariantesDoMes;
+  int* professoresAniversariantes (char* mesAtual);
+  int* alunosAniversariantes (char* mesAtual);
+    
+  printf ("Insira o mês que deseja realizar a busca:");
+  fgets(mesAtual, 4, stdin);
+    limpaTexto( mesAtual );
+    //validar mes;
+    aniversariantesDoMes = alunosAniversariantes( mesAtual );
+
+    /*for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
+        printf( "%s = %s\n", discente[aniversariantesDoMes[corredor]].dado.nome, discente[aniversariantesDoMes[corredor]].dado.nascimento );
+    }*/
+}
+
+int *alunosAniversariantes( char *mesAtual){
+    Aluno aniversarianteDoMes[alunosCadastrados],
+          alunoBackup;
+    int quantidade = 0;
+    char mes[3],
+         dia_1[3],
+         dia_2[3];
+    
+    for( int i = 0; i < alunosCadastrados; i++){
+        aniversarianteDoMes[i] = discente[i];
+        if( mesAtual[0] == discente[i].dado.nascimento[3] && mesAtual[1] == discente[i].dado.nascimento[4]){
+            quantidade++;}}
+    quantidade++;
+    
+     int *alunosAniversariantesId = (int *)malloc( quantidade*sizeof( int ) ),
+         corredor = 0;
+    
+    
+    for( int x = 1; x < alunosCadastrados; x++ ){
+        for( int i = 0; i < alunosCadastrados; i++){
+            dia_1[0] = aniversarianteDoMes[i].dado.nascimento[0];
+            dia_1[1] = aniversarianteDoMes[i].dado.nascimento[1];
+            dia_1[2] = '\0';
+            dia_2[0] = aniversarianteDoMes[i+1].dado.nascimento[0];
+            dia_2[1] = aniversarianteDoMes[i+1].dado.nascimento[1];
+            dia_2[2] = '\0';
+            if( strcmp( dia_1, dia_2 ) > 0  ){
+                strcpy( alunoBackup.dado.nascimento, aniversarianteDoMes[i].dado.nascimento );
+                strcpy( aniversarianteDoMes[i].dado.nascimento, aniversarianteDoMes[i+1].dado.nascimento  );
+                strcpy( aniversarianteDoMes[i+1].dado.nascimento, alunoBackup.dado.nascimento );
+            }}}
+
+    for( int i = 0; i < alunosCadastrados; i++){
+        mes[0] = aniversarianteDoMes[i].dado.nascimento[3];
+        mes[1] = aniversarianteDoMes[i].dado.nascimento[4];
+        mes[2] = '\0';
+     
+        if( ( strcmp( mesAtual, mes) ) == 0 ){
+            
+            for( int y = 0; y < alunosCadastrados; y++ ){
+            
+                if( strcmp( aniversarianteDoMes[i].dado.nascimento, discente[y].dado.nascimento ) == 0){
+
+                    alunosAniversariantesId[corredor++] = y;
+                    //printf("Nome: %s  \nAniversário: %s \n\n", discente[y].dado.nome, discente[y].dado.nascimento);
+                }
+            }  
+        }
+     }
+    alunosAniversariantesId[ corredor ] = -1; 
+    return alunosAniversariantesId;
+}
+
+int *professoresAniversariantes(char* mesAtual){
+
+  
+}
+
 void relatorioAlunos( Aluno alunosOrdenados[] ){
     printf( "\t\t\tALUNOS CADASTRADOS\n" );
     printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
@@ -214,7 +297,7 @@ void relatorioProfessores( Professor professoresOrdenados[] ){
                                                 9, professoresOrdenados[posicao].dado.sexo, 
                                                 professoresOrdenados[posicao].dado.nome );} 
 }
-void relatorioDisciplinas( ){
+void relatorioDisciplinas(  ){    
     printf( "\t\t\tDISCIPLINAS CADASTRADAS\n" );
     printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "CÓDIGO", TAM_SEM+4, "SEMESTRE", 
                                      11,"RELAÇÃO", 18, "PROFESSOR", 18, "NOME" );
@@ -223,8 +306,9 @@ void relatorioDisciplinas( ){
                                                           TAM_SEM+2, materia[posicao].semestre,
                                                           4 ,materia[posicao].quantidadeMatriculado, 
                                                           materia[posicao].vagas + materia[posicao].quantidadeMatriculado, 
-                                                          20, materia[posicao].professor.dado.nome, 20 ,materia[posicao].nome );} 
-}
+                                                          20, materia[posicao].professor.dado.nome, 20 ,materia[posicao].nome );
+                                                                        } 
+                            }
 void disciplinaComAlunos( int posicao ){
     printf( "\n  DISCIPLINA:\n" );
     printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "CÓDIGO", TAM_SEM+4, "SEMESTRE", 
@@ -242,6 +326,39 @@ void disciplinaComAlunos( int posicao ){
     for( int alunos = 0; alunos < materia[posicao].quantidadeMatriculado; alunos++ ){
         printf( " %*s      %-*s\n", TAM_MAT+2, materia[posicao].turma[alunos]->dado.matricula,
                                                TAM_NOME+6, materia[posicao].turma[alunos]->dado.nome );} 
+  }
+void disciplinasComFiltroVagas( ){
+    int vagas;
+    
+    do{
+        printf( " Digite a quantidade de vagas\n - " );
+        scanf( "%3d", &vagas );
+        getchar( );
+        
+        if( vagas == -1 ){
+            break;
+        }else{ 
+            if( vagas < 0 ){
+                puts( "\n    Valor de vagas invalida! " );
+            }else{
+                printf( " DISCIPLINAS ENCONTRADAS: \n" );
+                printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "CÓDIGO", TAM_SEM+4, "SEMESTRE", 
+                                                 11,"VAGAS", 18, "PROFESSOR", 18, "NOME" );
+                for( int posicao = 0; posicao < disciplinasCadastradas; posicao++ ){
+                    if( materia[posicao].vagas > vagas ){
+                        printf( "%*s  %*s  %*d        %-*s  %-*s\n", TAM_COD_DISC+3, materia[posicao].codigo, 
+                                                                          TAM_SEM+2, materia[posicao].semestre,
+                                                                          9, materia[posicao].vagas + materia[posicao].quantidadeMatriculado, 
+                                                                          20, materia[posicao].professor.dado.nome, 20, materia[posicao].nome );
+                    }
+                }
+            }
+        }
+    }while( true );
+}
+void alunosComFiltroQuantidadeDisciplinas( ){
+    
+    
 }
 int solicitaCodigoFiltro( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
@@ -268,5 +385,6 @@ int solicitaCodigoFiltro( ){
   
     return posicao;
 }
+
 #endif //LISTAS_FILE_H
 

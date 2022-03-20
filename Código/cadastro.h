@@ -11,13 +11,15 @@ bool cadastrarProfessor( ){
     bool solicitaSexoProfessor( );
 
     if( professoresCadastrados < quantMaxProfessor ){ 
+        for( int posicao = 0; posicao < TAM_MINIS; posicao++ ){
+            docente[professoresCadastrados].ministrando[posicao] = -1;}
         professoresCadastrados++;
         if( solicitaMatriculaProfessor( ) )
             if( solicitaNomeProfessor( ) ) 
                 if( solicitaNascimentoProfessor( ) )
                     if( solicitaCpfProfessor( ) )
-                        if( solicitaSexoProfessor( ) )
-                            return true;
+                        if( solicitaSexoProfessor( ) ){
+                            return true;}
         professoresCadastrados--; 
         return false; 
     }else{  
@@ -137,17 +139,19 @@ bool cadastrarAluno(){
     bool solicitaSexoAluno( );
 
     if( alunosCadastrados < quantMaxAluno ){ 
+        for( int posicao = 0; posicao < TAM_MATRIZ; posicao++ ){
+            discente[alunosCadastrados].matrizCurricular[posicao] = -1;}
         alunosCadastrados++;
-        if( solicitaMatriculaAluno( ) )
+        //if( solicitaMatriculaAluno( ) )
            if( solicitaNomeAluno( ) ) 
                 if( solicitaNascimentoAluno( ) )
-                    if( solicitaCpfAluno( ) )
-                        if( solicitaSexoAluno( ) )
+                   // if( solicitaCpfAluno( ) )
+                       // if( solicitaSexoAluno( ) )
                             return true;
         alunosCadastrados--;
         return false; 
     }else{  
-        puts( "Quantidae máxima atingida!" );
+        puts( "Quantidade máxima atingida!" );
         return false; }
 }  
 
@@ -266,8 +270,8 @@ bool cadastrarDisciplina(){
             if( solicitaCodigo( ) )
                 if( solicitaSemestre( ) )
                     if( solicitaVagas( ) )
-                       if( solicitaProfessor( ) )
-                            return true;
+                       if( solicitaProfessor( ) ){ 
+                           return true;}
         disciplinasCadastradas--;
         return false;
     }else{  
@@ -369,8 +373,9 @@ bool solicitaProfessor( ){
             limpaTexto(materia[posicao].professor.dado.nome);
             DADO = validaProfessores(materia[posicao].professor.dado.nome);} 
     }while( DADO == INVALIDO );
-
     padronizaNome( materia[posicao].professor.dado.nome );
+    docente[verificaNomeProfessor( 1, materia[posicao].professor.dado.nome)].ministrando[disciplinasCadastradas] = posicao;  
+    
     return true;
 }
 #endif ///CADASTRO_FILE_H

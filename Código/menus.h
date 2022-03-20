@@ -116,22 +116,21 @@ int menuListarAluno( ){
 
 int menuListarDisciplinas(){
   char resposta[3];
-  enum MENU{ Filtro_Geral = '1', Filtro_SemAluno = '2', Filtro_Disciplina = '3', Filtro_Vagas = '4', Encerrar_Programa = '0'};
+  enum MENU{ Filtro_Geral = '1', Filtro_Disciplina = '2', Filtro_Vagas = '3', Encerrar_Programa = '0'};
     
     do{
             puts( "=====================================\n"
                   "          LISTA DE DISCIPLINAS       \n"
                   "=====================================\n");
-            printf ("\nFILTROS:\n"
+            printf ("\nFILTRAR POR:\n"
                     "[1] | Geral\n"
-                    "[2] | Uma disciplina \n"
-                    "[3] | Menos de 3 Disciplinas \n"
-                    "[4] | Mais de 40 Vagas\n"
+                    "[2] | Disciplina \n"
+                    "[3] | Vagas\n"
                     "[0] | Voltar \n\n-> ");
             fgets(resposta, 3, stdin );  
-            if( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) && !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Filtro_SemAluno) && !(resposta[0] == Encerrar_Programa)){
+            if( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) && !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Encerrar_Programa)){
             }else putchar('\n');
-        }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) && !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Filtro_SemAluno) && !(resposta[0] == Encerrar_Programa));
+        }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) && !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Encerrar_Programa));
   
     return resposta[0];
 }

@@ -81,6 +81,7 @@ void matricular( ){
     
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
+    static int disciplina = 0;
     
     do{
         DADO = solicitaCodigoMatricula( codigoDeMatricula );
@@ -95,6 +96,8 @@ void matricular( ){
                             materia[i].turma[materia[i].quantidadeMatriculado] = &discente[x];
                             materia[i].quantidadeMatriculado++;
                             materia[i].vagas--;
+                            if( disciplina < TAM_MATRIZ ){
+                                discente[x].matrizCurricular[disciplina++] = i;}
                             printf( "%s cadastrado em %s \n", discente[x].dado.nome, materia[i].nome );
                             break;
                         }else if( x == alunosCadastrados - 1 ){ puts( "Aluno não cadastrado" );}
