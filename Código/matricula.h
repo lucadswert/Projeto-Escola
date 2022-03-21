@@ -2,7 +2,7 @@
 #define  MATRICULA_FILE_H
 
 #include "valida.h"
-
+///VERIFICAR SE O ALUNO NÁO ESTA TENTANDO SE MATRICULAR NUMA MESMO DISCIPLINA
 bool solicitaCodigoMatricula( char codigoDeMatricula[] ){
     bool validaCodigoMatricula( char[] );
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };

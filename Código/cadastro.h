@@ -14,11 +14,11 @@ bool cadastrarProfessor( ){
         for( int posicao = 0; posicao < TAM_MINIS; posicao++ ){
             docente[professoresCadastrados].ministrando[posicao] = -1;}
         professoresCadastrados++;
-       // if( solicitaMatriculaProfessor( ) )
+        if( solicitaMatriculaProfessor( ) )
             if( solicitaNomeProfessor( ) ) 
                 if( solicitaNascimentoProfessor( ) )
-                   // if( solicitaCpfProfessor( ) )
-                        //if( solicitaSexoProfessor( ) )
+                    if( solicitaCpfProfessor( ) )
+                        if( solicitaSexoProfessor( ) )
                             return true;
         professoresCadastrados--; 
         return false; 
@@ -142,10 +142,10 @@ bool cadastrarAluno(){
         for( int posicao = 0; posicao < TAM_MATRIZ; posicao++ ){
             discente[alunosCadastrados].matrizCurricular[posicao] = -1;}
         alunosCadastrados++;
-        //if( solicitaMatriculaAluno( ) )
+        if( solicitaMatriculaAluno( ) )
            if( solicitaNomeAluno( ) ) 
-                if( solicitaNascimentoAluno( ) )
-                   // if( solicitaCpfAluno( ) )
+                //if( solicitaNascimentoAluno( ) )
+                    //if( solicitaCpfAluno( ) )
                        // if( solicitaSexoAluno( ) )
                             return true;
         alunosCadastrados--;
@@ -176,7 +176,7 @@ bool solicitaMatriculaAluno( ){
     }while( DADO == INVALIDO );
     return true;
 }
-bool solicitaNomeAluno(){
+bool solicitaNomeAluno( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     int posicao = alunosCadastrados - 1;
@@ -342,16 +342,14 @@ bool solicitaVagas( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     int posicao = disciplinasCadastradas - 1;
-    char testeSaida[4];
         
     do{
         printf("Digite o número de vagas da disciplina:\n");
-        fgets( testeSaida, 4, stdin );
-        
-        if( sair(testeSaida[0], testeSaida[1] ) ){
+        scanf( "%3.d", materia[posicao].vagas );
+        getchar( );
+        if( materia[posicao].vagas == -1 ){
             return false;
-        }else{ //aprimorar
-            materia[posicao].vagas = charParaInt( testeSaida[0] )*10 + charParaInt( testeSaida[1] );
+        }else{ 
             DADO = validaVagas(materia[posicao].vagas);}
             materia[posicao].turma = (Aluno*)malloc( (materia[posicao].vagas) * sizeof(Aluno**) );
     }while( DADO == INVALIDO );
@@ -359,9 +357,11 @@ bool solicitaVagas( ){
     return true;
 }
 bool solicitaProfessor( ){
+    ///VERIFICAR SE O PROFESSOR NÁO ESTA SENDO CADASTRADO NUMA MESMA DISCIPLINA 
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO;
     int posicao = disciplinasCadastradas - 1;
+    static int posicaoGrade = 0;
     
     do{
         printf("Digite o professor da disciplina:\n");
@@ -374,8 +374,9 @@ bool solicitaProfessor( ){
             DADO = validaProfessores(materia[posicao].professor.dado.nome);} 
     }while( DADO == INVALIDO );
     padronizaNome( materia[posicao].professor.dado.nome );
-    docente[verificaNomeProfessor( 1, materia[posicao].professor.dado.nome)].ministrando[disciplinasCadastradas] = posicao;  
-    
+
+    if( posicaoGrade < TAM_MINIS ){
+        docente[verificaNomeProfessor( 0, materia[posicao].professor.dado.nome)].ministrando[posicaoGrade++] = posicao;} 
     return true;
 }
 #endif ///CADASTRO_FILE_H

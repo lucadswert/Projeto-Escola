@@ -1,7 +1,10 @@
+#include "valida.h"
+#include <string.h>
+
 #ifndef LISTA_FILE_H
 #define LISTA_FILE_H
 
-void aniversarianteMes();
+void aniversarianteMes( );
 
 void ordenaAlunosPorSexo( Aluno * ); 
 void ordenaAlunosPorOrdemAlfabetica( Aluno * );
@@ -16,14 +19,22 @@ void relatorioProfessores( Professor[] );
 void relatorioDisciplinas( );
 void disciplinaComAlunos( int );
 void disciplinasComFiltroVagas( );
-void alunosComFiltroQuantidadeDisciplinas( );
+void alunosComFiltroTamanhoGrade( );
+void professoresComFiltroTamanhoGrade( );
+void filtroPorPalavraChave( );
+void buscarAlunosPorPalavraChave( );
+void buscarProfessoresPorPalavraChave( );
+
+int *dispositivoBuscadorDeAluno( char* );
+int *dispositivoBuscadorDeProfessor( char* );
 
 void listarProfessores( ){
     int menuListarProfessor( );
     Professor professoresOrdenados[professoresCadastrados];
     char resposta = '\0';
     enum MENU{ Filtro_Geral = '1', Filtro_Sexo = '2', Filtro_Nome = '3',
-               Filtro_Nascimento = '4', Filtro_Buscar = '5', Voltar = '0'};
+               Filtro_Nascimento = '4', Filtro_por_tamanho_de_grade = '5',
+               Filtro_por_palavra_chave = '6', Voltar = '0'};
     
     if( professoresCadastrados > 0 ){
         for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
@@ -46,7 +57,12 @@ void listarProfessores( ){
                     ordernaProfessoresPorNascimento( professoresOrdenados ); 
                     relatorioProfessores( professoresOrdenados );
                     break;
-                //case Filtro_Buscar : faltaCriar( ); break;
+                case Filtro_por_tamanho_de_grade:
+                    professoresComFiltroTamanhoGrade( );
+                    break;
+                case Filtro_por_palavra_chave:
+                    buscarProfessoresPorPalavraChave( );
+                    break;
                 case Voltar: break;}
         }while( resposta != Voltar );
     }else{ puts( "\tNão há professores cadastrados" );}
@@ -56,7 +72,8 @@ void listarAlunos( ){
     Aluno alunosOrdenados[alunosCadastrados];
     char resposta = '\0';
     enum MENU{ Filtro_Geral = '1', Filtro_Sexo = '2', Filtro_Nome = '3', 
-               Filtro_Nascimento = '4', Filtro_Buscar = '5', Voltar = '0'};
+               Filtro_Nascimento = '4', Filtro_por_tamanho_de_grade = '5', 
+               Filtro_por_palavra_chave = '6', Voltar = '0'};
 
     if( alunosCadastrados > 0 ){ 
         for( int posicao = 0; posicao < alunosCadastrados; posicao++ ){
@@ -79,8 +96,13 @@ void listarAlunos( ){
                     ordenaAlunosPorNascimento( alunosOrdenados );
                     relatorioAlunos( alunosOrdenados );
                     break;
-                case Voltar: break;
-            }
+                case Filtro_por_tamanho_de_grade:
+                    alunosComFiltroTamanhoGrade( );
+                    break;
+                case Filtro_por_palavra_chave:
+                    buscarAlunosPorPalavraChave( );
+                    break;
+                case Voltar: break;}
         }while( resposta != Voltar );
     }else{ puts( "\tNão há alunos cadastrados" );}
 }
@@ -104,13 +126,13 @@ void listarDisciplinas( ){
                     if( posicao > -1 ){
                         disciplinaComAlunos( posicao );}
                     break;
-                case Filtro_disciplinas_vagas: disciplinasComFiltroVagas( );
+                case Filtro_disciplinas_vagas: 
+                    disciplinasComFiltroVagas( );
                     break;
                 case Voltar: break;}
         }while( resposta != Voltar );
     }else{ puts( "\tNão há disciplinas cadastradas" );}
 }
-
 void ordernaProfessoresPorSexo( Professor *professores ){
     Professor aux;
   
@@ -192,8 +214,7 @@ void ordenaAlunosPorNascimento( Aluno *alunos ){
                     strcpy(alunos[i].dado.nascimento, alunos[i+1].dado.nascimento);
                     strcpy(alunos[i+1].dado.nascimento, aux.dado.nascimento);}}}}
 }
-
-void aniversarianteMes(){
+void aniversarianteMes( ){
     char mesAtual[4];
     int mesAtualNum;
     int* aniversariantesDoMes;
@@ -215,7 +236,7 @@ void aniversarianteMes(){
                 aniversariantesDoMes = alunosAniversariantes( mesAtual );
                 if( aniversariantesDoMes[0] != -1  ){ 
                     printf( "\n   ALUNOS \n" );
-                    printf( " %*s  %*s  \n", TAM_NAC+11, "NASCIMENTO", 14, "NOME" );
+                    printf( "%*s  %*s  \n", TAM_NAC+11, "NASCIMENTO", 14, "NOME" );
                     for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
                         printf( "%*s %*s \n", TAM_NAC+11, discente[aniversariantesDoMes[corredor]].dado.nascimento, 
                                              10, discente[aniversariantesDoMes[corredor]].dado.nome );}
@@ -225,7 +246,7 @@ void aniversarianteMes(){
                 
                 if( aniversariantesDoMes[0] != -1  ){ 
                     printf( "\n   PROFESSORES\n" );
-                    printf( " %*s  %*s  \n", TAM_NAC+11, "NASCIMENTO", 14, "NOME" );
+                    printf( "%*s  %*s  \n", TAM_NAC+11, "NASCIMENTO", 14, "NOME" );
                     for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
                         printf( "%*s %*s \n", TAM_NAC+11, docente[aniversariantesDoMes[corredor]].dado.nascimento,
                                               10, docente[aniversariantesDoMes[corredor]].dado.nome );}
@@ -234,7 +255,6 @@ void aniversarianteMes(){
         }
     }while( true );
 }
-
 int *alunosAniversariantes( char *mesAtual){
     Aluno aniversarianteDoMes[alunosCadastrados],
           alunoBackup;
@@ -280,7 +300,6 @@ int *alunosAniversariantes( char *mesAtual){
     
     return alunosAniversariantesId;
 }
-
 int *professoresAniversariantes(char* mesAtual){
     Professor aniversarianteDoMes[professoresCadastrados],
           professoresBackup;
@@ -327,7 +346,6 @@ int *professoresAniversariantes(char* mesAtual){
     
     return professoresAniversariantesId;
 }
-
 void relatorioAlunos( Aluno alunosOrdenados[] ){
     printf( "\t\t\tALUNOS CADASTRADOS\n" );
     printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
@@ -409,9 +427,66 @@ void disciplinasComFiltroVagas( ){
         }
     }while( true );
 }
-void alunosComFiltroQuantidadeDisciplinas( ){
+void alunosComFiltroTamanhoGrade( ){
+    int matriculado = 0,
+        contador = 0;
     
+    do{
+        printf( "Digite a quantidade de Disciplinas:\n  - menos de " );
+        scanf( "%d", &matriculado );
+        getchar( );
+        
+        if( matriculado == -1 ){
+            break;
+        }else{
+            if( matriculado < 0 ) {
+                puts( "Quantidade de disciplinas invalida" );
+            }else{ 
+                printf( "\t\tALUNOS ENCONTRADOS \n" );
+                printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
+                                                TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
+                for( int posicao = 0; posicao < alunosCadastrados; posicao++ ){
+                    for( int corredor = 0; corredor < TAM_MATRIZ; corredor++ ){
+                        if( !(discente[posicao].matrizCurricular[corredor] == -1)  ){
+                            contador++;}}
+                    if( contador < matriculado ){
+                        printf( " %*s  %*s  %*s  %*c      %-*s\n", TAM_MAT+5, discente[posicao].dado.matricula, 
+                                                   TAM_CPF+5, discente[posicao].dado.cpf, 
+                                                   TAM_NAC+5, discente[posicao].dado.nascimento, 
+                                                   9, discente[posicao].dado.sexo, 
+                                                   TAM_NOME, discente[posicao].dado.nome );}}}}
+    }while( true );
+}
+void professoresComFiltroTamanhoGrade( ){ 
+    int matriculado = 0,
+        contador = 0;
     
+    do{
+        printf( "Digite a quantidade de Disciplinas:\n  - menos de " );
+        scanf( "%d", &matriculado );
+        getchar( );
+        
+        if( matriculado == -1 ){
+            break;
+        }else{
+            if( matriculado < 0 ) {
+                puts( "Quantidade de disciplinas invalida" );
+            }else{ 
+                printf( "\t\tPROFESSORES ENCONTRADOS \n" );
+                printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
+                                                TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
+                
+                for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
+                    for( int corredor = 0; corredor < TAM_MINIS; corredor++ ){
+                        if( !(docente[posicao].ministrando[corredor] == -1)  ){
+                            contador++;}}
+                    if( contador < matriculado ){
+                        printf( " %*s  %*s  %*s  %*c      %-*s\n", TAM_MAT+5, docente[posicao].dado.matricula, 
+                                                   TAM_CPF+5, docente[posicao].dado.cpf, 
+                                                   TAM_NAC+5, docente[posicao].dado.nascimento, 
+                                                   9, docente[posicao].dado.sexo, 
+                                                   TAM_NOME, docente[posicao].dado.nome );}}}}
+    }while( true );
 }
 int solicitaCodigoFiltro( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
@@ -438,6 +513,150 @@ int solicitaCodigoFiltro( ){
   
     return posicao;
 }
-
+void filtroPorPalavraChave( ){
+    char palavraChave[TAM_NOME];
+    enum CHAVE { VALIDA = 1, INVALIDA = 0 };
+    enum CHAVE CHAVE;
+    int *encontradosId;
+    
+    do{
+        printf("PESQUISE OS CADASTRADOS\n\n"
+               "  Digite a palavra chave: ");
+        fgets(palavraChave, TAM_NOME, stdin);
+        if( sair( palavraChave[0], palavraChave[1]) ){
+            break;
+        }else{ 
+            limpaTexto(palavraChave);
+            if( validaNome( palavraChave ) ){
+                encontradosId = dispositivoBuscadorDeAluno( palavraChave );
+                if( !(encontradosId[0] == -1) ){
+                    printf( "\n\n ALUNOS ENCONTRADOS: \n" );
+                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
+                                                TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
+                    for( int posicao = 0; encontradosId[posicao] != -1; posicao++ ){
+                        printf( " %*s  %*s  %*s  %*c      %-*s\n", TAM_MAT+5, discente[posicao].dado.matricula, 
+                                                                   TAM_CPF+5, discente[posicao].dado.cpf, 
+                                                                   TAM_NAC+5, discente[posicao].dado.nascimento, 
+                                                                   9, discente[posicao].dado.sexo, 
+                                                                   TAM_NOME, discente[posicao].dado.nome );}
+                }else{
+                    puts( "Nenhum aluno foi encontrado" );}
+                
+                encontradosId = dispositivoBuscadorDeProfessor( palavraChave );
+                
+                if( !(encontradosId[0] == -1) ){
+                    printf( "\n\n PROFESSORES ENCONTRADOS: \n" );
+                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
+                                                TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
+                    for( int posicao = 0; encontradosId[posicao] != -1; posicao++ ){
+                        printf( " %*s  %*s  %*s  %*c      %-*s\n", TAM_MAT+5, docente[posicao].dado.matricula, 
+                                                                   TAM_CPF+5, docente[posicao].dado.cpf, 
+                                                                   TAM_NAC+5, docente[posicao].dado.nascimento, 
+                                                                   9, docente[posicao].dado.sexo, 
+                                                                   TAM_NOME, docente[posicao].dado.nome );}
+                }else{
+                    puts( "Nenhum professor foi encontrado" );}}}
+    }while( true );
+}
+void buscarAlunosPorPalavraChave( ){
+    char palavraChave[TAM_NOME];
+    enum CHAVE { VALIDA = 1, INVALIDA = 0 };
+    enum CHAVE CHAVE;
+    int *alunosEncontradosId;
+    
+    do{
+        printf("PESQUISE UM ALUNO\n\n"
+               "  Digite a palavra chave: ");
+        fgets(palavraChave, TAM_NOME, stdin);
+        if( sair( palavraChave[0], palavraChave[1]) ){
+            break;
+        }else{ 
+            limpaTexto(palavraChave);
+            if( validaNome( palavraChave ) ){
+                alunosEncontradosId = dispositivoBuscadorDeAluno( palavraChave );
+                
+                if( !(alunosEncontradosId[0] == -1) ){
+                    printf( "\n\n ALUNOS ENCONTRADOS: \n" );
+                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
+                                                TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
+                    for( int posicao = 0; alunosEncontradosId[posicao] != -1; posicao++ ){
+                        printf( " %*s  %*s  %*s  %*c      %-*s\n", TAM_MAT+5, discente[posicao].dado.matricula, 
+                                                                   TAM_CPF+5, discente[posicao].dado.cpf, 
+                                                                   TAM_NAC+5, discente[posicao].dado.nascimento, 
+                                                                   9, discente[posicao].dado.sexo, 
+                                                                   TAM_NOME, discente[posicao].dado.nome );}
+                }else{
+                    puts( "Nenhum aluno foi encontrado" );}}}
+    }while( true );
+}
+int *dispositivoBuscadorDeAluno( char *chave ){
+    int *alunosEncontradosId = (int*)malloc( alunosCadastrados*sizeof(int) ),
+        corredor = 0,
+        tamanhoChave = strlen( chave );
+    char *recorte = (char*)malloc(tamanhoChave*sizeof(char));
+    
+    if( alunosCadastrados > 0){
+        for( int posicao = 0; posicao < alunosCadastrados; posicao++ ){
+            for( int caracter = 0; discente[posicao].dado.nome[caracter] != '\0'; caracter++ ){
+                if( discente[posicao].dado.nome[caracter] == chave[0] &&
+                    discente[posicao].dado.nome[caracter+tamanhoChave-1] == chave[tamanhoChave-1] ){
+                    strncpy( recorte, &discente[posicao].dado.nome[caracter], tamanhoChave );
+                    if( strcmp( chave, recorte ) == 0 ){ 
+                        free( recorte );
+                        alunosEncontradosId[corredor++] = posicao; }}}}}
+    alunosEncontradosId[corredor] = -1;
+    return alunosEncontradosId;
+}
+void buscarProfessoresPorPalavraChave( ){
+    char palavraChave[TAM_NOME];
+    enum CHAVE { VALIDA = 1, INVALIDA = 0 };
+    enum CHAVE CHAVE;
+    int *professoresEncontradosId;
+    
+    do{
+        printf("PESQUISE UM PROFESSOR\n\n"
+               "  Digite a palavra chave: ");
+        fgets(palavraChave, TAM_NOME, stdin);
+        if( sair( palavraChave[0], palavraChave[1]) ){
+            break;
+        }else{ 
+            limpaTexto(palavraChave);
+            if( validaNome( palavraChave ) ){
+                professoresEncontradosId = dispositivoBuscadorDeProfessor( palavraChave );
+                
+                if( !(professoresEncontradosId[0] == -1) ){
+                    printf( "\n\n PROFESSORES ENCONTRADOS: \n" );
+                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÍCULA", TAM_CPF, "CPF", 
+                                                TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
+                    for( int posicao = 0; professoresEncontradosId[posicao] != -1; posicao++ ){
+                        printf( " %*s  %*s  %*s  %*c      %-*s\n", TAM_MAT+5, docente[posicao].dado.matricula, 
+                                                                   TAM_CPF+5, docente[posicao].dado.cpf, 
+                                                                   TAM_NAC+5, docente[posicao].dado.nascimento, 
+                                                                   9, docente[posicao].dado.sexo, 
+                                                                   TAM_NOME, docente[posicao].dado.nome );}
+                }else{
+                    puts( "Nenhum professor foi encontrado" );}}}
+    }while( true );
+}
+int *dispositivoBuscadorDeProfessor( char *chave ){
+    int *professoresEncontradosId = (int*)malloc( professoresCadastrados*sizeof(int) ),
+        corredor = 0,
+        tamanhoChave = strlen( chave );
+    char *recorte = (char*)malloc(tamanhoChave*sizeof(char));
+    
+    if( professoresCadastrados > 0){
+        for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
+            for( int caracter = 0; docente[posicao].dado.nome[caracter] != '\0'; caracter++ ){
+                if( docente[posicao].dado.nome[caracter] == chave[0] &&
+                    docente[posicao].dado.nome[caracter+tamanhoChave-1] == chave[tamanhoChave-1] ){
+                    strncpy( recorte, &docente[posicao].dado.nome[caracter], tamanhoChave );
+                    if( strcmp( chave, recorte ) == 0 ){ 
+                        free( recorte );
+                        professoresEncontradosId[corredor++] = posicao; }}}}}
+    professoresEncontradosId[corredor] = -1;
+    return professoresEncontradosId;
+}
+//alias
+//atlas
 #endif //LISTAS_FILE_H
 

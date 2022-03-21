@@ -14,7 +14,9 @@ int main( ){
 	void matricular( );
 
 	char resposta = '\0';
-    enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', Matricular_Aluno = '3', Encerrar_Programa = '0'};
+    enum MENU{ Realizar_Cadastro = '1', Listar_Informações = '2', 
+               Matricular_Aluno = '3', Filtro_por_palavra_chave = '4',
+               Encerrar_Programa = '0'};
     
     do{ 	
         resposta = menuPrincipal( );
@@ -22,6 +24,7 @@ int main( ){
             case Realizar_Cadastro : cadastrar( ); break;
             case Listar_Informações: listar( ); break;
             case Matricular_Aluno : matricular( ); break;
+            case Filtro_por_palavra_chave: filtroPorPalavraChave( ); break;
             case Encerrar_Programa: printf ("Programa Encerrado\n"); break;}
     }while( resposta != Encerrar_Programa );
 
