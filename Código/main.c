@@ -25,7 +25,7 @@ int main( ){
             case Listar_Informações: listar( ); break;
             case Matricular_Aluno : matricular( ); break;
             case Filtro_por_palavra_chave: filtroPorPalavraChave( ); break;
-            case Encerrar_Programa: printf ("Programa Encerrado\n"); break;}
+            case Encerrar_Programa: printf ("> Programa Encerrado <\n"); break;}
     }while( resposta != Encerrar_Programa );
 
     return EXIT_SUCCESS;
@@ -44,15 +44,15 @@ void cadastrar( ){
         switch( opcao ){
             case Professor: 
                 if( !cadastrarProfessor( ) ){
-                    puts( "\n\tOps!Professor não cadastrado! ");}
+                    puts( "\n\t> Ops! Professor não cadastrado! <");}
                 break;
             case Aluno: 
                 if( !cadastrarAluno( ) ){
-                    puts( "\n\tOps!Aluno não cadastrado! ");}
+                    puts( "\n\t> Ops! Aluno não cadastrado! <");}
                 break;
             case Disciplina: 
                 if( !cadastrarDisciplina( ) ){
-                    puts( "\n\tOps!Discplina não cadastrada! ");}
+                    puts( "\n\t> Ops! Discplina não cadastrada! <");}
                 break;
             case Voltar: break;     
         }
@@ -78,37 +78,4 @@ void listar( ){
                 case Voltar: break;   
         }
     }while( opcao != Voltar );
-}
-
-void matricular( ){
-    bool solicitaCodigoMatricula( char[] ); 
-    char codigoDeMatricula[TAM_COD_MAT];
-    
-    enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
-    enum VALIDAR DADO;
-    static int disciplina = 0;
-    
-    do{
-        DADO = solicitaCodigoMatricula( codigoDeMatricula );
-        if( !DADO == INVALIDO ){
-            strcpy( &codigoDeMatricula[0], (caixaAlta( &codigoDeMatricula[0] )) );
-            for( int i = 0; i < disciplinasCadastradas; i++){
-                if( (strcmp( &codigoDeMatricula[12], materia[i].codigo )) == 0 ){
-                    int matriculaAluno[TAM_MAT - 1];
-                    strncpy( matriculaAluno, codigoDeMatricula, TAM_MAT - 2 );
-                    for( int x = 0; x < alunosCadastrados; x++ ){
-                        if ( (strcmp(matriculaAluno, discente[x].dado.matricula  )) == 0  ){
-                            materia[i].turma[materia[i].quantidadeMatriculado] = &discente[x];
-                            materia[i].quantidadeMatriculado++;
-                            materia[i].vagas--;
-                            if( disciplina < TAM_MATRIZ ){
-                                discente[x].matrizCurricular[disciplina++] = i;}
-                            printf( "%s cadastrado em %s \n", discente[x].dado.nome, materia[i].nome );
-                            break;
-                        }else if( x == alunosCadastrados - 1 ){ puts( "Aluno não cadastrado" );}
-                    }break;
-                }else if (i == disciplinasCadastradas - 1) { puts( "Disciplina não cadastrada" ); }
-            }
-        }
-    }while( DADO != INVALIDO );
 }

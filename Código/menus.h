@@ -17,7 +17,7 @@ int menuCadastrar( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == Professor) && !(resposta[0] == Aluno) && 
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar) ){
-            puts("   ^ Valor inserido inválido! \n");
+            puts( "   > Valor inserido inválido < \n" );
         }else putchar('\n');
     }while( !(resposta[0] == Professor) && !(resposta[0] == Aluno) && 
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar) );    
@@ -44,7 +44,7 @@ int menuListar( ){
         if( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Aniversariantes) && 
             !(resposta[0] == Voltar)){
-            puts("   ^ Valor inserido inválido! \n");
+            puts("   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Professor) && !(resposta[0] == Aluno) && 
             !(resposta[0] == Disciplina) && !(resposta[0] == Aniversariantes) &&
@@ -67,12 +67,12 @@ int menuPrincipal( ){
                 "[2] | Listar \n"
                 "[3] | Matricular\n"
                 "[4] | Buscar por palavra chave\n"
-                "[0] | Encerrar \n\n-> ");
+                "[0] | Encerrar \n\n-> " );
         fgets(resposta, 3, stdin ); 
         if( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Listar_Informações) && 
             !(resposta[0] == Matricular_Aluno) && !(resposta[0] == Encerrar_Programa) &&
             !(resposta[0] == Filtro_por_palavra_chave ) ){
-            puts("   ^ Valor inserido inválido! \n");
+            puts("   > Valor inserido inválido <\n" );
         }else putchar('\n'); ///MELHORAR
     }while( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Listar_Informações) && 
             !(resposta[0] == Matricular_Aluno) && !(resposta[0] == Encerrar_Programa) && 
@@ -105,7 +105,7 @@ int menuListarProfessor( ){
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) && 
             !(resposta[0] == Filtro_por_tamanho_de_grade ) && !(resposta[0] == Encerrar_Programa) && 
             !( resposta[0] == Filtro_por_palavra_chave ) ){
-            puts("   ^ Valor inserido inválido! \n");
+            puts("   > Valor inserido inválido <\n");
         }else putchar('\n');///MELHORAR
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Sexo) && 
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) && 
@@ -117,8 +117,8 @@ int menuListarProfessor( ){
 int menuListarAluno( ){
   char resposta[3];
   enum MENU{ Filtro_Geral = '1', Filtro_Sexo = '2', Filtro_Nome = '3',
-            Filtro_Nascimento = '4', Filtro_por_tamanho_de_grade = '5',
-            Filtro_por_palavra_chave = '6', Encerrar_Programa = '0'};
+             Filtro_Nascimento = '4', Filtro_por_tamanho_de_grade = '5',
+             Filtro_por_palavra_chave = '6', Encerrar_Programa = '0'};
     
     do{
         printf( "=====================================\n"
@@ -138,7 +138,7 @@ int menuListarAluno( ){
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) && 
             !(resposta[0] == Filtro_por_tamanho_de_grade ) && !(resposta[0] == Encerrar_Programa) && 
             !( resposta[0] == Filtro_por_palavra_chave ) ){
-            puts("   ^ Valor inserido inválido! \n");
+            puts("   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Sexo) &&
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
@@ -164,7 +164,7 @@ int menuListarDisciplinas( ){
         fgets(resposta, 3, stdin );  
         if( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) &&
             !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Encerrar_Programa)){
-            puts("   ^ Valor inserido inválido! \n");
+            puts("   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) && 
             !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Encerrar_Programa));

@@ -117,8 +117,7 @@ bool ehLetra(char caracter){
   
     for(int i = 0; caracteresEspeciais[i] != '\0'; i++){
       if( caracter == caracteresEspeciais[i] ){
-          return true;}
-    }
+          return true;}}
     return false;     
 }
 char *caixaAlta( char *texto ){
@@ -134,8 +133,7 @@ char *caixaBaixa( char *texto ){
     char *textoBackup = (char*)malloc((strlen( texto ))*sizeof(char) );
     
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
-        textoBackup[caracter] = diminuiLetra(texto[caracter]);
-    }
+        textoBackup[caracter] = diminuiLetra(texto[caracter]);}
     //free( textoBackup );
     return textoBackup;
 }
@@ -203,8 +201,7 @@ bool verificaMatriculaProfessor( int filtro, char *matricula ){
                     if( (strcmp( matricula, docente[cadastrado].dado.matricula)) == 0 ){ 
                         return true;}}
                         }break;
-        default: puts( "filtro invalido\n" ); 
-      }
+        default: puts( "> Filtro inválido <\n" );}
     return false;
 }
 bool verificaMatriculaAluno( int filtro, char *matricula ){
@@ -221,8 +218,7 @@ bool verificaMatriculaAluno( int filtro, char *matricula ){
                     if( (strcmp( matricula, discente[cadastrado].dado.matricula)) == 0 ){ 
                         return true;}}
                     }break;
-        default: puts( "filtro invalido\n" ); 
-    }
+        default: puts( "> Filtro inválido <\n" ); }
     return false;
 }
 bool verificaCpfAluno( int filtro, char *cpf  ){
@@ -240,10 +236,10 @@ bool verificaCpfAluno( int filtro, char *cpf  ){
                     if( (strcmp( cpf, discente[cadastrado].dado.cpf)) == 0 ){ 
                         return true;}}
                  }break;
-        default: puts( "filtro invalido\n" ); 
-    }
+        default: puts( "> Filtro inválido <\n" ); }
     return false;
 }
+
 bool verificaCpfProfessor( int filtro, char *cpf ){
       switch( filtro ){ 
         case 0:
@@ -258,7 +254,7 @@ bool verificaCpfProfessor( int filtro, char *cpf ){
                     if( (strcmp( cpf, docente[cadastrado].dado.cpf)) == 0 ){ 
                         return true;}}
             }break;
-        default: puts( "filtro invalido\n" ); 
+        default: puts( "> Filtro inválido <\n" ); 
     }
     return false;
 }
