@@ -1,10 +1,8 @@
 #ifndef GERAIS_FILE_H
 #define GERAIS_FILE_H
-
-#define bool _Bool 
-#define true 1
-#define false 0
-
+#include <stdbool.h>
+///AUMENTAR A QUANTIDADE DE CARACTERES DE CADA DADO PARA NÃO SOBRECARREGAR 
+///O BUFFER E APRIMORAR O VERIFICADOR DE TAMANHO PARA LIDAR COM ISSO 
 //Dados - Alunos e Professores//
 /// Formato CPF: 0 0 0 . 0 0 0 . 0 0 0 - 0 0 '\0' \n
 ///              0 1 2 3 4 5 6 7 8 9 0 1 2 3   4   5 

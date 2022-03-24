@@ -1,4 +1,4 @@
- #ifndef MATRICULA_FILE_H 
+#ifndef MATRICULA_FILE_H 
 #define  MATRICULA_FILE_H
 
 #include "valida.h"
@@ -17,7 +17,7 @@ void matricular( ){
             strcpy( &codigoDeMatricula[0], (caixaAlta( &codigoDeMatricula[0] )) );
             for( int i = 0; i < disciplinasCadastradas; i++){
                 if( (strcmp( &codigoDeMatricula[12], materia[i].codigo )) == 0 ){
-                    int matriculaAluno[TAM_MAT - 1];
+                    char matriculaAluno[TAM_MAT - 1];
                     strncpy( matriculaAluno, codigoDeMatricula, TAM_MAT - 2 );
                     for( int x = 0; x < alunosCadastrados; x++ ){
                         if ( (strcmp(matriculaAluno, discente[x].dado.matricula  )) == 0  ){
