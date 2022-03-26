@@ -18,18 +18,24 @@ int main( ){
                Matricular_Aluno = '3', Filtro_por_palavra_chave = '4',
                Encerrar_Programa = '0'};
 
-    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS QUANTITATIVOS
-    do{ 	
-        resposta = menuPrincipal( );
-        switch( resposta ){
-            case Realizar_Cadastro: cadastrar( ); break;
-            case Listar_Informações: listar( ); break;
-            case Matricular_Aluno: matricular( ); break;
-            case Filtro_por_palavra_chave: filtroPorPalavraChave( ); break;
-            case Encerrar_Programa: printf( "<<<<<<<<< Programa Encerrado >>>>>>>>>\n\n" ); break;}
-    }while( resposta != Encerrar_Programa );
-
-    return EXIT_SUCCESS;
+    if( criaArquivos( ) && recuperaDadosGerais( ) &&
+        recuperaCadastrosProfessores( ) && recuperaCadastrosAlunos( ) &&
+        recuperaCadastrosDisciplinas( ) ){
+        do{ 	
+            resposta = menuPrincipal( );
+            switch( resposta ){
+                case Realizar_Cadastro: cadastrar( ); break;
+                case Listar_Informações: listar( ); break;
+                case Matricular_Aluno: matricular( ); break;
+                case Filtro_por_palavra_chave: filtroPorPalavraChave( ); break;
+                case Encerrar_Programa: 
+                     printf( "<<<<<<<<< Programa Encerrado >>>>>>>>>\n\n" ); break;}
+        }while( resposta != Encerrar_Programa );
+        salvaDadosGerais( );
+        return EXIT_SUCCESS;
+    }else{
+        puts( "FALHA NA RECUPERAÇÃO DE DADOS\n" );
+        return EXIT_FAILURE;}
 }
 void cadastrar( ){
     int menuCadastrar( );
@@ -47,26 +53,22 @@ void cadastrar( ){
                 if( !cadastrarProfessor( ) ){
                     puts( "\n\t> Ops! Professor não cadastrado! <");
                 }else{
-                    ///CHAMA FUNÇÃO DE SAVE DADOS CADASTRAIS DE PROFESSORES
-                    ///CHAMA FUNÇÃO DE SAVE DADOS QUANTITATIVOS 
-                }
+                    salvaCadastroProfessor( );
+                    salvaDadosGerais( );}
                 break;
             case Aluno: 
                 if( !cadastrarAluno( ) ){
                     puts( "\n\t> Ops! Aluno não cadastrado! <");
-                
-                }else{
-                    //CHAMA FUNÇÃO DE SAVE DADOS CADASTRAIS DE ALUNOS
-                    ///CHAMA FUNÇÃO DE SAVE DADOS QUANTITATIVOS  
-                }
+                }else{ 
+                    salvaCadastroAluno( );
+                    salvaDadosGerais( );}
                 break;
             case Disciplina: 
                 if( !cadastrarDisciplina( ) ){
                     puts( "\n\t> Ops! Discplina não cadastrada! <");
-                }else{
-                    ///CHAMA FUNÇÃO DE SAVE DADOS CADASTRAIS DE DISCIPLINAS
-                    ///CHAMA FUNÇÃO DE SAVE DADOS QUANTITATIVOS 
-                }
+                }else{ 
+                    salvaCadastroDisciplina( );
+                    salvaDadosGerais( );}
                 break;
             case Voltar: break;}
     }while( opcao != Voltar );
@@ -85,23 +87,10 @@ void listar( ){
     do{
         opcao = menuListar( );
         switch( opcao ){
-                case Professor:
-                    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE PROFESSORES
-                    listarProfessores( );
-                    break;
-                case Aluno: 
-                    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE ALUNOS
-                    listarAlunos( ); 
-                    break;
-                case Disciplina: 
-                    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE DISCIPLINAS
-                    listarDisciplinas( ); 
-                    break;
-                case Aniversariantes: 
-                    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE ALUNOS
-                    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE PROFESSORES
-                    aniversarianteMes( ); 
-                    break; 
+                case Professor: listarProfessores( ); break;
+                case Aluno: listarAlunos( ); break;
+                case Disciplina: listarDisciplinas( ); break;
+                case Aniversariantes: aniversarianteMes( ); break; 
                 case Voltar: break;}
     }while( opcao != Voltar );
 }

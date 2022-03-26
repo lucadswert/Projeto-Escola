@@ -27,6 +27,8 @@ void matricular( ){
                             if( disciplina < TAM_MATRIZ ){
                                 discente[x].matrizCurricular[disciplina++] = i;}
                             printf( "%s cadastrado em %s \n", discente[x].dado.nome, materia[i].nome );
+                            salvaCadastroDisciplina( );
+                            salvaCadastroAluno( );
                             break;
                         }else if( x == alunosCadastrados - 1 ){ puts( "> Aluno não cadastrado <" );}
                     }break;

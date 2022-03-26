@@ -19,9 +19,9 @@
 #define TAM_NOME_DISC 31
 #define TAM_TURMA 40
 
-#define quantMaxAluno 4
-#define quantMaxProfessor 4
-#define quantMaxDisciplina 4
+#define quantMaxAluno 10
+#define quantMaxProfessor 10
+#define quantMaxDisciplina 10
 
 #define TAM_MATRIZ 8
 #define TAM_MINIS 4
@@ -58,6 +58,17 @@ struct Disciplinas{
 }materia[quantMaxDisciplina];
 typedef struct Disciplinas Disciplinas;
 
+struct{
+    int professoresCadastradosBackup,
+        alunosCadastradosBackup,
+        disciplinasCadastradasBackup;
+}dadosGerais;
+
+char *arquivoDeProfessores = "arquivo_de_professores.txt";
+char *arquivoDeAlunos = "arquivo_de_alunos.txt";
+char *arquivoDeDisciplinas = "arquivo_de_disciplinas.txt";
+char *arquivoDeDadosGerais = "arquivo_de_dados_gerais.txt";
+
 int professoresCadastrados = 0,
     alunosCadastrados = 0,
     disciplinasCadastradas = 0;
@@ -84,6 +95,18 @@ bool verificaCpfAluno( int, char * );
 bool verificaCpfProfessor( int, char * );
 int verificaCodigoDisciplina( int, char* );
 int verificaNomeProfessor( int, char* );
+
+///SEÇÃO DE ARQUIVOS 
+bool criaArquivos( );
+
+bool salvaDadosGerais( );
+bool salvaCadastroProfessor( );
+bool salvaCadastroDisciplina( );
+bool salvaCadastroAluno( );
+bool recuperaCadastrosAlunos( );
+bool recuperaCadastrosDisciplinas( );
+bool recuperaCadastrosProfessores( );
+bool recuperaDadosGerais( );
 
 void limpaTexto( char *texto ){
     for( int caracter = 0; texto[caracter] != '\0'; caracter++ ){
@@ -300,5 +323,149 @@ int verificaNomeProfessor( int filtro, char *nomeProfessor ){
             break;
     }
     return -1;
+}
+bool criaArquivos( ){
+    FILE *files; 
+
+    files = fopen( arquivoDeDadosGerais, "r" );
+    if( !files ){
+        files = fopen( arquivoDeDadosGerais, "w" );
+        if( !files )
+            return false;
+        fclose( files );}
+    
+    files = fopen( arquivoDeProfessores, "r" );
+    if( !files ){
+        files = fopen( arquivoDeProfessores, "w" );
+        if( !files )
+            return false;
+        fclose( files );}
+    
+    files = fopen( arquivoDeAlunos, "r" );
+        if( !files ){
+            files = fopen( arquivoDeAlunos, "w" );
+            if( !files )
+                return false;
+            fclose( files );}
+    
+    files = fopen( arquivoDeDisciplinas, "r" );
+        if( !files ){
+            files = fopen( arquivoDeDisciplinas, "w" );
+            if( !files )
+                return false;
+            fclose( files );}
+    return true;
+}
+bool recuperaDadosGerais( ){
+    FILE *dadosGeraisFPtr = fopen( arquivoDeDadosGerais, "r" );
+    char PROFESSORES[] = "PROFESSORES",
+         ALUNOS[] = "ALUNOS",
+         DISCIPLINAS[] = "DISCIPLINAS";
+    
+    if( dadosGeraisFPtr == NULL ){
+        return false;
+    }else{
+        fscanf( dadosGeraisFPtr, "%s  %s  %s\n\t%d\t\t\t%d\t\t %d", PROFESSORES, ALUNOS, DISCIPLINAS,
+                &professoresCadastrados, &alunosCadastrados, &disciplinasCadastradas );
+        fclose( dadosGeraisFPtr );
+        return true;}
+}
+bool salvaDadosGerais( ){
+    FILE *dadosGeraisFPtr = fopen( arquivoDeDadosGerais, "w" );
+    char PROFESSORES[] = "PROFESSORES",
+         ALUNOS[] = "ALUNOS",
+         DISCIPLINAS[] = "DISCIPLINAS";
+    
+    if( dadosGeraisFPtr == NULL ){
+        return false;
+    }else{
+        fprintf( dadosGeraisFPtr, "%s  %s  %s\n\t%d\t\t\t%d\t\t %d", PROFESSORES, ALUNOS, DISCIPLINAS,
+                 professoresCadastrados, alunosCadastrados, disciplinasCadastradas );
+        fclose( dadosGeraisFPtr );
+        return true;}
+}
+
+bool salvaCadastroProfessor( ){
+    FILE *cadastroProfessorFPtr = fopen( arquivoDeProfessores, "a+" );
+
+    if( !cadastroProfessorFPtr ){
+        return false;
+    }else{
+        fseek( cadastroProfessorFPtr, (professoresCadastrados-1)*sizeof(Professor), SEEK_SET );
+        fwrite( &docente[professoresCadastrados-1], sizeof(Professor), 1, cadastroProfessorFPtr );
+        fclose( cadastroProfessorFPtr );
+        return true;}
+}
+bool recuperaCadastrosProfessores( ){
+    FILE *cadastroProfessorFPtr = fopen( arquivoDeProfessores, "r" );
+    
+    if( !cadastroProfessorFPtr ){
+        return false;
+    }else{
+        for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
+            fseek( cadastroProfessorFPtr, posicao*sizeof(Professor), SEEK_SET );
+            fread( &docente[posicao], sizeof(Professor), 1, cadastroProfessorFPtr );}
+        fclose( cadastroProfessorFPtr );
+        return true;}
+}
+bool salvaCadastroAluno( ){
+    FILE *cadastroAlunoFPtr = fopen( arquivoDeAlunos, "a+" );
+
+    if( !cadastroAlunoFPtr ){
+        return false;
+    }else{
+        int posicao = alunosCadastrados-1;
+        //fseek( cadastroAlunoFPtr, (alunosCadastrados-1)*sizeof(Aluno), SEEK_SET );
+        //fwrite( &discente[alunosCadastrados-1], sizeof(Aluno), 1, cadastroAlunoFPtr );
+        fprintf( cadastroAlunoFPtr, "%*s %*s %*s %*s %*c\n", 
+            TAM_CPF, discente[posicao].dado.cpf, TAM_NAC, discente[posicao].dado.nascimento, 
+            TAM_NOME, discente[posicao].dado.nome, TAM_MAT, discente[posicao].dado.matricula, 
+            4, discente[posicao].dado.sexo );
+        fclose( cadastroAlunoFPtr );
+        return true;}
+}
+bool recuperaCadastrosAlunos( ){
+    FILE *cadastroAlunoFPtr = fopen( arquivoDeAlunos, "r" );
+    
+    if( !cadastroAlunoFPtr ){
+        return false;
+    }else{
+        for( int posicao = 0; posicao < alunosCadastrados; posicao++ ){
+            fscanf( cadastroAlunoFPtr, "%s %s %s %s %c", 
+                discente[posicao].dado.cpf, discente[posicao].dado.nascimento, 
+                discente[posicao].dado.nome, discente[posicao].dado.matricula,
+                &discente[posicao].dado.sexo  );
+    
+            /*
+            fseek( cadastroAlunoFPtr, posicao*sizeof(Aluno), SEEK_SET );
+            fread( &discente[posicao], sizeof(Aluno), 1, cadastroAlunoFPtr );*/
+            
+            }
+        fclose( cadastroAlunoFPtr );
+        return true;}
+}
+bool salvaCadastroDisciplina( ){
+    FILE *cadastroDisciplinaFPtr = fopen( arquivoDeDisciplinas, "a+" );
+
+    if( !cadastroDisciplinaFPtr ){
+        return false;
+    }else{
+        fseek( cadastroDisciplinaFPtr, (disciplinasCadastradas-1)*sizeof(Disciplinas), SEEK_SET );
+        fwrite( &materia[disciplinasCadastradas-1], sizeof(Disciplinas), 1, cadastroDisciplinaFPtr );
+        fclose( cadastroDisciplinaFPtr );
+        return true;}
+    return true;
+}
+bool recuperaCadastrosDisciplinas( ){
+    FILE *cadastroDisciplinaFPtr = fopen( arquivoDeDisciplinas, "r" );
+    
+    if( !cadastroDisciplinaFPtr ){
+        return false;
+    }else{
+        for( int posicao = 0; posicao < disciplinasCadastradas; posicao++ ){
+            fseek( cadastroDisciplinaFPtr, posicao*sizeof(Disciplinas), SEEK_SET );
+            fread( &materia[posicao], sizeof(Disciplinas), 1, cadastroDisciplinaFPtr );}
+        fclose( cadastroDisciplinaFPtr );
+        return true;}
 }
 #endif ///GERAIS_FILE_H

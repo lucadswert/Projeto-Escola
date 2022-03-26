@@ -42,14 +42,14 @@ void listarProfessores( ){
         do{ 	
             resposta = menuListarProfessor( );
             switch( resposta ){
-                case Filtro_Geral : 
+                case Filtro_Geral: 
                     relatorioProfessores( docente );
                     break;
-                case Filtro_Sexo: 
+                case Filtro_Sexo:
                     ordernaProfessoresPorSexo( professoresOrdenados ); 
                     relatorioProfessores( professoresOrdenados );
                     break;
-                case Filtro_Nome: 
+                case Filtro_Nome:
                     ordernaProfessoresPorOrdemAlfabetica( professoresOrdenados ); 
                     relatorioProfessores( professoresOrdenados );
                     break;
@@ -89,7 +89,7 @@ void listarAlunos( ){
                     ordenaAlunosPorSexo( alunosOrdenados );
                     relatorioAlunos( alunosOrdenados );
                     break;
-                case Filtro_Nome: 
+                case Filtro_Nome:
                     ordenaAlunosPorOrdemAlfabetica( alunosOrdenados );
                     relatorioAlunos( alunosOrdenados );
                     break;
@@ -120,14 +120,17 @@ void listarDisciplinas( ){
             resposta = menuListarDisciplinas( );
             switch( resposta ){
                 case Filtro_Geral : 
+                    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE DISCIPLINAS
                     relatorioDisciplinas( );
                     break;
                 case Filtro_disciplinas_com_alunos:
+                    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE DISCIPLINAS
                     posicao = solicitaCodigoFiltro( );
                     if( posicao > -1 ){
                         disciplinaComAlunos( posicao );}
                     break;
                 case Filtro_disciplinas_vagas: 
+                    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE DISCIPLINAS
                     disciplinasComFiltroVagas( );
                     break;
                 case Voltar: break;}
@@ -222,7 +225,8 @@ void aniversarianteMes( ){
     int* aniversariantesDoMes;
     int* professoresAniversariantes (char* mesAtual);
     int* alunosAniversariantes (char* mesAtual);
-
+    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE ALUNOS
+    ///CHAMA FUNÇÃO DE RECUPERAÇÃO DE DADOS DE PROFESSORES
     do{
       
         printf ("\n===============================\n"
@@ -735,7 +739,6 @@ int *dispositivoBuscadorDeProfessor( char *chave ){
     professoresEncontradosId[corredor] = -1;
     return professoresEncontradosId;
 }
-//alias
-//atlas
+
 #endif //LISTAS_FILE_H
 

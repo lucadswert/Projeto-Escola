@@ -3,6 +3,7 @@
 #ifndef CADASTRO_FILE_H
 #define CADASTRO_FILE_H
 
+///O VETOR DE CADASTRO DE NOME ESTÁ LEVANDO LIXO PARA O ARQUIVO
 bool cadastrarProfessor( ){
     bool solicitaMatriculaProfessor( );
     bool solicitaNomeProfessor( );
@@ -84,7 +85,6 @@ bool solicitaNascimentoProfessor( ){
         fgets(docente[posicao].dado.nascimento, TAM_NAC, stdin);
         printf("\n");
         limpaTexto(docente[posicao].dado.nascimento);
-        
         if( sair( docente[posicao].dado.nascimento[0], docente[posicao].dado.nascimento[1] ) ){ 
             return false;
         }else{ DADO = validaNascimento ( docente[posicao].dado.nascimento );}
