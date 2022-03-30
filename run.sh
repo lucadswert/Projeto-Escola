@@ -1,3 +1,3 @@
 cd Código
-gcc main.c -o main -Wno-unused-result
-./main
+gcc _main.c -o _main -Wno-unused-result
+./_main

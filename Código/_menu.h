@@ -1,11 +1,12 @@
 #ifndef MENUS_FILE_H
 #define MENUS_FILE_H
 
+char subMenuConfirmaExclusao( );
 char menuPrincipal( ){
     char resposta[3];
     enum MENU{ Realizar_Cadastro = '1', Atualizar_Cadastro = '2',
-               Listar_Informacoes = '3', Matricular_Aluno = '4',
-               Filtro_por_palavra_chave = '5', Encerrar_Programa = '0'};
+               Listar_Informacoes = '3', Filtro_por_palavra_chave = '4',
+               Encerrar_Programa = '0'};
 
     do{
         printf( "=====================================\n"
@@ -15,18 +16,17 @@ char menuPrincipal( ){
                 "[1] | Cadastrar\n"
                 "[2] | Atualizar\n"
                 "[3] | Listar \n"
-                "[4] | Matricular\n"
-                "[5] | Buscar por palavra chave\n"
+                "[4] | Buscar por palavra chave\n"
                 "[0] | Encerrar \n\n-> " );
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Atualizar_Cadastro) &&
-            !(resposta[0] == Listar_Informacoes) && !(resposta[0] == Matricular_Aluno) &&
-            !(resposta[0] == Encerrar_Programa) && !(resposta[0] == Filtro_por_palavra_chave ) ){
-            puts( "   > Valor inserido inv�lido <\n" );
+            !(resposta[0] == Listar_Informacoes) && !(resposta[0] == Encerrar_Programa) &&
+            !(resposta[0] == Filtro_por_palavra_chave ) ){
+            puts( "\t   > Valor inserido inválido <\n" );
         }else putchar('\n'); ///MELHORAR
     }while( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Atualizar_Cadastro) &&
-            !(resposta[0] == Listar_Informacoes) && !(resposta[0] == Matricular_Aluno) &&
-            !(resposta[0] == Encerrar_Programa) && !(resposta[0] == Filtro_por_palavra_chave ) );
+            !(resposta[0] == Listar_Informacoes) && !(resposta[0] == Encerrar_Programa) &&
+            !(resposta[0] == Filtro_por_palavra_chave ) );
 
     return resposta[0];
 }
@@ -46,7 +46,7 @@ char menuCadastrar( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar) ){
-            puts( "   > Valor inserido inv�lido < \n" );
+            puts( "\t   > Valor inserido inválido < \n" );
         }else putchar('\n');
     }while( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar) );
@@ -73,7 +73,7 @@ char menuListar( ){
         if( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Aniversariantes) &&
             !(resposta[0] == Voltar)){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Aniversariantes) &&
@@ -97,7 +97,7 @@ char menuAtualizar( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar)){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar) );
@@ -110,13 +110,13 @@ char subMenuTipoDeAtualizacao( ){
 
     do{
         printf( "TIPO: \n"
-                "[1] | MODIFICA��O\n"
-                "[2] | EXCLUS�O\n"
+                "[1] | MODIFICAÇÃO\n"
+                "[2] | EXCLUSÃO\n"
                 "[0] | Voltar\n\n-> " );
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == MODIFICAR ) && !(resposta[0] == EXCLUIR) &&
             !(resposta[0] == Voltar) ){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == MODIFICAR ) && !(resposta[0] == EXCLUIR) &&
             !(resposta[0] == Voltar) );
@@ -125,7 +125,7 @@ char subMenuTipoDeAtualizacao( ){
 }
 char subMenuTipoDeAtualizacaoGrade( ){
     char resposta[3];
-    enum MENU{ MATRICULAR  = '1', DESMATRICULAR = '2', Voltar = '0'};;
+    enum MENU{ MATRICULAR  = '1', DESMATRICULAR = '2', Voltar = '0'};
 
     do{
         printf( "TIPO: \n"
@@ -135,10 +135,26 @@ char subMenuTipoDeAtualizacaoGrade( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == MATRICULAR ) && !(resposta[0] == DESMATRICULAR ) &&
             !(resposta[0] == Voltar) ){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == MATRICULAR ) && !(resposta[0] == DESMATRICULAR ) &&
             !(resposta[0] == Voltar ) );
+
+    return resposta[0];
+}
+char subMenuConfirmaExclusao( ){
+    char resposta[3];
+    enum MENU{ SIM  = '1', NAO = '2'};
+
+    do{
+        printf( "CONFIRMA A EXCLUSÃO DE TODOS OS DADOS?\n"
+                "[1] | SIM\n"
+                "[2] | NÃO\n\n-> " );
+        fgets(resposta, 3, stdin );
+        if( !(resposta[0] == SIM ) && !(resposta[0] == NAO ) ){
+            puts("\t   > Valor inserido inválido <\n");
+        }else putchar('\n');
+    }while( !(resposta[0] == SIM ) && !(resposta[0] == NAO ) );
 
     return resposta[0];
 }
@@ -164,7 +180,7 @@ char subMenuEscolhaDeDado_1( ){
             !(resposta[0] == MATRICULA ) && !(resposta[0] == NASCIMENTO) &&
             !(resposta[0] == SEXO ) && !(resposta[0] == GRADE) &&
             !(resposta[0] == Tudo ) && !(resposta[0] == Voltar) ){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == CPF ) && !(resposta[0] == NOME) &&
             !(resposta[0] == MATRICULA ) && !(resposta[0] == NASCIMENTO) &&
@@ -182,7 +198,7 @@ char subMenuEscolhaDeDado_2( ){
     do{
         printf(
                 "ATUALIZAR: \n"
-                "[1] | C�DIGO\n"
+                "[1] | CÓDIGO\n"
                 "[2] | NOME\n"
                 "[3] | SEMESTRE\n"
                 "[4] | VAGAS\n"
@@ -194,7 +210,7 @@ char subMenuEscolhaDeDado_2( ){
             !(resposta[0] == SEMESTRE ) && !(resposta[0] == VAGAS ) &&
             !(resposta[0] == PROFESSOR ) && !(resposta[0] == Voltar) &&
             !(resposta[0] == Tudo ) ){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == CODIGO ) && !(resposta[0] == NOME) &&
             !(resposta[0] == SEMESTRE ) && !(resposta[0] == VAGAS ) &&
@@ -227,7 +243,7 @@ int menuListarProfessor( ){
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
             !(resposta[0] == Filtro_por_tamanho_de_grade ) && !(resposta[0] == Encerrar_Programa) &&
             !( resposta[0] == Filtro_por_palavra_chave ) ){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');///MELHORAR
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Sexo) &&
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
@@ -260,7 +276,7 @@ int menuListarAluno( ){
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
             !(resposta[0] == Filtro_por_tamanho_de_grade ) && !(resposta[0] == Encerrar_Programa) &&
             !( resposta[0] == Filtro_por_palavra_chave ) ){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Sexo) &&
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
@@ -286,7 +302,7 @@ int menuListarDisciplinas( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) &&
             !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Encerrar_Programa)){
-            puts("   > Valor inserido inv�lido <\n");
+            puts("\t   > Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) &&
             !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Encerrar_Programa));

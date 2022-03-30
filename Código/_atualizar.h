@@ -3,7 +3,7 @@
 #include "_menu.h"
 #include "string.h"
 
-///FUN«’ES DE ATUALIZA«√O DE DADOS DE PROFESSORES
+///FUN√á√ïES DE ATUALIZA√á√ÉO DE DADOS DE PROFESSORES
 bool atualizaMatriculaProfessor( unsigned );
 bool atualizaNomeProfessor( unsigned );
 bool atualizaNascimentoProfessor( unsigned );
@@ -11,7 +11,7 @@ bool atualizaCpfProfessor( unsigned );
 bool atualizaSexoProfessor(  unsigned );
 bool atualizaGradeProfessor( unsigned );
 
-///FUN«’ES DE ATUALIZA«√O DE DADOS DE ALUNOS
+///FUN√á√ïES DE ATUALIZA√á√ÉO DE DADOS DE ALUNOS
 bool atualizaMatriculaAluno( unsigned );
 bool atualizaNomeAluno( unsigned );
 bool atualizaNascimentoAluno( unsigned );
@@ -19,17 +19,22 @@ bool atualizaCpfAluno( unsigned );
 bool atualizaSexoAluno( unsigned );
 bool atualizaGradeAluno( unsigned );
 
-///FUN«’ES DE ATUALIZA«√O DE DADOS DE DISCIPLINAS
+///FUN√á√ïES DE ATUALIZA√á√ÉO DE DADOS DE DISCIPLINAS
 bool atualizaNomeDisciplina( unsigned );
 bool atualizaCodigo( unsigned );
 bool atualizaSemestre( unsigned );
 bool atualizaVagas( unsigned );
 bool atualizaProfessor( unsigned );
 
-///FUN«’ES DE EXCLUS√O DE CADASTROS
+///FUN√á√ïES DE EXCLUS√ÉO DE CADASTROS
 bool excluiCadastroProfessor( unsigned );
 bool excluiCadastroAluno( unsigned );
 bool excluiCadastroDisciplina( unsigned );
+
+///FUN√á√ïES DE AJUSTES
+void ajusteDisciplinasCadastradas( unsigned id );
+void ajusteAlunosCadastrados( unsigned id );
+void ajusteProfessoresCadastrados( unsigned id );
 ///==========//==========//=========//=========//
 
 char subMenuEscolhaDeDado_1( );
@@ -51,7 +56,10 @@ bool atualizarProfessor( ){
     char nomeProfessorTemp[TAM_NOME];
 
     do{
-        printf("- Digite o nome do professor:\n-> ");
+       printf( "====================================\n"
+               "||      ATUALIZANDO PROFESSOR     || \n"
+               "====================================\n"
+               "- Digite o nome do professor:\n-> ");
         fgets(nomeProfessorTemp, TAM_NOME, stdin);
         printf("\n");
         limpaTexto(nomeProfessorTemp);
@@ -64,7 +72,7 @@ bool atualizarProfessor( ){
                 padronizaNome( nomeProfessorTemp );
                 idProfessor = verificaNomeProfessor( nomeProfessorTemp );
                 if( idProfessor == -1 ){
-                    puts( "\t > Professor n„o cadastrado < " );
+                    puts( "\t > Professor n√£o cadastrado <\n" );
                     DADO = INVALIDO;}}}
     }while( DADO == INVALIDO );
     do{
@@ -77,45 +85,45 @@ bool atualizarProfessor( ){
                     switch( escolha ){
                         case CPF:
                             if( !atualizaCpfProfessor( idProfessor ) ){
-                                puts( "\tCpf n„o atualizado" );
+                                puts( "\t> Cpf n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroProfessor( idProfessor );
-                                puts( "\tCpf atualizado" );
+                                puts( "\t> Cpf atualizado <\n" );
                             }break;
                         case NOME:
                             if( !atualizaNomeProfessor( idProfessor ) ){
-                                puts( "\tNome n„o atualizado" );
+                                puts( "\t> Nome n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroProfessor( idProfessor );
-                                puts( "\tNome atualizado" );
+                                puts( "\t> Nome atualizado <\n" );
                             }break;
                         case MATRICULA:
                             if( !atualizaMatriculaProfessor( idProfessor ) ){
-                                puts( "\tMatricula n„o atualizada" );
+                                puts( "\t> Matricula n√£o atualizada <\n" );
                             }else{
                                 atualizaCadastroProfessor( idProfessor );
-                                puts( "\tMatricula atualizada" );
+                                puts( "\t> Matricula atualizada <\n" );
                             }break;
                         case NASCIMENTO:
                             if( !atualizaNascimentoProfessor( idProfessor ) ){
-                                puts( "\tData de Nascimento n„o atualizada" );
+                                puts( "\t> Data de Nascimento n√£o atualizada <\n" );
                             }else{
                                 atualizaCadastroProfessor( idProfessor );
-                                puts( "\tData de Nascimento atualizada" );
+                                puts( "\t> Data de Nascimento atualizada <\n" );
                             }break;
                         case SEXO:
                             if( !atualizaSexoProfessor( idProfessor ) ){
-                                puts( "\tSexo n„o atualizado" );
+                                puts( "\t> Sexo n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroProfessor( idProfessor );
-                                puts( "\tSexo atualizado" );
+                                puts( "\t> Sexo atualizado <\n" );
                             }break;
                         case GRADE:
                             if( !atualizaGradeProfessor( idProfessor ) ){
-                                puts( "\t Grade n„o atualizada " );
+                                puts( "\t> Grade n√£o atualizada <\n" );
                             }else{
                                 atualizaCadastroProfessor( idProfessor );
-                                puts( "\t Grade atualizada " );
+                                puts( "\t> Grade atualizada <\n" );
                             }break;
                         case Tudo:
                             if( atualizaCpfProfessor( idProfessor ) ){
@@ -125,20 +133,25 @@ bool atualizarProfessor( ){
                                             if( atualizaCadastroProfessor( idProfessor )&& atualizaSexoProfessor( idProfessor ) ){
                                                 if( atualizaCadastroProfessor( idProfessor )&& atualizaGradeProfessor( idProfessor ) ){
                                                     atualizaCadastroProfessor( idProfessor );
-                                                    puts( "\tDados atualizados!" );
-                                                }else puts( "\tGrade n„o atualizada " );
-                                            }else puts( "\tSexo n„o atualizado" );
-                                        }else puts( "\tData de Nascimento n„o atualizada" );
-                                    }else puts( "\tMatricula n„o atualizada" );
-                                }else  puts("\tNome n„o atualizado" );
-                            }else puts( "\tCpf n„o atualizado" );
+                                                    puts( "\t> Dados atualizados!" );
+                                                }else puts( "\t> Grade n√£o atualizada <\n" );
+                                            }else puts( "\t> Sexo n√£o atualizado <\n" );
+                                        }else puts( "\t> Data de Nascimento n√£o atualizada <\n" );
+                                    }else puts( "\t> Matricula n√£o atualizada <\n" );
+                                }else  puts("\t> Nome n√£o atualizado <\n" );
+                            }else puts( "\t> Cpf n√£o atualizado <\n" );
                             break;
                         case Voltar: break;}
                 }while( escolha != Voltar );
                 break;
             case EXCLUIR:
-                ///CRIAR FUN«√O DE EXCLUS√O DE CADASTRO
-                break;
+                if( subMenuConfirmaExclusao( ) == '1' ){
+                    excluiCadastroProfessor( idProfessor );
+                    for( int id = 0; id < professoresCadastrados; id++ ){
+                        atualizaCadastroProfessor( id );}
+                    salvaDadosGerais( );
+                    return true;
+                }break;
             case Voltar: return true;}
     }while( true );
 }
@@ -147,7 +160,7 @@ bool atualizaMatriculaProfessor( unsigned id ){
     enum VALIDAR DADO;
     char matriculaTemp[TAM_MAT];
     do{
-        printf("- Digite o novo numero de matrÌcula: [EX: 01234567890]\n-> ");
+        printf("- Digite o novo numero de matr√≠cula: [EX: 01234567890]\n-> ");
         fgets( matriculaTemp, TAM_MAT, stdin);
         printf("\n");
 
@@ -158,7 +171,7 @@ bool atualizaMatriculaProfessor( unsigned id ){
             DADO = validaMatricula( matriculaTemp );
             if( DADO == VALIDO && ( ( verificaMatriculaProfessor( matriculaTemp ) ) > -1
                 || ( verificaMatriculaAluno( matriculaTemp ) ) > -1 ) ){
-                puts( "> MatrÌcula repetida <");
+                puts( "\t> Matr√≠cula repetida <\n");
                 DADO = INVALIDO;
             }else{
                 strcmp( docente[id].dado.matricula, matriculaTemp );}}
@@ -227,7 +240,7 @@ bool atualizaCpfProfessor( unsigned id ){
 
             if( DADO == VALIDO && ( ( verificaCpfProfessor( cpfTemp ) ) > -1
                 || ( verificaCpfAluno( cpfTemp ) ) > - 1 ) ){
-                puts( "> CPF repetido <");
+                puts( "\t> CPF repetido <\n");
                 DADO = INVALIDO;
             }else{
                 strcpy( docente[id].dado.cpf, cpfTemp );}}
@@ -241,7 +254,7 @@ bool atualizaSexoProfessor( unsigned id ){
     char sexoTemp[4];
 
     do{
-        printf("- Digite o novo sexo: [OpÁıes: F, M OU O]\n-> ");
+        printf("- Digite o novo sexo: [Op√ß√µes: F, M OU O]\n-> ");
         fgets( sexoTemp, 4, stdin);
         printf("\n");
 
@@ -250,18 +263,32 @@ bool atualizaSexoProfessor( unsigned id ){
         }else{
             DADO = validaSexo(sexoTemp[0]);
             if( DADO == VALIDO ){
-                aumentaLetra(sexoTemp[0]);
-                docente[id].dado.sexo = sexoTemp[0];}}
+                docente[id].dado.sexo =  aumentaLetra(sexoTemp[0]);}}
     }while( DADO == INVALIDO );
 
     return true;
 }
 bool atualizaGradeProfessor( unsigned id ){
+    enum TIPO{ MATRICULAR = '1', DESMATRICULAR = '2', Voltar = '0' };
+    char escolha;
 
+    do{
+        escolha = subMenuTipoDeAtualizacaoGrade( );
+        switch( escolha ){
+            case MATRICULAR: matricularProfessor( id ); break;
+            case DESMATRICULAR: desmatricularProfessor( id ); break;
+            case Voltar: break;}
+    }while( escolha != Voltar );
 
     return true;
 }
 bool excluiCadastroProfessor( unsigned id ){
+    ///exclui das disciplinas
+    for( int posicao = 0; posicao < disciplinasCadastradas; posicao++ ){
+        if( ( materia[posicao].professorId - 1 ) == id ){
+            materia[posicao].professorId = -1;
+            atualizaCadastroDisciplina(posicao);}}
+    ajusteProfessoresCadastrados( id );
 
     return true;
 }
@@ -279,7 +306,10 @@ bool atualizarAluno( ){
     char nomeAlunoTemp[TAM_NOME];
 
     do{
-        printf("- Digite o nome do aluno:\n-> ");
+         printf("====================================\n"
+              "||        ATUALIZANDO ALUNO       || \n"
+              "====================================\n"
+              "- Digite o nome do aluno:\n-> ");
         fgets(nomeAlunoTemp, TAM_NOME, stdin);
         printf("\n");
         limpaTexto(nomeAlunoTemp);
@@ -292,7 +322,7 @@ bool atualizarAluno( ){
                 padronizaNome( nomeAlunoTemp );
                 idAluno = verificaNomeAluno( nomeAlunoTemp );
                 if( idAluno == -1 ){
-                    puts( "\t > Aluno n„o cadastrado < " );
+                    puts( "\t > Aluno n√£o cadastrado <\n" );
                     DADO = INVALIDO;}}}
     }while( DADO == INVALIDO );
     do{
@@ -305,45 +335,45 @@ bool atualizarAluno( ){
                     switch( escolha ){
                         case CPF:
                             if( !atualizaCpfAluno( idAluno ) ){
-                                puts( "\tCpf n„o atualizado" );
+                                puts( "\t> Cpf n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroAluno( idAluno );
-                                puts( "\tCpf atualizado" );
+                                puts( "\t> Cpf atualizado <\n" );
                             }break;
                         case NOME:
                             if( !atualizaNomeAluno( idAluno ) ){
-                                puts( "\tNome n„o atualizado" );
+                                puts( "\t> Nome n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroAluno( idAluno );
-                                puts( "\tNome atualizado" );
+                                puts( "\t> Nome atualizado <\n" );
                             }break;
                         case MATRICULA:
                             if( !atualizaMatriculaAluno( idAluno ) ){
-                                puts( "\tMatricula n„o atualizada" );
+                                puts( "\t> Matricula n√£o atualizada <\n" );
                             }else{
                                 atualizaCadastroAluno( idAluno );
-                                puts( "\tMatricula atualizada" );
+                                puts( "\t> Matricula atualizada <\n" );
                             }break;
                         case NASCIMENTO:
                             if( !atualizaNascimentoAluno( idAluno ) ){
-                                puts( "\tData de Nascimento n„o atualizada" );
+                                puts( "\t> Data de Nascimento n√£o atualizada <\n" );
                             }else{
                                 atualizaCadastroAluno( idAluno );
-                                puts( "\tData de Nascimento atualizada" );
+                                puts( "\t> Data de Nascimento atualizada <\n" );
                             }break;
                         case SEXO:
                             if( !atualizaSexoAluno( idAluno ) ){
-                                puts( "\tSexo n„o atualizado" );
+                                puts( "\t> Sexo n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroAluno( idAluno );
-                                puts( "\tSexo atualizado" );
+                                puts( "\t> Sexo atualizado <\n" );
                             }break;
                         case GRADE:
                             if( !atualizaGradeAluno( idAluno ) ){
-                                puts( "\t Grade n„o atualizada " );
+                                puts( "\t> Grade n√£o atualizada <\n" );
                             }else{
                                 atualizaCadastroAluno( idAluno );
-                                puts( "\t Grade atualizada " );
+                                puts( "\t> Grade atualizada <\n" );
                             }break;
                         case Tudo:
                             if( atualizaCpfAluno( idAluno ) ){
@@ -353,20 +383,25 @@ bool atualizarAluno( ){
                                             if( atualizaCadastroAluno( idAluno )&& atualizaSexoAluno( idAluno ) ){
                                                 if( atualizaCadastroAluno( idAluno )&& atualizaGradeAluno( idAluno ) ){
                                                     atualizaCadastroAluno( idAluno );
-                                                    puts( "\tDados atualizados!" );
-                                                }else puts( "\t Grade n„o atualizada " );
-                                            }else puts( "\tSexo n„o atualizado" );
-                                        }else puts( "\tData de Nascimento n„o atualizada" );
-                                    }else puts( "\tMatricula n„o atualizada" );
-                                }else puts("\tNome n„o atualizado" );
-                            }else  puts( "\tCpf n„o atualizado" );
+                                                    puts( "\t> Dados atualizados! <\n" );
+                                                }else puts( "\t> Grade n√£o atualizada <\n" );
+                                            }else puts( "\t> Sexo n√£o atualizado <\n" );
+                                        }else puts( "\t> Data de Nascimento n√£o atualizada <\n" );
+                                    }else puts( "\t> Matricula n√£o atualizada <\n" );
+                                }else puts("\t> Nome n√£o atualizado <\n" );
+                            }else  puts( "\t> Cpf n√£o atualizado <\n" );
                             break;
                         case Voltar: break;}
                 }while( escolha != Voltar );
                 break;
             case EXCLUIR:
-                ///CRIAR FUN«√O DE EXCLUS√O DE CADASTRO
-                break;
+                if( subMenuConfirmaExclusao( ) == '1' ){
+                    excluiCadastroAluno( idAluno );
+                    for( int id = 0; id < alunosCadastrados; id++ ){
+                        atualizaCadastroAluno( id );}
+                    salvaDadosGerais( );
+                    return true;
+                }break;
             case Voltar: return true;}
     }while( true );
 }
@@ -375,7 +410,7 @@ bool atualizaMatriculaAluno( unsigned id ){
     enum VALIDAR DADO;
     char matriculaTemp[TAM_MAT];
     do{
-        printf("- Digite o novo numero de matrÌcula: [EX: 01234567890]\n-> ");
+        printf("- Digite o novo numero de matr√≠cula: [EX: 01234567890]\n-> ");
         fgets( matriculaTemp, TAM_MAT, stdin);
         printf("\n");
 
@@ -386,7 +421,7 @@ bool atualizaMatriculaAluno( unsigned id ){
             DADO = validaMatricula( matriculaTemp );
             if( DADO == VALIDO && ( ( verificaMatriculaProfessor( matriculaTemp ) ) > -1
                 || ( verificaMatriculaAluno( matriculaTemp ) ) > -1 ) ){
-                puts( "> MatrÌcula repetida <");
+                puts( "\t> Matr√≠cula repetida <\n");
                 DADO = INVALIDO;
             }else{
                 strcpy( discente[id].dado.matricula, matriculaTemp );}}
@@ -455,7 +490,7 @@ bool atualizaCpfAluno( unsigned id ){
 
             if( DADO == VALIDO && ( ( verificaCpfProfessor( cpfTemp ) ) > -1
                 || ( verificaCpfAluno( cpfTemp ) ) > -1 ) ){
-                puts( "> CPF repetido <");
+                puts( "\t> CPF repetido <\n");
                 DADO = INVALIDO;
             }else{
                 strcpy( discente[id].dado.cpf, cpfTemp );}}
@@ -469,7 +504,7 @@ bool atualizaSexoAluno( unsigned id ){
     char sexoTemp[4];
 
     do{
-        printf("- Digite o novo sexo: [OpÁıes: F, M OU O]\n-> ");
+        printf("- Digite o novo sexo: [Op√ß√µes: F, M OU O]\n-> ");
         fgets( sexoTemp, 4, stdin);
         printf("\n");
 
@@ -478,8 +513,7 @@ bool atualizaSexoAluno( unsigned id ){
         }else{
             DADO = validaSexo(sexoTemp[0]);
             if( DADO == VALIDO ){
-                aumentaLetra(sexoTemp[0]);
-                discente[id].dado.sexo = sexoTemp[0];}}
+                discente[id].dado.sexo = aumentaLetra(sexoTemp[0]);}}
     }while( DADO == INVALIDO );
 
     return true;
@@ -491,14 +525,23 @@ bool atualizaGradeAluno( unsigned id ){
     do{
         escolha = subMenuTipoDeAtualizacaoGrade( );
         switch( escolha ){
-            case MATRICULAR: matricular( ); break;
-            case DESMATRICULAR: desmatricular( ); break;
+            case MATRICULAR: matricularAluno( id ); break;
+            case DESMATRICULAR: desmatricularAluno( id ); break;
             case Voltar: break;}
     }while( escolha != Voltar );
     return true;
 }
 bool excluiCadastroAluno( unsigned id ){
+    ///exclui das disciplinas
+    if( discente[id].disciplinasCursando > 0 ){
+        for( int idDisciplina = 0; idDisciplina < disciplinasCadastradas; idDisciplina++  ){
+            for( int posicao = 0; posicao < discente[id].disciplinasCursando; posicao++ ){
+                if( idDisciplina == discente[id].matrizCurricular[posicao] )
+                    materia[idDisciplina].quantidadeMatriculado--;
+                    atualizaCadastroDisciplina(idDisciplina);}}}
+    ajusteAlunosCadastrados( id );
 
+    return true;
 }
 bool atualizarDisciplina( ){
     enum TIPO{ MODIFICAR = '1', EXCLUIR = '2', Voltar = '0' };
@@ -513,7 +556,10 @@ bool atualizarDisciplina( ){
     char nomeDisciplinaTemp[TAM_NOME_DISC];
 
     do{
-        printf("- Digite o nome da disciplina:\n-> ");
+        printf("===================================\n"
+               "||     ATUALIZANDO DISCIPLINA    || \n"
+               "===================================\n"
+               "- Digite o nome da disciplina:\n-> ");
         fgets(nomeDisciplinaTemp, TAM_NOME_DISC, stdin);
         printf("\n");
         limpaTexto(nomeDisciplinaTemp);
@@ -526,7 +572,7 @@ bool atualizarDisciplina( ){
                 strcpy( nomeDisciplinaTemp, caixaAlta( nomeDisciplinaTemp ));
                 idDisciplina = verificaNomeDisciplina( nomeDisciplinaTemp );
                 if( idDisciplina == -1 ){
-                    puts( "\t > Disciplina n„o cadastrada < " );
+                    puts( "\t > Disciplina n√£o cadastrada < " );
                     DADO = INVALIDO;}}}
     }while( DADO == INVALIDO );
     do{
@@ -539,38 +585,38 @@ bool atualizarDisciplina( ){
                     switch( escolha ){
                         case CODIGO:
                             if( !atualizaCodigo( idDisciplina ) ){
-                                puts( "\tCodigo n„o atualizado" );
+                                puts( "\t> Codigo n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroDisciplina( idDisciplina );
-                                puts( "\tCodigo atualizado" );
+                                puts( "\t> Codigo atualizado <\n" );
                             }break;
                         case NOME:
                             if( !atualizaNomeDisciplina( idDisciplina ) ){
-                                puts( "\tNome n„o atualizado" );
+                                puts( "\t> Nome n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroDisciplina( idDisciplina );
-                                puts( "\tNome atualizado" );
+                                puts( "\t> Nome atualizado <\n" );
                             }break;
                         case SEMESTRE:
                             if( !atualizaSemestre( idDisciplina ) ){
-                                puts( "\tSemestre n„o atualizado" );
+                                puts( "\t> Semestre n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroDisciplina( idDisciplina );
-                                puts( "\tSemestre atualizado" );
+                                puts( "\t> Semestre atualizado <\n" );
                             }break;
                         case VAGAS:
                             if( !atualizaVagas( idDisciplina ) ){
-                                puts( "\tVagas n„o atualizadas" );
+                                puts( "\t> Vagas n√£o atualizadas <\n" );
                             }else{
                                 atualizaCadastroDisciplina( idDisciplina );
-                                puts( "\tVagas atualizadas" );
+                                puts( "\t> Vagas atualizadas <\n" );
                             }break;
                         case PROFESSOR:
                             if( !atualizaProfessor( idDisciplina ) ){
-                                puts( "\tProfessor n„o atualizado" );
+                                puts( "\t> Professor n√£o atualizado <\n" );
                             }else{
                                 atualizaCadastroDisciplina( idDisciplina );
-                                puts( "\tProfessor atualizado" );
+                                puts( "\t> Professor atualizado <\n" );
                             }break;
                         case Tudo:
                             if( atualizaCodigo( idDisciplina ) ){
@@ -579,19 +625,24 @@ bool atualizarDisciplina( ){
                                         if( atualizaCadastroDisciplina( idDisciplina ) && atualizaVagas( idDisciplina ) ){
                                             if( atualizaCadastroDisciplina( idDisciplina ) && atualizaProfessor( idDisciplina ) ){
                                                 atualizaCadastroDisciplina( idDisciplina );
-                                                puts( "\tDados atualizados!" );
-                                            }else puts( "\tProfessor n„o atualizado" );
-                                        }else puts( "\tSemestre n„o atualizada" );
-                                    }else puts( "\tVagas n„o atualizada" );
-                                }else puts("\tNome n„o atualizado" );
-                            }else  puts( "\tCodigo n„o atualizado" );
+                                                puts( "\t> Dados atualizados! <\n" );
+                                            }else puts( "\t> Professor n√£o atualizado <\n" );
+                                        }else puts( "\t> Semestre n√£o atualizada <\n" );
+                                    }else puts( "\t> Vagas n√£o atualizada <\n" );
+                                }else puts("\t> Nome n√£o atualizado <\n" );
+                            }else  puts( "\t> Codigo n√£o atualizado <\n" );
                             break;
                         case Voltar: break;}
                 }while( escolha != Voltar );
                 break;
             case EXCLUIR:
-                ///CRIAR FUN«√O DE EXCLUS√O DE CADASTRO
-                break;
+                if( subMenuConfirmaExclusao( ) == '1' ){
+                    excluiCadastroDisciplina( idDisciplina );
+                    for( int id = 0; id < disciplinasCadastradas; id++ ){
+                        atualizaCadastroDisciplina( id );}
+                    salvaDadosGerais( );
+                    return true;
+                }break;
             case Voltar: return true;}
     }while( true );
 }
@@ -611,13 +662,13 @@ bool atualizaNomeDisciplina( unsigned id ){
         }else{
             limpaTexto(nomeDisciplinaTemp);
             strcpy( nomeDisciplinaTemp, caixaAlta( nomeDisciplinaTemp ) );
-            DADO = validaNomeDisciplina( nomeDisciplinaTemp );
+            DADO = validaNome( nomeDisciplinaTemp );
             if( DADO == VALIDO ){
                 if( ( verificaNomeDisciplina( nomeDisciplinaTemp ) ) == -1 ){
                     strcpy( materia[id].nome, nomeDisciplinaTemp );
                 }else{
                     DADO = INVALIDO;
-                    puts( "\t> Esse nome j· est· associado a outra disciplina <" );}}}
+                    puts( "\t> Esse nome j√° est√° associado a outra disciplina <\n" );}}}
     }while( DADO == INVALIDO );
 
     return true;
@@ -628,7 +679,7 @@ bool atualizaCodigo( unsigned id ){
     char codigoDisciplinaTemp[TAM_COD_DISC];
 
     do{
-        printf("- Digite o novo cÛdigo da disciplina: [EX: EXE123]\n-> ");
+        printf("- Digite o novo c√≥digo da disciplina: [EX: EXE123]\n-> ");
         fgets(codigoDisciplinaTemp, TAM_COD_DISC, stdin);
         printf("\n");
 
@@ -642,7 +693,7 @@ bool atualizaCodigo( unsigned id ){
                     strcpy( materia[id].codigo, caixaAlta(codigoDisciplinaTemp ) );
                 }else{
                     DADO = INVALIDO;
-                    puts( "> CÛdigo associado a outra disciplina <" );}}}
+                    puts( "\t> C√≥digo associado a outra disciplina <\n" );}}}
     }while( DADO == INVALIDO );
 
     return true;
@@ -672,7 +723,7 @@ bool atualizaVagas( unsigned id ){
     int vagasTemp;
 
     do{
-        printf("- Digite o novo n˙mero de vagas da disciplina:\n-> ");
+        printf("- Digite o novo n√∫mero de vagas da disciplina:\n-> ");
         scanf( "%d", &vagasTemp );
         getchar( );
         printf("\n");
@@ -683,7 +734,7 @@ bool atualizaVagas( unsigned id ){
             if( DADO == VALIDO && vagasTemp >= materia[id].quantidadeMatriculado ){
                 materia[id].vagas = vagasTemp;
             }else{
-                puts( "\t > O n˙mero de vagas È menor que a turma atual < " );
+                puts( "\t > O n√∫mero de vagas √© menor que a turma atual < \n" );
                 DADO == INVALIDO;}}
     }while( DADO == INVALIDO );
 
@@ -707,22 +758,50 @@ bool atualizaProfessor( unsigned id ){
             if( DADO == VALIDO ){
                 padronizaNome( professorTemp );
                 int sucessorId = verificaNomeProfessor( professorTemp );
-                if( sucessorId  > -1 ){
+                if( sucessorId > -1 ){
                     if( docente[sucessorId].disciplinasMinistrando < TAM_MINIS ){
                         int antecessorId = verificaNomeProfessor( docente[materia[id].professorId].dado.nome );
                         docente[antecessorId].disciplinasMinistrando--;
                         atualizaCadastroProfessor(antecessorId);
-                        materia[id].professorId = sucessorId ;
+                        materia[id].professorId = sucessorId + 1;
                         docente[sucessorId ].ministrando[docente[sucessorId ].disciplinasMinistrando++] = id;
                         atualizaCadastroProfessor(sucessorId);
-                    }else{ puts( "\t > A grade desse professor j· est· cheia <" );}
-                }else{ puts( "> Esse professor n„o est· cadastrado < ");}}}
+                    }else{ puts( "\t > A grade desse professor j√° est√° cheia <\n" );}
+                }else{ puts( "\t> Esse professor n√£o est√° cadastrado < \n");}}}
     }while( DADO == INVALIDO );
 
     return true;
 }
 bool excluiCadastroDisciplina( unsigned id ){
+    for( int discId = 0; discId < alunosCadastrados; discId++ ){
+        if( discente[discId].disciplinasCursando > 0 ){
+            for( int posicao = 0; posicao < discente[discId].disciplinasCursando; posicao++ ){
+                if( id == discente[discId].matrizCurricular[posicao] )
+                    ajusteGradeAluno( discId, id );
+                    atualizaCadastroAluno(discId);}}}
 
+    for( int docId = 0; docId < professoresCadastrados; docId++ ){
+        if( docente[docId].disciplinasMinistrando > 0 ){
+            for( int posicao = 0; posicao < docente[docId].disciplinasMinistrando; posicao++ ){
+                if( id == docente[docId].ministrando[posicao] )
+                    ajusteGradeProfessor( docId, id );
+                    atualizaCadastroProfessor(docId);}}}
+    ajusteDisciplinasCadastradas( id );
     return true;
+}
+void ajusteProfessoresCadastrados( unsigned id ){
+    for( int cadastrado = id; cadastrado < professoresCadastrados-1; cadastrado++ ){
+        docente[cadastrado] = docente[cadastrado+1];}
+    professoresCadastrados--;
+}
+void ajusteAlunosCadastrados( unsigned id ){
+    for( int cadastrado = id; cadastrado < alunosCadastrados-1; cadastrado++ ){
+        discente[cadastrado] = discente[cadastrado+1];}
+    alunosCadastrados--;
+}
+void ajusteDisciplinasCadastradas( unsigned id ){
+    for( int cadastrada = id; cadastrada < disciplinasCadastradas-1; cadastrada++ ){
+        materia[cadastrada] = materia[cadastrada+1];}
+    disciplinasCadastradas--;
 }
 #endif // _ATUALIZAR_H_INCLUDED

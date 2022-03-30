@@ -2,24 +2,26 @@
 #define  MATRICULA_FILE_H
 #include "_validar.h"
 
-void matricular( );
-void desmatricular( );
+void matricularAluno( unsigned );
+void desmatricularAluno( unsigned );
+void matricularProfessor( unsigned );
+void desmatricularProfessor( unsigned );
 bool solicitaCodigoMatricula( char[] );
 bool validaCodigoMatricula( char[] );
 void ajusteGradeAluno( unsigned, unsigned );
 void ajusteGradeProfessor( unsigned, unsigned );
 
-void matricular( ){
+void matricularAluno( unsigned id ){
     char codigoDeMatricula[TAM_COD_MAT];
     enum VALIDAR{ VALIDO = 1, INVALIDO = 0 };
     enum VALIDAR DADO = VALIDO,
                  ALUNO = VALIDO;
 
     do{
-        printf( "\n====================================\n"
-                "||           MATRICULANDO         || \n"
-                "====================================\n"
-                "- Digite o Codigo de DesmatrÌcula [matriculaDoAluno/codigoDaDisciplina]\n->");
+        printf( "\n========================================================================\n"
+                "||                         MATRICULANDO ALUNO                         || \n"
+                "========================================================================\n"
+                "- Digite o C√≥digo de Matr√≠cula [matriculaDoAluno/codigoDaDisciplina]\n-> ");
         DADO = solicitaCodigoMatricula( codigoDeMatricula );
         if( !DADO == INVALIDO ){
             strcpy( &codigoDeMatricula[0], ( caixaAlta( &codigoDeMatricula[0] ) ) );
@@ -29,58 +31,145 @@ void matricular( ){
                 strncpy( matriculaAluno, codigoDeMatricula, TAM_MAT - 2 );
                 int alunoId = verificaMatriculaAluno( matriculaAluno );
                 if( alunoId != -1 ){
-                    for( int grade = 0; grade < discente[alunoId].disciplinasCursando; grade++ ){
-                        if( discente[alunoId].matrizCurricular[grade] == disciplinaId ){
-                                printf("na posicao = %d\n", grade );
-                            ALUNO = INVALIDO; break;}}
-                    if( ALUNO == VALIDO ){
-                        if( discente[alunoId].disciplinasCursando < TAM_MATRIZ ){
-                            int vagasRestantes = materia[disciplinaId].vagas - materia[disciplinaId].quantidadeMatriculado;
-                            if( vagasRestantes > 0 ){
-                                discente[alunoId].matrizCurricular[discente[alunoId].disciplinasCursando++] = disciplinaId;
-                                materia[disciplinaId].quantidadeMatriculado++;
-                                printf( "%s cadastrado em %s \n", discente[alunoId].dado.nome, materia[disciplinaId].nome );
-                                atualizaCadastroDisciplina( disciplinaId );
-                                atualizaCadastroAluno( alunoId );
-                                break;
-                            }else{ puts( "> N„o h· mais vagas nessa disciplina <" ); }
-                        }else{ puts( "> Grade cheia <" ); }
-                    }else{ puts( "O aluno j· est· matriculado nesta disciplina " ); }
-                }else{ puts( "> Aluno n„o cadastrado <" );}
-            }else{ puts( "> Disciplina n„o cadastrada <" );}}
-    }while( DADO != INVALIDO || ALUNO != INVALIDO );
+                    if( ( strcmp( discente[id].dado.matricula, matriculaAluno ) ) == 0 ){
+                        for( int grade = 0; grade < discente[alunoId].disciplinasCursando; grade++ ){
+                            if( discente[alunoId].matrizCurricular[grade] == disciplinaId ){
+                                ALUNO = INVALIDO; break;}}
+                        if( ALUNO == VALIDO ){
+                            if( discente[alunoId].disciplinasCursando < TAM_MATRIZ ){
+                                int vagasRestantes = materia[disciplinaId].vagas - materia[disciplinaId].quantidadeMatriculado;
+                                if( vagasRestantes > 0 ){
+                                    discente[alunoId].matrizCurricular[discente[alunoId].disciplinasCursando++] = disciplinaId;
+                                    materia[disciplinaId].quantidadeMatriculado++;
+                                    printf( "%s cadastrado em %s \n", discente[alunoId].dado.nome, materia[disciplinaId].nome );
+                                    atualizaCadastroDisciplina( disciplinaId );
+                                    atualizaCadastroAluno( alunoId );
+                                    break;
+                                }else{ puts( "\t> N√£o h√° mais vagas nessa disciplina <\n" ); }
+                            }else{ puts( "\t> Grade cheia <\n" ); }
+                        }else{ puts( "\t> O aluno j√° est√° matriculado nesta disciplina <\n" ); }
+                    }else{ puts( "\t> Matricula invalida <\n" );}
+                }else{ puts( "\t> Aluno n√£o cadastrado <\n" );}
+            }else{ puts( "\t> Disciplina n√£o cadastrada <\n" );}
+        }else break;
+    }while( DADO != INVALIDO  );
 }
-void desmatricular( ){
-    char codigoDeMatricula[TAM_COD_MAT];
+void desmatricularAluno( unsigned id ){
+    char codigoDeDesatricula[TAM_COD_MAT];
     enum VALIDAR{ VALIDO = 1, INVALIDO = 0 };
-    enum VALIDAR DADO;
+    enum VALIDAR DADO = VALIDO,
+                 ALUNO = INVALIDO;
 
     do{
-        printf( "\n====================================\n"
-                "||         DESMATRICULANDO        || \n"
-                "====================================\n"
-                "- Digite o Codigo de MatrÌcula [matriculaDoAluno/codigoDaDisciplina]\n->");
-        DADO = solicitaCodigoMatricula( codigoDeMatricula );
+        printf( "\n========================================================================\n"
+                "||                        DESMATRICULANDO ALUNO                       || \n"
+                "========================================================================\n"
+                "- Digite o Codigo de Desmatricula [matriculaDoAluno/codigoDaDisciplina]\n-> ");
+        DADO = solicitaCodigoMatricula( codigoDeDesatricula );
         if( !DADO == INVALIDO ){
-            strcpy( &codigoDeMatricula[0], ( caixaAlta( &codigoDeMatricula[0] ) ) );
-            int disciplinaId = verificaCodigoDisciplina( &codigoDeMatricula[12] );
+            strcpy( &codigoDeDesatricula[0], ( caixaAlta( &codigoDeDesatricula[0] ) ) );
+            int disciplinaId = verificaCodigoDisciplina( &codigoDeDesatricula[12] );
             if( disciplinaId != -1 ){
                 char matriculaAluno[TAM_MAT - 1];
-                strncpy( matriculaAluno, codigoDeMatricula, TAM_MAT - 2 );
+                strncpy( matriculaAluno, codigoDeDesatricula, TAM_MAT - 2 );
                 int alunoId = verificaMatriculaAluno( matriculaAluno );
                 if( alunoId != -1 ){
-                    for( int grade = 0; grade < discente[alunoId].disciplinasCursando; grade++ ){
-                        if( discente[alunoId].matrizCurricular[grade] == disciplinaId ){
+                    if( ( strcmp( discente[id].dado.matricula, matriculaAluno ) ) == 0 ){
+                        for( int grade = 0; grade < discente[alunoId].disciplinasCursando; grade++ ){
+                            if( discente[alunoId].matrizCurricular[grade] == disciplinaId ){
+                                ALUNO = VALIDO; break;}}
+                        if( ALUNO == VALIDO ){
                             ajusteGradeAluno( alunoId, disciplinaId );
                             materia[disciplinaId].quantidadeMatriculado--;
-                            printf( "%s n„o est· mais matriculado em %s \n", discente[alunoId].dado.nome, materia[disciplinaId].nome );
+                            printf( "%s n√£o est√° mais matriculado em %s \n", discente[alunoId].dado.nome, materia[disciplinaId].nome );
                             atualizaCadastroDisciplina( disciplinaId );
                             atualizaCadastroAluno( alunoId );
                             break;
-                        }else if( (grade+1) == discente[alunoId].disciplinasCursando ){ puts( "> Aluno n„o est· cadastrado nessa disciplina <\n" ); }
-                    }break;
-                }else{ puts( "> Aluno n„o cadastrado <" );}
-            }else{ puts( "> Disciplina n„o cadastrada <" );}}
+                        }else{ puts( "\t> O aluno n√£o est√° matriculado nesta disciplina <\n" ); }
+                    }else{ puts( "\t> Matricula invalida <\n" );}
+                }else{ puts( "\t> Aluno n√£o cadastrado <\n" );}
+            }else{ puts( "\t> Disciplina n√£o cadastrada <\n" );}
+        }else break;
+    }while( DADO != INVALIDO );
+}
+void matricularProfessor( unsigned id ){
+    char codigoDeMatricula[TAM_COD_MAT];
+    enum VALIDAR{ VALIDO = 1, INVALIDO = 0 };
+    enum VALIDAR DADO = VALIDO,
+                 PROFESSOR = VALIDO;
+
+    do{
+        printf( "\n========================================================================\n"
+                "||                       MATRICULANDO PROFESSOR                       || \n"
+                "========================================================================\n"
+                "- Digite o Codigo de matr√≠cula [matriculaDoProfessor/codigoDaDisciplina]\n-> ");
+        DADO = solicitaCodigoMatricula( codigoDeMatricula );
+        if( !DADO == INVALIDO ){
+            strcpy( &codigoDeMatricula[0], ( caixaAlta( &codigoDeMatricula[0] ) ) );
+            int disciplinaId = verificaCodigoDisciplina( &codigoDeMatricula[12] );
+            if( disciplinaId != -1 ){
+                char matriculaProfessor[TAM_MAT - 1];
+                strncpy( matriculaProfessor, codigoDeMatricula, TAM_MAT - 2 );
+                int professorId = verificaMatriculaProfessor( matriculaProfessor );
+                if( professorId != -1 ){
+                    if( ( strcmp( docente[id].dado.matricula, matriculaProfessor ) ) == 0 ){
+                        for( int grade = 0; grade < docente[professorId].disciplinasMinistrando; grade++ ){
+                            if( docente[professorId].ministrando[grade] == disciplinaId ){
+                                PROFESSOR = INVALIDO; break;}}
+                        if( PROFESSOR == VALIDO ){
+                            if( docente[professorId].disciplinasMinistrando < TAM_MINIS ){
+                                if( materia[disciplinaId].professorId == 0 ){
+                                    docente[professorId].ministrando[docente[professorId].disciplinasMinistrando++] = disciplinaId;
+                                    materia[disciplinaId].professorId = professorId+1;
+                                    printf( "%s est√° ministando %s \n", docente[professorId].dado.nome, materia[disciplinaId].nome );
+                                    atualizaCadastroDisciplina( disciplinaId );
+                                    atualizaCadastroProfessor( professorId );
+                                    break;
+                                }else{ puts( "\t> Este professor j√° est√° ministrando esta disciplina <\n" ); }
+                            }else{ puts( "\t> Grade cheia <" ); }
+                        }else{ puts( "\t> J√° h√° um professor ministrando esta disciplina \n" ); }
+                    }else{ puts( "\t> Matricula invalida <\n" );}
+                }else{ puts( "\t> Professor n√£o cadastrado <\n" );}
+            }else{ puts( "\t> Disciplina n√£o cadastrada <\n" );}
+        }else break;
+    }while( DADO != INVALIDO );
+}
+void desmatricularProfessor( unsigned id ){
+    char codigoDeDesmatricula[TAM_COD_MAT];
+    enum VALIDAR{ VALIDO = 1, INVALIDO = 0 };
+    enum VALIDAR DADO = VALIDO,
+                 PROFESSOR = INVALIDO;
+
+    do{
+        printf( "\n========================================================================\n"
+                "||                      DESMATRICULANDO PROFESSOR                     || \n"
+                "========================================================================\n"
+                "- Digite o Codigo de Desmatr√≠cula [matriculaDoProfessor/codigoDaDisciplina]\n-> ");
+        DADO = solicitaCodigoMatricula( codigoDeDesmatricula );
+        if( !DADO == INVALIDO ){
+            strcpy( &codigoDeDesmatricula[0], ( caixaAlta( &codigoDeDesmatricula[0] ) ) );
+            int disciplinaId = verificaCodigoDisciplina( &codigoDeDesmatricula[12] );
+            if( disciplinaId != -1 ){
+                char matriculaProfessor[TAM_MAT - 1];
+                strncpy( matriculaProfessor, codigoDeDesmatricula, TAM_MAT - 2 );
+                int professorId = verificaMatriculaProfessor( matriculaProfessor );
+                if( professorId != -1 ){
+                    if( ( strcmp( docente[id].dado.matricula, matriculaProfessor ) ) == 0 ){
+                        for( int grade = 0; grade < docente[professorId].disciplinasMinistrando; grade++ ){
+                            if( docente[professorId].ministrando[grade] == disciplinaId ){
+                                PROFESSOR = VALIDO; break;}}
+                        if( PROFESSOR == VALIDO ){
+                            ajusteGradeProfessor( professorId, disciplinaId );
+                            materia[disciplinaId].professorId = -1;
+                            printf( "%s n√£o est√° ministando %s \n", docente[professorId].dado.nome, materia[disciplinaId].nome );
+                            atualizaCadastroDisciplina( disciplinaId );
+                            atualizaCadastroProfessor( professorId );
+                            break;
+                        }else{ puts( "\tO professor n√£o est√° ministrando esta disciplina \n" ); }
+                    }else{ puts( "\t> Matricula invalida <\n" );}
+                }else{ puts( "\t> Professor n√£o cadastrado <\n" );}
+            }else{ puts( "\t> Disciplina n√£o cadastrada <\n" );}
+        }else break;
     }while( DADO != INVALIDO );
 }
 bool solicitaCodigoMatricula( char codigoDeMatricula[] ){
@@ -107,13 +196,13 @@ bool validaCodigoMatricula( char codigoDeMatricula[] ){
     strncpy( matricula, codigoDeMatricula, 11  );
 
     if( !tamanhoCerto( TAM_COD_MAT, codigoDeMatricula ) ){
-        mensagemDeErro[erro++] = "> CÛdigo inv·lido <";}
+        mensagemDeErro[erro++] = "\t> C√≥digo inv√°lido <\n";}
 
     for( int caracter = 0; codigoDeMatricula[caracter] != '\0'; caracter++ ){
         if( !ehNumero(codigoDeMatricula[caracter]) && !ehLetra(codigoDeMatricula[caracter] ) && codigoDeMatricula[caracter] != '/' ){
-             mensagemDeErro[erro++] = "> Caracteres inv·lidos <";}
+             mensagemDeErro[erro++] = "\t> Caracteres inv√°lidos <\n";}
         if( codigoDeMatricula[caracter] == '/' && caracter != 11 ){
-            puts( "> CÛdigo inv·lido <" );
+            puts( "\t> C√≥digo inv√°lido <\n" );
             return false;}
     }
     if( !validaMatricula( matricula ) ){

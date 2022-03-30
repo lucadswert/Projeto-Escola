@@ -17,8 +17,8 @@ int main( ){
 
 	char opcao = '\0';
     enum MENU{ Realizar_Cadastro = '1', Atualizar_Cadastro = '2',
-               Listar_Informacoes = '3', Matricular_Aluno = '4',
-               Filtro_por_palavra_chave = '5', Encerrar_Programa = '0'};
+               Listar_Informacoes = '3', Filtro_por_palavra_chave = '4',
+               Encerrar_Programa = '0'};
 
     if( criaArquivos( ) &&
         recuperaDadosGerais( ) &&
@@ -31,14 +31,13 @@ int main( ){
                 case Realizar_Cadastro: cadastrar( ); break;
                 case Atualizar_Cadastro: atualizar( ); break;
                 case Listar_Informacoes: listar( ); break;
-                case Matricular_Aluno: matricular( ); break;
                 case Filtro_por_palavra_chave: filtroPorPalavraChave( ); break;
                 case Encerrar_Programa: printf( "<<<<<<<<< Programa Encerrado >>>>>>>>>\n\n" ); break;}
         }while( opcao != Encerrar_Programa );
         salvaDadosGerais( );
         return EXIT_SUCCESS;
     }else{
-        puts( "FALHA NA RECUPERA«√O DE DADOS\n" );
+        puts( "\tFALHA NA RECUPERA√á√ÉO DE DADOS\n" );
         return EXIT_FAILURE;}
 }
 void cadastrar( ){
@@ -55,21 +54,21 @@ void cadastrar( ){
         switch( opcao ){
             case Professor:
                 if( !cadastrarProfessor( ) ){
-                    puts( "\n\t> Ops! Professor n„o cadastrado! <");
+                    puts( "\t> Ops! Professor n√£o cadastrado! <\n");
                 }else{
                     salvaCadastroProfessor( );
                     salvaDadosGerais( );}
                 break;
             case Aluno:
                 if( !cadastrarAluno( ) ){
-                    puts( "\n\t> Ops! Aluno n„o cadastrado! <");
+                    puts( "\t> Ops! Aluno n√£o cadastrado! <\n");
                 }else{
                     salvaCadastroAluno( );
                     salvaDadosGerais( );}
                 break;
             case Disciplina:
                 if( !cadastrarDisciplina( ) ){
-                    puts( "\n\t> Ops! Discplina n„o cadastrada! <");
+                    puts( "\t> Ops! Discplina n√£o cadastrada! <\n");
                 }else{
                     salvaCadastroDisciplina( );
                     salvaDadosGerais( );}

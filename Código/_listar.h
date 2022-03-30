@@ -1,10 +1,10 @@
-#ifndef LISTA_FILE_H
+  #ifndef LISTA_FILE_H
 #define LISTA_FILE_H
 
 #include "_validar.h"
 #include <string.h>
 
-///FUNC’ES DE PESQUISA
+///FUNC√ïES DE PESQUISA
 void buscarAlunosPorPalavraChave( );
 void buscarProfessoresPorPalavraChave( );
 void aniversarianteMes( );
@@ -14,17 +14,17 @@ void alunosComFiltroTamanhoGrade( );
 int *dispositivoBuscadorDeAluno( char* );
 int *dispositivoBuscadorDeProfessor( char* );
 
-///FUN«’ES DE ORDENA«√O DE DADOS DE ALUNOS
+///FUN√á√ïES DE ORDENA√á√ÉO DE DADOS DE ALUNOS
 void ordenaAlunosPorSexo( Aluno * );
 void ordenaAlunosPorOrdemAlfabetica( Aluno * );
 void ordenaAlunosPorNascimento( Aluno * );
 
-///FUN«’ES DE ORDENA«√O DE DADOS DE PROFESSORES
+///FUN√á√ïES DE ORDENA√á√ÉO DE DADOS DE PROFESSORES
 void ordernaProfessoresPorSexo( Professor* );
 void ordernaProfessoresPorOrdemAlfabetica(  Professor* );
 void ordernaProfessoresPorNascimento( Professor* );
 
-///FUN«’ES DE RELAT”RIOS DE DADOS DE DISCIPLINAS
+///FUN√á√ïES DE RELAT√ìRIOS DE DADOS DE DISCIPLINAS
 void relatorioAlunos( Aluno[] );
 void relatorioProfessores( Professor[] );
 void relatorioDisciplinas( );
@@ -69,7 +69,7 @@ void listarProfessores( ){
                     break;
                 case Voltar: break;}
         }while( resposta != Voltar );
-    }else{ puts( "\t> N„o h· professores cadastrados <\n" );}
+    }else{ puts( "\t> N√£o h√° professores cadastrados <\n" );}
 }
 void listarAlunos( ){
     int menuListarAluno( );
@@ -109,7 +109,7 @@ void listarAlunos( ){
                     break;
                 case Voltar: break;}
         }while( resposta != Voltar );
-    }else{ puts( "\t> N„o h· alunos cadastrados <\n" );}
+    }else{ puts( "\t> N√£o h√° alunos cadastrados <\n" );}
 }
 void listarDisciplinas( ){
     int solicitaCodigoFiltro( );
@@ -136,7 +136,7 @@ void listarDisciplinas( ){
                     break;
                 case Voltar: break;}
         }while( resposta != Voltar );
-    }else{ puts( "\t> N„o h· disciplinas cadastradas <\n" );}
+    }else{ puts( "\t> N√£o h√° disciplinas cadastradas <\n" );}
 }
 void ordernaProfessoresPorSexo( Professor *professores ){
     Professor aux;
@@ -231,7 +231,7 @@ void aniversarianteMes( ){
         printf ("\n===============================\n"
                 "||      ANIVERSARIANTES      || \n"
                 "===============================\n"
-                "- Insira o mÍs que deseja realizar a busca:\n"
+                "- Insira o m√™s que deseja realizar a busca:\n"
                 "-> ");
         fgets(mesAtual, 4, stdin);
         if( sair( mesAtual[0], mesAtual[1] ) ){
@@ -240,10 +240,10 @@ void aniversarianteMes( ){
             limpaTexto( mesAtual );
             mesAtualNum = charParaInt(mesAtual[0])*10 + charParaInt(mesAtual[1]);
             if( mesAtualNum > 12 || mesAtualNum < 1 ){
-                puts( "> MÍs inv·lido! <" );
+                puts( "> M√™s inv√°lido! <" );
             }else{
                 printf( "=======================================================================================\n"
-                        "                               ANIVERSARIANTES DO M S\n"
+                        "                               ANIVERSARIANTES DO M√äS\n"
                         "=======================================================================================\n");
                 aniversariantesDoMes = alunosAniversariantes( mesAtual );
                 if( aniversariantesDoMes[0] != -1  ){
@@ -252,7 +252,7 @@ void aniversarianteMes( ){
                     for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
                         printf( "%*s %*s \n", TAM_NAC+11, discente[aniversariantesDoMes[corredor]].dado.nascimento,
                                              10, discente[aniversariantesDoMes[corredor]].dado.nome );}
-                }else{ puts( "\n> N„o h· alunos aniversariantes neste mÍs <\n" );}
+                }else{ puts( "\n> N√£o h√° alunos aniversariantes neste m√™s <\n" );}
 
                 aniversariantesDoMes = professoresAniversariantes( mesAtual );
 
@@ -262,7 +262,7 @@ void aniversarianteMes( ){
                     for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
                         printf( "%*s %*s \n", TAM_NAC+11, docente[aniversariantesDoMes[corredor]].dado.nascimento,
                                               10, docente[aniversariantesDoMes[corredor]].dado.nome );}
-                }else{ puts( "\n> N„o h· professores aniversariantes neste mÍs <\n" );}
+                }else{ puts( "\n> N√£o h√° professores aniversariantes neste m√™s <\n" );}
             }
         }
     }while( true );
@@ -363,7 +363,7 @@ void relatorioAlunos( Aluno alunosOrdenados[] ){
            "                                                          ALUNOS CADASTRADOS\n"
            "====================================================================="
            "====================================================================\n");
-    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÕCULA", TAM_CPF, "CPF",
+    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATR√çCULA", TAM_CPF, "CPF",
                                             TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
     for( int posicao = 0; posicao < alunosCadastrados; posicao++ ){
         printf( "%*s  %*s  %*s      %*c      %-*s\n", TAM_MAT+5, alunosOrdenados[posicao].dado.matricula,
@@ -371,6 +371,7 @@ void relatorioAlunos( Aluno alunosOrdenados[] ){
                                                TAM_NAC+5, alunosOrdenados[posicao].dado.nascimento,
                                                9, alunosOrdenados[posicao].dado.sexo,
                                                TAM_NOME, alunosOrdenados[posicao].dado.nome );}
+    puts("\n");
 }
 void relatorioProfessores( Professor professoresOrdenados[] ){
     printf( "===================================================================="
@@ -378,7 +379,7 @@ void relatorioProfessores( Professor professoresOrdenados[] ){
             "                                                        PROFESSORES CADASTRADOS\n"
             "====================================================================="
             "====================================================================\n");
-    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+5, "MATRÕCULA", TAM_CPF, "CPF",
+    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+5, "MATR√çCULA", TAM_CPF, "CPF",
                                             TAM_NAC+11, "NASCIMENTO", 12, "SEXO ", 14, "NOME" );
     for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
          printf( " %*s  %*s  %*s  %*c          %-s\n", TAM_MAT+5, professoresOrdenados[posicao].dado.matricula,
@@ -386,6 +387,7 @@ void relatorioProfessores( Professor professoresOrdenados[] ){
                                                        TAM_NAC+5, professoresOrdenados[posicao].dado.nascimento,
                                                        9, professoresOrdenados[posicao].dado.sexo,
                                                        professoresOrdenados[posicao].dado.nome );}
+    puts("\n");
 }
 void relatorioDisciplinas(  ){
     printf( "===================================================================="
@@ -393,34 +395,35 @@ void relatorioDisciplinas(  ){
             "                                                         DISCIPLINAS CADASTRADAS\n"
             "======================================================================"
             "===================================================================\n");
-    printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "C”DIGO", TAM_SEM+4, "SEMESTRE",
-                                     11,"RELA«√O", 18, "PROFESSOR", 18, "NOME" );
+    printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "C√ìDIGO", TAM_SEM+4, "SEMESTRE",
+                                     11,"RELA√á√ÉO", 18, "PROFESSOR", 18, "NOME" );
     for( int posicao = 0; posicao < disciplinasCadastradas; posicao++ ){
         printf( "%*s  %*s  %*d/%2.d      %-*s  %-*s\n", TAM_COD_DISC+3, materia[posicao].codigo,
                                                         TAM_SEM+2, materia[posicao].semestre,
                                                         4 ,materia[posicao].quantidadeMatriculado,
                                                         materia[posicao].vagas,
-                                                        20, docente[materia[posicao].professorId].dado.nome,
+                                                        20, docente[materia[posicao].professorId-1].dado.nome,
                                                         20 ,materia[posicao].nome );}
+    puts("\n");
 }
 void disciplinaComAlunos( int posicao ){
     printf( "=======================================================================================\n"
             "                                    DISCIPLINA\n"
             "=======================================================================================\n");
-    printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "C”DIGO", TAM_SEM+4, "SEMESTRE",
-                                     11,"RELA«√O", 18, "PROFESSOR", 18, "NOME" );
+    printf( "%*s %*s %*s %*s %*s\n", TAM_COD_DISC+4, "C√ìDIGO", TAM_SEM+4, "SEMESTRE",
+                                     11,"RELA√á√ÉO", 18, "PROFESSOR", 18, "NOME" );
 
     printf( "%*s  %*s  %*d/%02d      %-*s  %-*s\n", TAM_COD_DISC+3, materia[posicao].codigo,
                                                       TAM_SEM+2, materia[posicao].semestre,
                                                       4 ,materia[posicao].quantidadeMatriculado,
                                                       materia[posicao].vagas ,
-                                                      20, docente[materia[posicao].professorId].dado.nome,
+                                                      20, docente[materia[posicao].professorId-1].dado.nome,
                                                       20 ,materia[posicao].nome );
 
     printf( "=======================================================================================\n"
         "                                     MATRICULADOS\n"
         "=======================================================================================\n");
-    printf( "%*s %*s  \n", TAM_MAT+3, "MATRÕCULA", 15, "NOME" );
+    printf( "%*s %*s  \n", TAM_MAT+3, "MATR√çCULA", 15, "NOME" );
 
     int contadorDeAlunos = 0;
     for( int matriculado = 0; matriculado < alunosCadastrados; matriculado++ ){
@@ -430,7 +433,8 @@ void disciplinaComAlunos( int posicao ){
                 printf( " %*s      %-*s\n", TAM_MAT+2, discente[matriculado].dado.matricula,
                                TAM_NOME+6,discente[matriculado].dado.nome );}}}
     if( contadorDeAlunos == 0 ){
-        puts( "\n\t> N„o h· alunos matriculados nessa disciplina < " );}
+        puts( "\n\t> N√£o h√° alunos matriculados nessa disciplina < \n" );}
+    puts( "\n" );
 }
 void disciplinasComFiltroVagas( ){
     int vagas;
@@ -447,7 +451,7 @@ void disciplinasComFiltroVagas( ){
             break;
         }else{
             if( vagas < 0 ){
-                puts( "\n> Valor de vagas inv·lida <" );
+                puts( "\n> Valor de vagas inv√°lida <\n" );
             }else{
                 printf( "=======================================================================================\n"
                         "                             DISCIPLINAS ENCONTRADAS \n"
@@ -459,8 +463,9 @@ void disciplinasComFiltroVagas( ){
                         printf( "%*s  %*s  %*d      %-*s     %-*s\n", TAM_COD_DISC+3, materia[posicao].codigo,
                                                                           TAM_SEM+2, materia[posicao].semestre,
                                                                           9, materia[posicao].vagas,
-                                                                          20, docente[materia[posicao].professorId].dado.nome, 20, materia[posicao].nome );}}}}
+                                                                          20, docente[materia[posicao].professorId-1].dado.nome, 20, materia[posicao].nome );}}}}
     }while( true );
+    puts( "\n" );
 }
 void alunosComFiltroTamanhoGrade( ){
     int matriculado = 0,
@@ -479,7 +484,7 @@ void alunosComFiltroTamanhoGrade( ){
             break;
         }else{
             if( matriculado < 0 ) {
-                puts( "\n > Quantidade de disciplinas inv·lida < \n" );
+                puts( "\n > Quantidade de disciplinas inv√°lida < \n" );
             }else{
                 printf( "====================================================================="
                         "====================================================================\n"
@@ -487,7 +492,7 @@ void alunosComFiltroTamanhoGrade( ){
                         "====================================================================="
                         "====================================================================\n"
                   );
-                printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÕCULA", TAM_CPF, "CPF",
+                printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATR√çCULA", TAM_CPF, "CPF",
                                                 TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
                 for( int posicao = 0; posicao < alunosCadastrados; posicao++ ){
                     if( discente[posicao].disciplinasCursando < matriculado ){
@@ -497,6 +502,7 @@ void alunosComFiltroTamanhoGrade( ){
                                                    9, discente[posicao].dado.sexo,
                                                    TAM_NOME, discente[posicao].dado.nome );}}}}
     }while( true );
+    puts( "\n" );
 }
 void professoresComFiltroTamanhoGrade( ){
     int matriculado = 0;
@@ -514,14 +520,14 @@ void professoresComFiltroTamanhoGrade( ){
             break;
         }else{
             if( matriculado < 0 ) {
-                puts( "\n > Quantidade de disciplinas inv·lida < \n" );
+                puts( "\n > Quantidade de disciplinas inv√°lida < \n" );
             }else{
                 printf("====================================================================="
                        "====================================================================\n"
                        "                                                       PROFESSORES ENCONTRADOS \n"
                        "======================================================================"
                        "===================================================================\n");
-                printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÕCULA", TAM_CPF, "CPF",
+                printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATR√çCULA", TAM_CPF, "CPF",
                                                 TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
 
                 for( int posicao = 0; posicao < professoresCadastrados; posicao++ ){
@@ -532,6 +538,7 @@ void professoresComFiltroTamanhoGrade( ){
                                                                        9, docente[posicao].dado.sexo,
                                                                        TAM_NOME, docente[posicao].dado.nome );}}}}
     }while( true );
+    puts( "\n" );
 }
 int solicitaCodigoFiltro( ){
     enum VALIDAR { VALIDO = 1, INVALIDO = 0 };
@@ -541,9 +548,9 @@ int solicitaCodigoFiltro( ){
 
     do{
         printf("\n================================\n"
-                "|| Filtro - C”DIGO DISCIPLINA || \n"
+                "|| Filtro - C√ìDIGO DISCIPLINA || \n"
                 "================================\n"
-                "- Digite o cÛdigo da disciplina:\n"
+                "- Digite o c√≥digo da disciplina:\n"
                 "-> ");
         fgets(codigo, TAM_COD_DISC, stdin);
 
@@ -556,7 +563,7 @@ int solicitaCodigoFiltro( ){
             if( DADO == VALIDO ){
                 posicao = verificaCodigoDisciplina( codigo );
                 if( posicao < 0 ){
-                    puts( "\n > Essa disciplina n„o est· cadastrada < \n" );
+                    puts( "\n > Essa disciplina n√£o est√° cadastrada < \n" );
                     DADO = INVALIDO;}}}
     }while( DADO == INVALIDO );
     return posicao;
@@ -587,7 +594,7 @@ void filtroPorPalavraChave( ){
                            "                                                          ALUNOS ENCONTRADOS: \n"
                            "======================================================================"
                            "===================================================================\n");
-                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÕCULA", TAM_CPF, "CPF",
+                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATR√çCULA", TAM_CPF, "CPF",
                                                 TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
                     for( int posicao = 0; encontradosId[posicao] != -1; posicao++ ){
                         printf( "%*s  %*s  %*s    %*c         %-*s\n", TAM_MAT+5, discente[encontradosId[posicao]].dado.matricula,
@@ -596,7 +603,7 @@ void filtroPorPalavraChave( ){
                                                                    9, discente[encontradosId[posicao]].dado.sexo,
                                                                    TAM_NOME, discente[encontradosId[posicao]].dado.nome );}
                 }else{
-                    puts( "\n > Nenhum aluno foi encontrado < \n" );}
+                    puts( "\n \t> Nenhum aluno foi encontrado < \n" );}
 
                 encontradosId = dispositivoBuscadorDeProfessor( palavraChave );
 
@@ -606,7 +613,7 @@ void filtroPorPalavraChave( ){
                             "                                                          PROFESSORES ENCONTRADOS: \n"
                             "======================================================================="
                             "==================================================================\n");
-                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÕCULA", TAM_CPF, "CPF",
+                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATR√çCULA", TAM_CPF, "CPF",
                                                 TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
                     for( int posicao = 0; encontradosId[posicao] != -1; posicao++ ){
                         printf( "%*s  %*s  %*s     %*c       %-*s\n", TAM_MAT+5, docente[encontradosId[posicao]].dado.matricula,
@@ -614,9 +621,10 @@ void filtroPorPalavraChave( ){
                                                                    TAM_NAC+5, docente[encontradosId[posicao]].dado.nascimento,
                                                                    9, docente[encontradosId[posicao]].dado.sexo,
                                                                    TAM_NOME, docente[encontradosId[posicao]].dado.nome );}
-                }else{puts( "\n > Nenhum professor foi encontrado < \n" );}}
-        }else{ puts( "\t> Digite no mÌnimo 3 letras < " );}
+                }else{puts( "\n \t> Nenhum professor foi encontrado < \n" );}}
+        }else{ puts( "\t> Digite no m√≠nimo 3 letras < \n" );}
     }while( true );
+    puts( "\n" );
 }
 void buscarAlunosPorPalavraChave( ){
     char palavraChave[TAM_NOME];
@@ -647,7 +655,7 @@ void buscarAlunosPorPalavraChave( ){
                            "                                                       ALUNOS ENCONTRADOS: \n"
                            "======================================================================"
                            "===================================================================\n");
-                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÕCULA", TAM_CPF, "CPF",
+                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATR√çCULA", TAM_CPF, "CPF",
                                                 TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
                     for( int posicao = 0; alunosEncontradosId[posicao] != -1; posicao++ ){
                         printf( "%*s  %*s  %*s    %*c         %-*s\n", TAM_MAT+5, discente[alunosEncontradosId[posicao]].dado.matricula,
@@ -655,9 +663,10 @@ void buscarAlunosPorPalavraChave( ){
                                                                        TAM_NAC+5, discente[alunosEncontradosId[posicao]].dado.nascimento,
                                                                        9, discente[alunosEncontradosId[posicao]].dado.sexo,
                                                                         TAM_NOME, discente[alunosEncontradosId[posicao]].dado.nome );}
-                }else{puts( "\n > Nenhum aluno foi encontrado < \n" );}}
-        }else{ puts( "\t> Digite no mÌnimo 3 letras < " );}
+                }else{puts( "\n \t> Nenhum aluno foi encontrado < \n" );}}
+        }else{ puts( "\t> Digite no m√≠nimo 3 letras < \n" );}
     }while( true );
+    puts( "\n" );
 }
 int *dispositivoBuscadorDeAluno( char *chave ){
     int *alunosEncontradosId = (int*)malloc( alunosCadastrados*sizeof(int) ),
@@ -698,14 +707,13 @@ void buscarProfessoresPorPalavraChave( ){
             limpaTexto(palavraChave);
             if( validaNome( palavraChave ) ){
                 professoresEncontradosId = dispositivoBuscadorDeProfessor( palavraChave );
-
                 if( !(professoresEncontradosId[0] == -1) ){
                     printf( "\n==================================================================="
                             "======================================================================\n"
                             "                                                      PROFESSORES ENCONTRADOS: \n"
                             "====================================================================="
                             "====================================================================\n");
-                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATRÕCULA", TAM_CPF, "CPF",
+                    printf( " %*s  %*s  %*s  %*s  %*s  \n", TAM_MAT+4, "MATR√çCULA", TAM_CPF, "CPF",
                                                 TAM_NAC+11, "NASCIMENTO", 14, "SEXO", 14, "NOME" );
                     for( int posicao = 0; professoresEncontradosId[posicao] != -1; posicao++ ){
                         printf( "%*s  %*s  %*s     %*c       %-*s\n", TAM_MAT+5, docente[professoresEncontradosId[posicao]].dado.matricula,
@@ -714,12 +722,13 @@ void buscarProfessoresPorPalavraChave( ){
                                                                       9, docente[professoresEncontradosId[posicao]].dado.sexo,
                                                                       TAM_NOME, docente[professoresEncontradosId[posicao]].dado.nome );}
                 }else{ puts( "\n > Nenhum professor foi encontrado < \n" );}}
-        }else{ puts( "\t> Digite no mÌnimo 3 letras < " ); }
+        }else{ puts( "\t> Digite no m√≠nimo 3 letras < \n" ); }
     }while( true );
+    puts( "\n" );
 }
 int *dispositivoBuscadorDeProfessor( char *chave ){
     int *professoresEncontradosId = (int*)malloc( professoresCadastrados*sizeof(int) ),
-        corredor = 0, ///incluir mensagem para falha na alocaÁ„o de memÛria
+        corredor = 0, ///incluir mensagem para falha na aloca√ß√£o de mem√≥ria
         tamanhoChave = strlen( chave );
     char *recorte = (char*)malloc(tamanhoChave*sizeof(char));
 

@@ -15,7 +15,7 @@
 #define TAM_NOME_DISC 31
 #define TAM_TURMA 40
 
-///QUANTIDADE MÁXIMA DE CADASTROS
+///QUANTIDADE MÃXIMA DE CADASTROS
 #define quantMaxAluno 10
 #define quantMaxProfessor 10
 #define quantMaxDisciplina 10
@@ -27,7 +27,7 @@
 #define TAM_MINIS 4
 ///==========//==========//=========//=========//
 
-///SEÇÃO DE REGISTROS
+///SEÃ‡ÃƒO DE REGISTROS
 ///REGISTRO DE DADOS COMUNS: ALUNO/PROFESSOR
 struct dados{
     char cpf[TAM_CPF],
@@ -73,7 +73,7 @@ struct{
 }dadosGerais;
 ///==========//==========//=========//=========//
 
-///SEÇÃO DE FUNÇÕES UTILITÁRIAS
+///SEÃ‡ÃƒO DE FUNÃ‡Ã•ES UTILITÃRIAS
 void limpaTexto( char* );
 bool tamanhoCerto( int, char* );
 
@@ -100,29 +100,29 @@ int verificaNomeDisciplina( char * );
 int verificaNomeProfessor( char* );
 ///==========//==========//=========//=========//
 
-///SEÇÃO DE ARQUIVOS
+///SEÃ‡ÃƒO DE ARQUIVOS
 ///ARQUIVOS PARA ARMAZENAMENTO DE DADOS
 char *arquivoDeProfessores = "arquivo_de_professores.txt";
 char *arquivoDeAlunos = "arquivo_de_alunos.txt";
 char *arquivoDeDisciplinas = "arquivo_de_disciplinas.txt";
 char *arquivoDeDadosGerais = "arquivo_de_dados_gerais.txt";
 
-///FUNÇÃO DE CRIAÇÃO DE ARQUIVOS
+///FUNÃ‡ÃƒO DE CRIAÃ‡ÃƒO DE ARQUIVOS
 bool criaArquivos( );
 
-///FUNÇÕES DE ARMAZENAMENTO DE DADOS
+///FUNÃ‡Ã•ES DE ARMAZENAMENTO DE DADOS
 bool salvaDadosGerais( );
 bool salvaCadastroProfessor( );
 bool salvaCadastroDisciplina( );
 bool salvaCadastroAluno( );
 
-///FUNÇÕES DE RECUPERAÇÃO DE DADOS
+///FUNÃ‡Ã•ES DE RECUPERAÃ‡ÃƒO DE DADOS
 bool recuperaCadastrosAlunos( );
 bool recuperaCadastrosDisciplinas( );
 bool recuperaCadastrosProfessores( );
 bool recuperaDadosGerais( );
 
-///FUNÇÕES DE ATUALIZAÇÃO DE DADOS
+///FUNÃ‡Ã•ES DE ATUALIZAÃ‡ÃƒO DE DADOS
 bool atualizaCadastroProfessor( unsigned );
 bool atualizaCadastroAluno( unsigned );
 bool atualizaCadastroDisciplina( unsigned );
@@ -157,7 +157,7 @@ bool tamanhoCerto( const int tamanho, char *dado){
     return true;
 }
 bool ehLetra(char caracter){
-    char caracteresEspeciais[] = "àèìòùÀÈÌÒÙáéíóúıÁÉÍÓÚİâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ";
+    char caracteresEspeciais[] = "Ã Ã¨Ã¬Ã²Ã¹Ã€ÃˆÃŒÃ’Ã™Ã¡Ã©Ã­Ã³ÃºÃ½ÃÃ‰ÃÃ“ÃšÃÃ¢ÃªÃ®Ã´Ã»Ã‚ÃŠÃÃ”Ã›Ã£Ã±ÃµÃƒÃ‘Ã•Ã¤Ã«Ã¯Ã¶Ã¼Ã¿Ã„Ã‹ÃÃ–ÃœÅ¸Ã§Ã‡";
 
     if( (caracter >= 'A' && caracter <= 'Z') ||
 	       ( caracter >= 'a' && caracter <= 'z' ) ){
@@ -211,7 +211,7 @@ void padronizaNome( char nome[] ){
             nome[caracter] = aumentaLetra(nome[caracter]); }}
 }
 char diminuiLetra( char letra ){
-    char caracteresEspeciais[] = "àèìòùáéíóúıâêîôûãñõçÀÈÌÒÙÁÉÍÓÚİÂÊÎÔÛÃÑÕÇ";
+    char caracteresEspeciais[] = "Ã Ã¨Ã¬Ã²Ã¹Ã¡Ã©Ã­Ã³ÃºÃ½Ã¢ÃªÃ®Ã´Ã»Ã£Ã±ÃµÃ§Ã€ÃˆÃŒÃ’Ã™ÃÃ‰ÃÃ“ÃšÃÃ‚ÃŠÃÃ”Ã›ÃƒÃ‘Ã•Ã‡";
 
     if( letra < 91 && letra > 64 ){
         return letra + 32;
@@ -223,7 +223,7 @@ char diminuiLetra( char letra ){
     return letra;
 }
 char aumentaLetra( char letra ){
-    char caracteresEspeciais[] = "àèìòùáéíóúıâêîôûãñõçÀÈÌÒÙÁÉÍÓÚİÂÊÎÔÛÃÑÕÇ";
+    char caracteresEspeciais[] = "Ã Ã¨Ã¬Ã²Ã¹Ã¡Ã©Ã­Ã³ÃºÃ½Ã¢ÃªÃ®Ã´Ã»Ã£Ã±ÃµÃ§Ã€ÃˆÃŒÃ’Ã™ÃÃ‰ÃÃ“ÃšÃÃ‚ÃŠÃÃ”Ã›ÃƒÃ‘Ã•Ã‡";
 
     if( letra < 123 && letra > 96 ){
         return letra - 32;

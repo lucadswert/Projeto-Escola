@@ -3,19 +3,18 @@
 #include <string.h>
 #include "_gerais.h"
 
-///FUNC’ES DE VALIDA«√O DE DADOS DE PROFESSORES E ALUNOS
+///FUNC√ïES DE VALIDA√á√ÉO DE DADOS DE PROFESSORES E ALUNOS
 bool validaMatricula( char *matricula );
 bool validaCpf( char *cpf );
 bool validaSexo( char sexo );
 bool validaNascimento( char *data );
 bool validaNome( char *nome );
 
-///FUNC’ES DE VALIDA«√O DE DADOS DE DISCIPLINAS
+///FUNC√ïES DE VALIDA√á√ÉO DE DADOS DE DISCIPLINAS
 bool validaCodigo( char* );
 bool validaSemestre( char* );
 bool validaVagas( int );
 bool validaProfessores( char* );
-bool validaNomeDisciplina( char* );
 ///=========//==========//=========//=========//=========//
 
 bool validaMatricula( char *matricula ){
@@ -23,11 +22,11 @@ bool validaMatricula( char *matricula ){
     int erro = 0;
 
     if ( !tamanhoCerto(TAM_MAT, matricula) ){
-        mensagensDeErro[erro++] = " > Tamanho inv·lido <";}
+        mensagensDeErro[erro++] = "\t > Tamanho inv√°lido <\n";}
 
     for(int i = 0; matricula[i] != '\0'; i++){
         if( !ehNumero(matricula[i]) ){
-            mensagensDeErro[erro++] = " > Caractere inserido inv·lido <";}}
+            mensagensDeErro[erro++] = "\t > Caractere inserido inv√°lido <\n";}}
 
     mensagensDeErro[erro] = NULL;
 
@@ -41,7 +40,7 @@ bool validaMatricula( char *matricula ){
 bool validaNome(char *nome){
     for(int i = 0; nome[i] != '\0'; i++){
         if(!(ehLetra(nome[i])) && !(nome[i] == ' ')){
-            puts( " > Caractere inv·lido <" );
+            puts( "\t > Caractere inv√°lido <\n" );
             return false;}}
     return true;
 }
@@ -50,20 +49,20 @@ bool validaNascimento( char *data ){
     int erro = 0;
 
     if ( !tamanhoCerto(TAM_NAC, data) ){
-        mensagensDeErro[erro++] = " > Tamanho inv·lido <";}
+        mensagensDeErro[erro++] = "\t > Tamanho inv√°lido <\n";}
 
     for(int i = 0; data[i] != '\0'; i++){
         if( !ehNumero(data[i]) && !(data[i] == '/')){
-            mensagensDeErro[erro++] = " > Caractere inserido inv·lido <";
+            mensagensDeErro[erro++] = "\t > Caractere inserido inv√°lido <\n";
             break;}}
     mensagensDeErro[erro] = NULL;
 
     for( int caracter = 0; data[caracter] != '\0'; caracter++ ){
         if( !ehNumero(data[caracter]) && !(caracter == 2) && !(caracter == 5 ) ){
-            puts( " > Data inv·lida <" );
+            puts( "\t > Data inv√°lida <\n" );
             return false;  }}
-    if( !(data[2] == '/') && !(data[5] == '/') ){
-        puts( " > Formato inv·lido <" );
+    if( !(data[2] == '/') || !(data[5] == '/') ){
+        puts( "\t > Formato inv√°lido <\n" );
         return false;}
 
     int dia = (charParaInt(data[0])*10)+charParaInt(data[1]),
@@ -72,14 +71,14 @@ bool validaNascimento( char *data ){
 
     if(  dia > 0 && dia <= 31 && mes > 0 && mes <= 12 && ano >= 1899  && ano <= 2003){
         if( ( mes == 4 || mes == 6 || mes == 9 || mes == 11 ) && dia > 30  ){
-            puts(" > Data inv·lida <");
+            puts("\t > Data inv√°lida <\n");
             return false;
         }else if( mes == 2 && dia > 29 ){
-            puts(" > Data inv·lida <");
+            puts("\t > Data inv√°lida <\n");
             return false;}
 
     }else{
-        puts(" > Data inv·lida <");
+        puts("\t > Data inv√°lida <\n");
         return false;}
 
     if( mensagensDeErro[0] == NULL ){
@@ -94,19 +93,23 @@ bool validaCpf (char *cpf){
     int erro = 0;
 
     if ( !tamanhoCerto(TAM_CPF, cpf) ){
-        mensagensDeErro[erro++] = "  > Tamanho inv·lido <";}
+        mensagensDeErro[erro++] = "\t  > Tamanho inv√°lido <\n";}
 
     for(int i = 0; cpf[i] != '\0'; i++){
-        if( !ehNumero(cpf[i]) && !(cpf[i] == '.') && !(cpf[i] == '-') ){ ///ESTA PERMITINDO 000.000.000.00 ponto no lugar do ultimo traÁo
-            mensagensDeErro[erro++] = " > Caractere inserido inv·lido <";
+        if( !ehNumero(cpf[i]) && !(cpf[i] == '.') && !(cpf[i] == '-') ){ 
+            mensagensDeErro[erro++] = "\t > Caractere inserido inv√°lido <\n";
             break;}}
 
     mensagensDeErro[erro] = NULL;
 
     for( int caracter = 0; cpf[caracter] != '\0'; caracter++ ){
-        if( !ehNumero(cpf[caracter]) && caracter != 3 && caracter != 7 && caracter != 11 ){
-            puts( " > CPF inv·lido <" );
+        if( !ehNumero(cpf[caracter]) && !(caracter == 3) && !(caracter == 7) && !(caracter == 11) ){
+            puts( "\t > CPF inv√°lido <\n" );
             return false;}}
+
+    if( (cpf[3] != '.') || (cpf[7] != '.') || (cpf[11] != '-') ){
+        puts( "\t > Formato inv√°lido <\n" );
+        return false;}
 
     if( mensagensDeErro[0] != NULL ){
         for( int posicoes = 0; mensagensDeErro[posicoes] != NULL; posicoes++ ){
@@ -118,35 +121,28 @@ bool validaCpf (char *cpf){
 bool validaSexo( char sexo ){
     if (!(sexo == 'm') && !(sexo == 'M') && !(sexo == 'F') &&
         !(sexo == 'f') && !(sexo == 'o') && !(sexo == 'O') ){
-        puts( " > OpÁ„o inv·lida <" );
+        puts( "\t > Op√ß√£o inv√°lida <\n" );
         return false;
     }else{
       return true;}
-}
-bool validaNomeDisciplina( char *nomeDisciplina ){  ///acrescentar apossibilidade de colocar numeros
-    for(int i = 0; nomeDisciplina[i] != '\0'; i++){
-        if(!(ehLetra(nomeDisciplina[i])) && !(nomeDisciplina[i] == ' ')){
-            puts(" > Caractere Invalido <");
-            return false;}}
-    return true;
 }
 bool validaCodigo( char *codigo ){
     char *mensagensDeErro[3] = { };
     int erro = 0;
 
     if ( !tamanhoCerto(TAM_COD_DISC, codigo) ){
-        mensagensDeErro[erro++] = " > Tamanho inv·lido <";}
+        mensagensDeErro[erro++] = " > Tamanho inv√°lido <\n";}
 
     for(int i = 0; codigo[i] != '\0'; i++){
         if( !ehNumero(codigo[i]) && !ehLetra(codigo[i])){
-            mensagensDeErro[erro++] = " > Caractere inserido inv·lido <";
+            mensagensDeErro[erro++] = "\t > Caractere inserido inv√°lido <\n";
             break;}}
 
     mensagensDeErro[erro] = NULL;
 
     for(int caracter = 0; caracter < ((TAM_COD_DISC-2)/2); caracter++ ){
         if( !ehLetra(codigo[caracter]) || !ehNumero(codigo[(caracter+((TAM_COD_DISC-2)/2))] )){
-            puts("  > CÛdigo invalido <");
+            puts("\t  > C√≥digo invalido <\n");
             return false;}}
 
     if( mensagensDeErro[0] != NULL ){
@@ -160,22 +156,30 @@ bool validaSemestre( char *semestre ){
     int erro = 0;
 
      if ( !tamanhoCerto(TAM_SEM, semestre) ){
-        mensagensDeErro[erro++] = " > Tamanho inv·lido <";}
+        mensagensDeErro[erro++] = "\t > Tamanho inv√°lido <\n";}
 
     for(int i = 0; semestre[i] != '\0'; i++){
         if( !ehNumero(semestre[i]) && !(semestre[i] == '.') ){
-            mensagensDeErro[erro++] = "  > Caractere inserido inv·lido <";
+            mensagensDeErro[erro++] = "\t  > Caractere inserido inv√°lido <\n";
             break;}}
 
     mensagensDeErro[erro] = NULL;
 
     for( int caracter = 0; semestre[caracter] != '\0'; caracter++ ){
         if( !ehNumero(semestre[caracter]) && caracter != 4 ){
-            puts( " > Semestre inv·lido <" );
+            puts( "\t > Semestre inv√°lido <\n" );
             return false;}}
 
+    if( (semestre[0] < '2')){
+        puts( "\t > Semestre inv√°lido <\n" );
+        return false;}
+
+    if( (semestre[1] != '0')){
+        puts( "\t > Semestre inv√°lido <\n" );
+        return false;}
+
     if ((semestre[5] != '1') && (semestre[5] != '2')){
-        puts ( " > Semestre invalido <" );
+        puts ( "\t > Semestre invalido <\n" );
         return false;}
 
     if( mensagensDeErro[0] == NULL ){
@@ -186,8 +190,12 @@ bool validaSemestre( char *semestre ){
         return false;}
 }
 bool validaVagas( int vagas ){
+    if ( !(ehNumero(vagas))){
+        puts( "\t > Caractere inv√°lido <\n" );
+        return false;}
+
     if( vagas < 0 ){
-        puts( " > Valor inv·lido <" );
+        puts( "\t > Valor inv√°lido <\n" );
         return false;
     }else{
       return true;}
@@ -210,12 +218,12 @@ bool validaProfessores( char *professor ){
                     free( professorAtualBackup );
                     free( professorDaLista );
                     return true;}}
-            puts(" > Professor invalido <" );
+            puts("\t > Professor invalido <\n" );
             free( professorAtualBackup );
             free( professorDaLista );
             return false;
         }else{
-            puts(" > Professor invalido <" );
+            puts("\t > Professor invalido <\n" );
             free( professorAtualBackup );
             free( professorDaLista );
             return false;}

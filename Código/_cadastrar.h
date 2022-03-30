@@ -1,22 +1,22 @@
 #ifndef CADASTRO_FILE_H
 #define CADASTRO_FILE_H
 #include "_validar.h"
-
-///FUN«’ES DE SOLICITA«√O DE DADOS DE PROFESSORES
+#include "_atualizar.h"
+///FUN√á√ïES DE SOLICITA√á√ÉO DE DADOS DE PROFESSORES
 bool solicitaMatriculaProfessor( );
 bool solicitaNomeProfessor( );
 bool solicitaNascimentoProfessor( );
 bool solicitaCpfProfessor( );
 bool solicitaSexoProfessor( );
 
-///FUN«’ES DE SOLICITA«√O DE DADOS DE ALUNOS
+///FUN√á√ïES DE SOLICITA√á√ÉO DE DADOS DE ALUNOS
 bool solicitaMatriculaAluno( );
 bool solicitaNomeAluno( );
 bool solicitaNascimentoAluno( );
 bool solicitaCpfAluno( );
 bool solicitaSexoAluno( );
 
-///FUN«’ES DE SOLICITA«√O DE DADOS DE DISCIPLINAS
+///FUN√á√ïES DE SOLICITA√á√ÉO DE DADOS DE DISCIPLINAS
 bool solicitaNomeDisciplina( );
 bool solicitaCodigo( );
 bool solicitaSemestre( );
@@ -35,12 +35,12 @@ bool cadastrarProfessor( ){
                 if( solicitaNascimentoProfessor( ) )
                     if( solicitaCpfProfessor( ) )
                         if( solicitaSexoProfessor( ) ){
-                            puts( "< CADASTRO DE PROFESSOR FINALIZADO COM SUCESSO! >\n" );
+                            puts( "\t< CADASTRO DE PROFESSOR FINALIZADO COM SUCESSO! >\n" );
                             return true;}
         professoresCadastrados--;
         return false;
     }else{
-        puts( "> Quantidade m·xima atingida <" );
+        puts( "\t> Quantidade m√°xima atingida <\n" );
         return false; }
 }
 
@@ -50,8 +50,10 @@ bool solicitaMatriculaProfessor( ){
     int posicao = professoresCadastrados - 1;
     char matriculaTemp[TAM_MAT];
 
+    strcpy( docente[posicao].dado.matricula, " " );
+
     do{
-        printf("- Digite o numero de matrÌcula: [EX: 01234567890]\n-> ");
+        printf("- Digite o numero de matr√≠cula: [EX: 01234567890]\n-> ");
         fgets( matriculaTemp, TAM_MAT, stdin);
         printf("\n");
 
@@ -62,7 +64,7 @@ bool solicitaMatriculaProfessor( ){
             DADO = validaMatricula( matriculaTemp );
             if( DADO == VALIDO && ( ( verificaMatriculaProfessor( matriculaTemp ) ) > -1
                 || ( verificaMatriculaAluno( matriculaTemp ) ) > -1 ) ){
-                puts( "> MatrÌcula repetida <");
+                puts( "\t> Matr√≠cula repetida <\n");
                 DADO = INVALIDO;}}
     }while( DADO == INVALIDO );
 
@@ -119,6 +121,8 @@ bool solicitaCpfProfessor(){
     int posicao = professoresCadastrados - 1;
     char cpfTemp[TAM_CPF];
 
+    strcpy( docente[posicao].dado.cpf, " " );
+
     do{
         printf("- Digite o CPF: [EX: 000.000.000-00]\n-> ");
         fgets(cpfTemp, TAM_CPF, stdin);
@@ -131,7 +135,7 @@ bool solicitaCpfProfessor(){
             DADO = validaCpf ( cpfTemp );
             if( DADO == VALIDO && ( ( verificaCpfProfessor( cpfTemp ) ) > -1
                 || ( verificaCpfAluno( cpfTemp ) ) > -1 ) ){
-                puts( "> CPF repetido <");
+                puts( "\t> CPF repetido <\n");
                 DADO = INVALIDO;}}
     }while( DADO == INVALIDO );
 
@@ -146,7 +150,7 @@ bool solicitaSexoProfessor( ){
     char sexoTemp[4];
 
     do{
-        printf("- Digite o sexo: [OpÁıes: F, M OU O]\n-> ");
+        printf("- Digite o sexo: [Op√ß√µes: F, M OU O]\n-> ");
         fgets( sexoTemp, 4, stdin);
         printf("\n");
 
@@ -155,8 +159,7 @@ bool solicitaSexoProfessor( ){
         }else{ DADO = validaSexo(sexoTemp[0]);}
     }while( DADO == INVALIDO );
 
-    aumentaLetra(sexoTemp[0]);
-    docente[posicao].dado.sexo = sexoTemp[0];
+    docente[posicao].dado.sexo = aumentaLetra(sexoTemp[0]);
 
     return true;
 }
@@ -172,12 +175,12 @@ bool cadastrarAluno(){
                 if( solicitaNascimentoAluno( ) )
                     if( solicitaCpfAluno( ) )
                         if( solicitaSexoAluno( ) ){
-                            puts( "<<< CADASTRO DE ALUNO FINALIZADO COM SUCESSO! >>>\n" );
+                            puts( "\t<<< CADASTRO DE ALUNO FINALIZADO COM SUCESSO! >>>\n" );
                             return true;}
         alunosCadastrados--;
         return false;
     }else{
-        puts( "> Quantidade m·xima atingida <" );
+        puts( "\t> Quantidade m√°xima atingida <\n" );
         return false; }
 }
 
@@ -186,6 +189,8 @@ bool solicitaMatriculaAluno( ){
     enum VALIDAR DADO;
     int posicao = alunosCadastrados - 1;
     char matriculaTemp[TAM_MAT];
+
+    strcpy( discente[posicao].dado.matricula, " " );
 
     do{
         printf("- Digite a matricula do Aluno: [EX: 01234567890]\n-> ");
@@ -199,7 +204,7 @@ bool solicitaMatriculaAluno( ){
             DADO = validaMatricula( matriculaTemp );
             if( DADO == VALIDO && ( ( verificaMatriculaProfessor( matriculaTemp ) ) > -1
                 || ( verificaMatriculaAluno( matriculaTemp ) ) > -1 ) ){
-                puts( "> Matricula repetida <");
+                puts( "\t> Matricula repetida <\n");
                 DADO = INVALIDO;}}
     }while( DADO == INVALIDO );
 
@@ -234,6 +239,8 @@ bool solicitaCpfAluno( ){
     int posicao = alunosCadastrados - 1;
     char cpfTemp[TAM_CPF];
 
+    strcpy( discente[posicao].dado.cpf, " " );
+
     do{
         printf("- Digite o CPF: [EX: 000.000.000-00]\n-> ");
         fgets( cpfTemp, TAM_CPF, stdin);
@@ -246,7 +253,7 @@ bool solicitaCpfAluno( ){
             DADO = validaCpf ( cpfTemp );
             if( DADO == VALIDO && ( ( verificaCpfAluno( cpfTemp ) ) > -1
                 || ( verificaCpfProfessor( cpfTemp ) ) > -1 ) ){
-                puts( "> CPF repetido <");
+                puts( "\t> CPF repetido <\n");
                 DADO = INVALIDO;}}
     }while( DADO == INVALIDO );
 
@@ -283,7 +290,7 @@ bool solicitaSexoAluno( ){
     char sexoTemp[4];
 
     do{
-        printf("- Digite o sexo: [OpÁıes: F, M OU O]\n-> ");
+        printf("- Digite o sexo: [Op√ß√µes: F, M OU O]\n-> ");
         fgets( sexoTemp, 4, stdin);
         printf("\n");
 
@@ -293,8 +300,7 @@ bool solicitaSexoAluno( ){
             DADO = validaSexo(sexoTemp[0]);}
     }while( DADO == INVALIDO );
 
-    aumentaLetra(sexoTemp[0]);
-    discente[posicao].dado.sexo = sexoTemp[0];
+    discente[posicao].dado.sexo = aumentaLetra(sexoTemp[0]);
 
     return true;
 }
@@ -309,12 +315,12 @@ bool cadastrarDisciplina(){
                 if( solicitaSemestre( ) )
                     if( solicitaVagas( ) )
                        if( solicitaProfessor( ) ){
-                            puts( "< CADASTRO DE DISCIPLINA FINALIZADO COM SUCESSO! >\n" );
+                            puts( "\t< CADASTRO DE DISCIPLINA FINALIZADO COM SUCESSO! >\n" );
                             return true;}
         disciplinasCadastradas--;
         return false;
     }else{
-        puts( "> Quantidade m·xima atingida <" );
+        puts( "\t> Quantidade m√°xima atingida <\n" );
         return false; }
 }
 
@@ -323,6 +329,8 @@ bool solicitaNomeDisciplina( ){
     enum VALIDAR DADO;
     int posicao = disciplinasCadastradas - 1;
     char nomeTemp[TAM_NOME_DISC];
+
+    strcpy( materia[posicao].nome, " " );
 
     do{
         printf("- Digite o nome da disciplina:\n-> ");
@@ -334,11 +342,11 @@ bool solicitaNomeDisciplina( ){
             return false;
         }else{
             limpaTexto( nomeTemp );
-            DADO = validaNomeDisciplina( nomeTemp );
+            DADO = validaNome( nomeTemp );
             if( DADO == VALIDO ){
                 strcpy( nomeTemp, caixaAlta( nomeTemp ) );
                 if( verificaNomeDisciplina( nomeTemp ) > -1 ){
-                    puts( "> Este nome j· est· associado a uma disciplina <" );
+                    puts( "\t> Este nome j√° est√° associado a uma disciplina <\n" );
                     DADO = INVALIDO;}}}
     }while( DADO == INVALIDO );
 
@@ -352,8 +360,10 @@ bool solicitaCodigo( ){
     int posicao = disciplinasCadastradas - 1;
     char codigoTemp[TAM_COD_DISC];
 
+    strcpy( materia[posicao].codigo, " " );
+
     do{
-        printf("- Digite o cÛdigo da disciplina: [EX: EXE123]\n-> ");
+        printf("- Digite o c√≥digo da disciplina: [EX: EXE123]\n-> ");
         fgets( codigoTemp, TAM_COD_DISC, stdin);
         printf("\n");
 
@@ -364,7 +374,7 @@ bool solicitaCodigo( ){
             strcpy( codigoTemp, caixaAlta( codigoTemp ) );
             DADO = validaCodigo( codigoTemp );}
             if( DADO == VALIDO && ( ( verificaCodigoDisciplina( codigoTemp ) ) > -1 ) ){
-                puts( "> CÛdigo associado a outra disciplina <" );
+                puts( "\t> C√≥digo associado a outra disciplina <\n" );
                 DADO = INVALIDO;}
     }while( DADO == INVALIDO );
 
@@ -401,7 +411,7 @@ bool solicitaVagas( ){
         vagasTemp = 0;
 
     do{
-        printf("- Digite o n˙mero de vagas da disciplina:\n-> ");
+        printf("- Digite o n√∫mero de vagas da disciplina:\n-> ");
         scanf( "%d", &vagasTemp );
         getchar( );
         printf("\n");
@@ -438,7 +448,7 @@ bool solicitaProfessor( ){
     int docenteId = verificaNomeProfessor( professorTemp );
     if( docente[docenteId].disciplinasMinistrando < TAM_MINIS ){
         docente[docenteId].ministrando[docente[docenteId].disciplinasMinistrando++] = posicao;
-        materia[posicao].professorId = docenteId;
+        materia[posicao].professorId = docenteId+1; ///os professores comecam a ser inseridos do 1 com id para ministrar disciplina
         atualizaCadastroProfessor(docenteId);}
     return true;
 }
