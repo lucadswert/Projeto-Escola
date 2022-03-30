@@ -32,12 +32,12 @@ int main( ){
                 case Atualizar_Cadastro: atualizar( ); break;
                 case Listar_Informacoes: listar( ); break;
                 case Filtro_por_palavra_chave: filtroPorPalavraChave( ); break;
-                case Encerrar_Programa: printf( "<<<<<<<<< Programa Encerrado >>>>>>>>>\n\n" ); break;}
+                case Encerrar_Programa: printf( "\n <<<<<<<<< Programa Encerrado >>>>>>>>>\n\n" ); break;}
         }while( opcao != Encerrar_Programa );
         salvaDadosGerais( );
         return EXIT_SUCCESS;
     }else{
-        puts( "\tFALHA NA RECUPERAÇÃO DE DADOS\n" );
+        puts( "\t > FALHA NA RECUPERAÇÃO DE DADOS < \n" );
         return EXIT_FAILURE;}
 }
 void cadastrar( ){

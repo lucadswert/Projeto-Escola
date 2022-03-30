@@ -1,4 +1,4 @@
-  #ifndef LISTA_FILE_H
+#ifndef LISTA_FILE_H
 #define LISTA_FILE_H
 
 #include "_validar.h"
@@ -240,7 +240,7 @@ void aniversarianteMes( ){
             limpaTexto( mesAtual );
             mesAtualNum = charParaInt(mesAtual[0])*10 + charParaInt(mesAtual[1]);
             if( mesAtualNum > 12 || mesAtualNum < 1 ){
-                puts( "> Mês inválido! <" );
+                puts( "> Mês inválido! <\n" );
             }else{
                 printf( "=======================================================================================\n"
                         "                               ANIVERSARIANTES DO MÊS\n"
@@ -262,10 +262,9 @@ void aniversarianteMes( ){
                     for( int corredor = 0; aniversariantesDoMes[corredor] != -1; corredor++ ){
                         printf( "%*s %*s \n", TAM_NAC+11, docente[aniversariantesDoMes[corredor]].dado.nascimento,
                                               10, docente[aniversariantesDoMes[corredor]].dado.nome );}
-                }else{ puts( "\n> Não há professores aniversariantes neste mês <\n" );}
-            }
-        }
+                }else{ puts( "\n> Não há professores aniversariantes neste mês <\n" );}}}
     }while( true );
+    puts( "\n" );
 }
 int *alunosAniversariantes( char *mesAtual){
     Aluno aniversarianteDoMes[alunosCadastrados],
@@ -371,7 +370,7 @@ void relatorioAlunos( Aluno alunosOrdenados[] ){
                                                TAM_NAC+5, alunosOrdenados[posicao].dado.nascimento,
                                                9, alunosOrdenados[posicao].dado.sexo,
                                                TAM_NOME, alunosOrdenados[posicao].dado.nome );}
-    puts("\n");
+    puts( "\n" );
 }
 void relatorioProfessores( Professor professoresOrdenados[] ){
     printf( "===================================================================="
@@ -387,7 +386,7 @@ void relatorioProfessores( Professor professoresOrdenados[] ){
                                                        TAM_NAC+5, professoresOrdenados[posicao].dado.nascimento,
                                                        9, professoresOrdenados[posicao].dado.sexo,
                                                        professoresOrdenados[posicao].dado.nome );}
-    puts("\n");
+    puts( "\n" );
 }
 void relatorioDisciplinas(  ){
     printf( "===================================================================="
@@ -404,7 +403,7 @@ void relatorioDisciplinas(  ){
                                                         materia[posicao].vagas,
                                                         20, docente[materia[posicao].professorId-1].dado.nome,
                                                         20 ,materia[posicao].nome );}
-    puts("\n");
+    puts( "\n" );
 }
 void disciplinaComAlunos( int posicao ){
     printf( "=======================================================================================\n"
@@ -433,7 +432,7 @@ void disciplinaComAlunos( int posicao ){
                 printf( " %*s      %-*s\n", TAM_MAT+2, discente[matriculado].dado.matricula,
                                TAM_NOME+6,discente[matriculado].dado.nome );}}}
     if( contadorDeAlunos == 0 ){
-        puts( "\n\t> Não há alunos matriculados nessa disciplina < \n" );}
+        puts( "\n\t> Não há alunos matriculados nessa disciplina < " );}
     puts( "\n" );
 }
 void disciplinasComFiltroVagas( ){
@@ -603,7 +602,7 @@ void filtroPorPalavraChave( ){
                                                                    9, discente[encontradosId[posicao]].dado.sexo,
                                                                    TAM_NOME, discente[encontradosId[posicao]].dado.nome );}
                 }else{
-                    puts( "\n \t> Nenhum aluno foi encontrado < \n" );}
+                    puts( "\n > Nenhum aluno foi encontrado < \n" );}
 
                 encontradosId = dispositivoBuscadorDeProfessor( palavraChave );
 
@@ -621,7 +620,7 @@ void filtroPorPalavraChave( ){
                                                                    TAM_NAC+5, docente[encontradosId[posicao]].dado.nascimento,
                                                                    9, docente[encontradosId[posicao]].dado.sexo,
                                                                    TAM_NOME, docente[encontradosId[posicao]].dado.nome );}
-                }else{puts( "\n \t> Nenhum professor foi encontrado < \n" );}}
+                }else{puts( "\n > Nenhum professor foi encontrado < \n" );}}
         }else{ puts( "\t> Digite no mínimo 3 letras < \n" );}
     }while( true );
     puts( "\n" );
@@ -663,7 +662,7 @@ void buscarAlunosPorPalavraChave( ){
                                                                        TAM_NAC+5, discente[alunosEncontradosId[posicao]].dado.nascimento,
                                                                        9, discente[alunosEncontradosId[posicao]].dado.sexo,
                                                                         TAM_NOME, discente[alunosEncontradosId[posicao]].dado.nome );}
-                }else{puts( "\n \t> Nenhum aluno foi encontrado < \n" );}}
+                }else{puts( "\n > Nenhum aluno foi encontrado < \n" );}}
         }else{ puts( "\t> Digite no mínimo 3 letras < \n" );}
     }while( true );
     puts( "\n" );

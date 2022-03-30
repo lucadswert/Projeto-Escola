@@ -127,7 +127,7 @@ void matricularProfessor( unsigned id ){
                                     break;
                                 }else{ puts( "\t> Este professor já está ministrando esta disciplina <\n" ); }
                             }else{ puts( "\t> Grade cheia <" ); }
-                        }else{ puts( "\t> Já há um professor ministrando esta disciplina \n" ); }
+                        }else{ puts( "\t> Já há um professor ministrando esta disciplina <\n" ); }
                     }else{ puts( "\t> Matricula invalida <\n" );}
                 }else{ puts( "\t> Professor não cadastrado <\n" );}
             }else{ puts( "\t> Disciplina não cadastrada <\n" );}
@@ -165,7 +165,7 @@ void desmatricularProfessor( unsigned id ){
                             atualizaCadastroDisciplina( disciplinaId );
                             atualizaCadastroProfessor( professorId );
                             break;
-                        }else{ puts( "\tO professor não está ministrando esta disciplina \n" ); }
+                        }else{ puts( "O professor não está ministrando esta disciplina " ); }
                     }else{ puts( "\t> Matricula invalida <\n" );}
                 }else{ puts( "\t> Professor não cadastrado <\n" );}
             }else{ puts( "\t> Disciplina não cadastrada <\n" );}

@@ -35,7 +35,7 @@ bool cadastrarProfessor( ){
                 if( solicitaNascimentoProfessor( ) )
                     if( solicitaCpfProfessor( ) )
                         if( solicitaSexoProfessor( ) ){
-                            puts( "\t< CADASTRO DE PROFESSOR FINALIZADO COM SUCESSO! >\n" );
+                            puts( "< CADASTRO DE PROFESSOR FINALIZADO COM SUCESSO! >\n" );
                             return true;}
         professoresCadastrados--;
         return false;
@@ -55,7 +55,6 @@ bool solicitaMatriculaProfessor( ){
     do{
         printf("- Digite o numero de matrícula: [EX: 01234567890]\n-> ");
         fgets( matriculaTemp, TAM_MAT, stdin);
-        printf("\n");
 
         if( sair( matriculaTemp[0], matriculaTemp[1] ) ){
             return false;
@@ -81,7 +80,6 @@ bool solicitaNomeProfessor( ){
     do{
         printf("- Digite o nome do professor:\n-> ");
         fgets(nomeTemp, TAM_NOME, stdin);
-        printf("\n");
         limpaTexto(nomeTemp);
 
         if( sair( nomeTemp[0], nomeTemp[1] ) ){
@@ -104,7 +102,7 @@ bool solicitaNascimentoProfessor( ){
     do{
         printf("- Digite a data de nascimento: [EX: 00/00/0000]\n-> ");
         fgets(nascimentoTemp, TAM_NAC, stdin);
-        printf("\n");
+
         limpaTexto(nascimentoTemp);
         if( sair( nascimentoTemp[0], nascimentoTemp[1] ) ){
             return false;
@@ -126,7 +124,6 @@ bool solicitaCpfProfessor(){
     do{
         printf("- Digite o CPF: [EX: 000.000.000-00]\n-> ");
         fgets(cpfTemp, TAM_CPF, stdin);
-        printf("\n");
 
         if( sair( cpfTemp[0], cpfTemp[1] ) ){
             return false;
@@ -152,7 +149,6 @@ bool solicitaSexoProfessor( ){
     do{
         printf("- Digite o sexo: [Opções: F, M OU O]\n-> ");
         fgets( sexoTemp, 4, stdin);
-        printf("\n");
 
         if( sair( sexoTemp[0], sexoTemp[1] ) ){
             return false;
@@ -175,7 +171,7 @@ bool cadastrarAluno(){
                 if( solicitaNascimentoAluno( ) )
                     if( solicitaCpfAluno( ) )
                         if( solicitaSexoAluno( ) ){
-                            puts( "\t<<< CADASTRO DE ALUNO FINALIZADO COM SUCESSO! >>>\n" );
+                            puts( "<<< CADASTRO DE ALUNO FINALIZADO COM SUCESSO! >>>\n" );
                             return true;}
         alunosCadastrados--;
         return false;
@@ -195,7 +191,6 @@ bool solicitaMatriculaAluno( ){
     do{
         printf("- Digite a matricula do Aluno: [EX: 01234567890]\n-> ");
         fgets( matriculaTemp, TAM_MAT, stdin);
-        printf("\n");
 
         if( sair( matriculaTemp[0], matriculaTemp[1] ) ){
             return false;
@@ -221,7 +216,7 @@ bool solicitaNomeAluno( ){
     do{
         printf("- Digite o nome do Aluno:\n-> ");
         fgets( nomeTemp, TAM_NOME, stdin);
-        printf("\n");
+
         limpaTexto( nomeTemp );
         if( sair( nomeTemp[0], nomeTemp[1]) ){
             return false;
@@ -244,7 +239,6 @@ bool solicitaCpfAluno( ){
     do{
         printf("- Digite o CPF: [EX: 000.000.000-00]\n-> ");
         fgets( cpfTemp, TAM_CPF, stdin);
-        printf("\n");
 
         if( sair( cpfTemp[0], cpfTemp[1])){
             return false;
@@ -270,7 +264,6 @@ bool solicitaNascimentoAluno( ){
     do{
         printf("- Digite a data de nascimento: [EX: 00/00/0000]\n-> ");
         fgets( nascimentoTemp, TAM_NAC, stdin);
-        printf("\n");
 
         if( sair( nascimentoTemp[0], nascimentoTemp[1] )){
             return false;
@@ -292,7 +285,6 @@ bool solicitaSexoAluno( ){
     do{
         printf("- Digite o sexo: [Opções: F, M OU O]\n-> ");
         fgets( sexoTemp, 4, stdin);
-        printf("\n");
 
         if( sair( sexoTemp[0], sexoTemp[1] ) ){
             return false;
@@ -315,7 +307,7 @@ bool cadastrarDisciplina(){
                 if( solicitaSemestre( ) )
                     if( solicitaVagas( ) )
                        if( solicitaProfessor( ) ){
-                            puts( "\t< CADASTRO DE DISCIPLINA FINALIZADO COM SUCESSO! >\n" );
+                            puts( "< CADASTRO DE DISCIPLINA FINALIZADO COM SUCESSO! >\n" );
                             return true;}
         disciplinasCadastradas--;
         return false;
@@ -335,8 +327,6 @@ bool solicitaNomeDisciplina( ){
     do{
         printf("- Digite o nome da disciplina:\n-> ");
         fgets( nomeTemp, TAM_NOME_DISC, stdin);
-        printf("\n");
-
 
         if( sair( nomeTemp[0], nomeTemp[1] )){
             return false;
@@ -365,7 +355,6 @@ bool solicitaCodigo( ){
     do{
         printf("- Digite o código da disciplina: [EX: EXE123]\n-> ");
         fgets( codigoTemp, TAM_COD_DISC, stdin);
-        printf("\n");
 
         if( sair( codigoTemp[0], codigoTemp[1] ) ){
             return false;
@@ -391,7 +380,6 @@ bool solicitaSemestre( ){
     do{
         printf( "- Digite o semestre da disciplina: [EX: 2022.1]\n-> ");
         fgets( semestreTemp, TAM_SEM, stdin);
-        printf("\n");
 
         if( sair( semestreTemp[0], semestreTemp[1] ) ){
             return false;
@@ -414,7 +402,6 @@ bool solicitaVagas( ){
         printf("- Digite o número de vagas da disciplina:\n-> ");
         scanf( "%d", &vagasTemp );
         getchar( );
-        printf("\n");
         if( vagasTemp == -1 ){
             return false;
         }else{
@@ -434,7 +421,6 @@ bool solicitaProfessor( ){
     do{
         printf("- Digite o professor da disciplina:\n-> ");
         fgets( professorTemp, TAM_NOME, stdin );
-        printf("\n");
 
         if( sair( professorTemp[0], professorTemp[1] ) ){
             return false;

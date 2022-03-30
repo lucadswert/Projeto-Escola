@@ -22,7 +22,7 @@ char menuPrincipal( ){
         if( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Atualizar_Cadastro) &&
             !(resposta[0] == Listar_Informacoes) && !(resposta[0] == Encerrar_Programa) &&
             !(resposta[0] == Filtro_por_palavra_chave ) ){
-            puts( "\t   > Valor inserido inválido <\n" );
+            puts( "\t > Valor inserido inválido <\n" );
         }else putchar('\n'); ///MELHORAR
     }while( !(resposta[0] == Realizar_Cadastro) && !(resposta[0] == Atualizar_Cadastro) &&
             !(resposta[0] == Listar_Informacoes) && !(resposta[0] == Encerrar_Programa) &&
@@ -46,7 +46,7 @@ char menuCadastrar( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar) ){
-            puts( "\t   > Valor inserido inválido < \n" );
+            puts( "\t> Valor inserido inválido < \n" );
         }else putchar('\n');
     }while( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar) );
@@ -73,7 +73,7 @@ char menuListar( ){
         if( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Aniversariantes) &&
             !(resposta[0] == Voltar)){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Aniversariantes) &&
@@ -97,7 +97,7 @@ char menuAtualizar( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar)){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Professor) && !(resposta[0] == Aluno) &&
             !(resposta[0] == Disciplina) && !(resposta[0] == Voltar) );
@@ -116,7 +116,7 @@ char subMenuTipoDeAtualizacao( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == MODIFICAR ) && !(resposta[0] == EXCLUIR) &&
             !(resposta[0] == Voltar) ){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == MODIFICAR ) && !(resposta[0] == EXCLUIR) &&
             !(resposta[0] == Voltar) );
@@ -135,7 +135,7 @@ char subMenuTipoDeAtualizacaoGrade( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == MATRICULAR ) && !(resposta[0] == DESMATRICULAR ) &&
             !(resposta[0] == Voltar) ){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == MATRICULAR ) && !(resposta[0] == DESMATRICULAR ) &&
             !(resposta[0] == Voltar ) );
@@ -152,7 +152,7 @@ char subMenuConfirmaExclusao( ){
                 "[2] | NÃO\n\n-> " );
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == SIM ) && !(resposta[0] == NAO ) ){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == SIM ) && !(resposta[0] == NAO ) );
 
@@ -180,7 +180,7 @@ char subMenuEscolhaDeDado_1( ){
             !(resposta[0] == MATRICULA ) && !(resposta[0] == NASCIMENTO) &&
             !(resposta[0] == SEXO ) && !(resposta[0] == GRADE) &&
             !(resposta[0] == Tudo ) && !(resposta[0] == Voltar) ){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == CPF ) && !(resposta[0] == NOME) &&
             !(resposta[0] == MATRICULA ) && !(resposta[0] == NASCIMENTO) &&
@@ -210,7 +210,7 @@ char subMenuEscolhaDeDado_2( ){
             !(resposta[0] == SEMESTRE ) && !(resposta[0] == VAGAS ) &&
             !(resposta[0] == PROFESSOR ) && !(resposta[0] == Voltar) &&
             !(resposta[0] == Tudo ) ){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == CODIGO ) && !(resposta[0] == NOME) &&
             !(resposta[0] == SEMESTRE ) && !(resposta[0] == VAGAS ) &&
@@ -243,7 +243,7 @@ int menuListarProfessor( ){
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
             !(resposta[0] == Filtro_por_tamanho_de_grade ) && !(resposta[0] == Encerrar_Programa) &&
             !( resposta[0] == Filtro_por_palavra_chave ) ){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("   > Valor inserido inválido <\n");
         }else putchar('\n');///MELHORAR
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Sexo) &&
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
@@ -276,7 +276,7 @@ int menuListarAluno( ){
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
             !(resposta[0] == Filtro_por_tamanho_de_grade ) && !(resposta[0] == Encerrar_Programa) &&
             !( resposta[0] == Filtro_por_palavra_chave ) ){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Sexo) &&
             !(resposta[0] == Filtro_Nome) && !(resposta[0] == Filtro_Nascimento) &&
@@ -302,7 +302,7 @@ int menuListarDisciplinas( ){
         fgets(resposta, 3, stdin );
         if( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) &&
             !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Encerrar_Programa)){
-            puts("\t   > Valor inserido inválido <\n");
+            puts("\t> Valor inserido inválido <\n");
         }else putchar('\n');
     }while( !(resposta[0] == Filtro_Geral) && !(resposta[0] == Filtro_Disciplina) &&
             !(resposta[0] == Filtro_Vagas) && !(resposta[0] == Encerrar_Programa));
